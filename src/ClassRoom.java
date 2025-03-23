@@ -12,7 +12,7 @@ public class ClassRoom {
 			this.classnumber = classnumber;
 			this.MinimumPr = minimumPr;
 			this.MaximumPr = maximumPr;
-			this.professors = new  ArrayList <Professor> ();
+			this.professors = new ArrayList<Professor>();
 		}
 		public String getClassnumber() {
 			return classnumber;
