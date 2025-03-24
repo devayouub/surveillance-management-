@@ -15,6 +15,14 @@ public class Cycle {
 		for (int i = 1; i <= 2; i++) {
             coursesPerTerm.put(i, new ArrayList<>());
 	}
+		public Cycle(CycleCode cycle,int terms) {
+			this.cycle = cycle;
+			this.coursesPerTerm = new HashMap<>();
+			
+			// Initialize courses list for each term
+			for (int i = 1; i <= terms; i++) {
+	            coursesPerTerm.put(i, new ArrayList<>());
+		}
 	}
 	
 	 private CycleCode getCycle() {

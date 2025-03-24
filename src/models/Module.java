@@ -4,10 +4,11 @@ import java.util.ArrayList;
 public class Module {
       private String uniqueName;
       private String name;
-      private Cycle cycle;
-	public Module(String uniqueName, String name) {
+      private int coefficient;
+	public Module(String uniqueName, String name,int coeff) {
 		this.uniqueName = uniqueName;
 		this.name = name;
+		this.coefficient = coeff;
 	}
 	public String getUniqueName() {
 		return uniqueName;
@@ -20,12 +21,6 @@ public class Module {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Cycle getCycle() {
-		return cycle;
-	}
-	public void setCycle(Cycle cycle) {
-		this.cycle = cycle;
 	}
 	@Override
 	public String toString() {
