@@ -12,7 +12,7 @@ public class surveillanceapplication  extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // Parent root=FXMLLoader.load(getClass().getResource("loginscene.fxml"));//matansech libery ajout dossier lib
-        Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("zaki.fxml"));
         Scene scene=new Scene(root);
         scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
         //matansech ki thol file css holo f ressource
