@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1070.0" styleClass="body" stylesheets="@view.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1020.0" styleClass="body" stylesheets="@view.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginController">
    <children>
-      <ImageView fitHeight="302.0" fitWidth="420.0" layoutX="87.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="329.0" fitWidth="488.0" layoutX="58.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@imagedans-removebg-preview.png" />
+            <Image url="@design2.png" />
          </image>
       </ImageView>
       <TextField fx:id="usernameField" layoutX="742.0" layoutY="221.0" prefHeight="42.0" prefWidth="222.0" promptText="Username" styleClass="textfield" stylesheets="@view.css" />
@@ -24,18 +24,18 @@
             <Image url="@images-removebg-preview.png" />
          </image>
       </ImageView>
-      <Label layoutX="48.0" layoutY="139.0" prefHeight="54.0" prefWidth="434.0" text="Welcome Application">
+      <Label layoutX="365.0" layoutY="465.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="815.0" text="making exams management easier than ever." textFill="#100051">
          <font>
-            <Font name="Arial Black" size="36.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="65.0" layoutY="14.0" text="University USTO" textOverrun="LEADING_WORD_ELLIPSIS" underline="true">
+      <Label layoutX="65.0" layoutY="41.0" prefHeight="15.0" prefWidth="182.0" text="University USTO-MB,Oran" textFill="#100051" textOverrun="LEADING_WORD_ELLIPSIS" underline="true">
          <font>
             <Font name="Tahoma Bold" size="12.0" />
          </font>
       </Label>
       <Button fx:id="buttonLogin" layoutX="773.0" layoutY="379.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="159.0" stylesheets="@view.css" text="Log in" textFill="#282626" />
-      <Label layoutX="65.0" layoutY="29.0" text="Oran">
+      <Label layoutX="192.0" layoutY="20.0">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

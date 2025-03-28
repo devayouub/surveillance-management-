@@ -17,7 +17,7 @@ public class surveillanceapplication  extends Application {
 			Parent root = loader.load();
 			   Scene scene=new Scene(root);
 		        scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
-		        stage.setTitle("Hello World");
+		        stage.setTitle("Exams Management");
 		        stage.setScene(scene);
 		        stage.show();
 		        stage.setResizable(false);
