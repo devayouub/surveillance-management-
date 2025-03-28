@@ -13,7 +13,7 @@ public class surveillanceapplication  extends Application {
     public void start(Stage stage)  {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("zaki.fxml"));
+			loader.setLocation(getClass().getResource("Login.fxml"));
 			Parent root = loader.load();
 			   Scene scene=new Scene(root);
 		        scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
@@ -21,6 +21,7 @@ public class surveillanceapplication  extends Application {
 		        stage.setScene(scene);
 		        stage.show();
 		        stage.setResizable(false);
+		        stage.setAlwaysOnTop(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
