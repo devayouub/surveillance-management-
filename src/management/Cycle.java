@@ -13,9 +13,11 @@ public class Cycle {
 		
 		// Initialize courses list for each term
 		for (int i = 1; i <= 2; i++) {
+
             coursesPerTerm.put(i, new ArrayList<Module>());
 	}
 	 }
+
 		public Cycle(CycleCode cycle,int terms) {
 			this.cycle = cycle;
 			this.coursesPerTerm = new HashMap<>();
