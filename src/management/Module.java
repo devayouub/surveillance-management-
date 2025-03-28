@@ -23,11 +23,12 @@ public class Module {
 		this.name = name;
 	}
 	@Override
-	public String toString() {
-		return "Module [uniqueName=" + uniqueName + ", name=" + name + ", getUniqueName()="
+		public String toString() {
+		return "Module [uniqueName=" + uniqueName + ", name=" + name + ", cycle=" + ", getUniqueName()="
 				+ getUniqueName() + ", getName()=" + getName() + ", getCycle()=" + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
 
 	
       
