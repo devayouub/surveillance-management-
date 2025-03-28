@@ -13,15 +13,16 @@ public class Cycle {
 		
 		// Initialize courses list for each term
 		for (int i = 1; i <= 2; i++) {
-            coursesPerTerm.put(i, new ArrayList<>());
+            coursesPerTerm.put(i, new ArrayList<Module>());
 	}
+	 }
 		public Cycle(CycleCode cycle,int terms) {
 			this.cycle = cycle;
 			this.coursesPerTerm = new HashMap<>();
 			
 			// Initialize courses list for each term
 			for (int i = 1; i <= terms; i++) {
-	            coursesPerTerm.put(i, new ArrayList<>());
+	            coursesPerTerm.put(i, new ArrayList<Module>());
 		}
 	}
 	
@@ -53,25 +54,25 @@ public class Cycle {
 	   public void updateModule(String Uniquename,int term,Module newModule) {
 		   for( Module tempModule : this.getCoursesPerTerm(term)) {
 			   if(tempModule.getUniqueName().equals(Uniquename)) {
-			 	 tempModule.setCycle(newModule.getCycle());
 			 	tempModule.setName(newModule.getName());
 			 	tempModule.setUniqueName(newModule.getUniqueName());
 			   }
 	   }
 	   }
-//	   public static void main(String[]args) {
-//		   
-//		   Cycle cycleM2= new Cycle(CycleCode.valueOf("M2"));
-//		   cycleM2.addModule(new Module("ANALYSE", "anal1"),1);
-//		   cycleM2.addModule(new Module("POO", "POO"),1);
-//		   cycleM2.addModule(new Module("BDD", "BDD"),1);
-//		   cycleM2.deleteModule(1,"POO");
-//		   cycleM2.updateModule("ANALYSE",1,new Module("ao2","AO2"));
-//		   for(Module tempModule : cycleM2.getCoursesPerTerm(1)) {
-//		   System.out.println(tempModule.getName());
-//	   }
+	   public static void main(String[]args) {
+	   
+	   Cycle cycleM2= new Cycle(CycleCode.valueOf("M2"));
+	   cycleM2.addModule(new Module("ANALYSE", "anal1", 0),1);
+	   cycleM2.addModule(new Module("POO", "POO",4),1);
+	   cycleM2.addModule(new Module("BDD", "BDD",5),1);
+	   cycleM2.deleteModule(1,"POO");
+	   cycleM2.updateModule("ANALYSE",1,new Module("ao2","AO2",6));
+	   for(Module tempModule : cycleM2.getCoursesPerTerm(1)) {
+	   System.out.println(tempModule.getName());
+   }
 		   
 	   }
+}
 
 
 
