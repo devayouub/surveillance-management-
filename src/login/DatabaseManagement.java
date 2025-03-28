@@ -12,7 +12,7 @@ public class DatabaseManagement {
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USER = "root";
     private static final String DB_PASSWORD = "";
-    
+ 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, DB_PASSWORD);
     }
@@ -32,9 +32,12 @@ public class DatabaseManagement {
     		stmnt.setString(1, user_name);
     		stmnt.setString(2, user_password);
     		
-    		ResultSet rs = stmnt.executeQuery();
-    		return rs.next();
-    		
+    		int rs = stmnt.executeUpdate();
+    		if(rs<0) {
+    			return false;
+    			
+    		}
+    		return true;
     	}catch (SQLException e) {
     		e.printStackTrace();
 			return false;
@@ -43,7 +46,7 @@ public class DatabaseManagement {
     	
     }
     
-    public static void adduser(String user_name ,String user_password , boolean is_admin , String user_email) throws SQLException {
+    public static boolean addUser(String user_name ,String user_password , boolean is_admin , String user_email) throws SQLException {
     	if(!isValidPassword(user_password)){
     		System.out.println("Password must be at least 8 characters, contain 1 uppercase letter, and 1 number.");
     	}
@@ -55,27 +58,32 @@ public class DatabaseManagement {
     		stmnt.setString(2, user_password);
     		stmnt.setBoolean(3, is_admin);
     		stmnt.setString(4, user_email);
-    		stmnt.executeUpdate();
-    		System.out.println("user added succesfully");
+    		int result = stmnt.executeUpdate();
+    		if(result >= 1 ){
+    			return true;
+    		}
+    
     		
     	}catch(SQLException e) {
     		e.printStackTrace();
     	}
-    	    			    			
+    	    
+    	return false;
     }
     
-    public static void removeuser(String user_name)throws SQLException{
+    public static boolean removeUser(String user_name)throws SQLException{
     	String query = "delete from users where username = ?";
     	try(Connection conn = getConnection();
     			PreparedStatement stmnt = conn.prepareStatement(query)){
     		stmnt.setString(1, user_name);
     		int rowsaffected = stmnt.executeUpdate();
-    		if(rowsaffected>0) {System.out.println("user deleted succesfully");}
-    		else if(rowsaffected==0) {System.out.println("user not found");}
-    		
+    		if(rowsaffected>0) {return true;
+    		}
+   
     	}catch (SQLException e) {
 			e.printStackTrace();
 		}
+    	return false;
     }
     
     public static boolean check_if_is_admin(String user_name)throws SQLException{
