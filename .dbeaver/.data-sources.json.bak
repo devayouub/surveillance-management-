@@ -17,23 +17,6 @@
 				"closeIdleConnection": true,
 				"auth-model": "native"
 			}
-		},
-		"mysql8-195daa619f7-48666154ac1e1d2b": {
-			"provider": "mysql",
-			"driver": "mysql8",
-			"name": "surveillance",
-			"save-password": true,
-			"configuration": {
-				"host": "localhost",
-				"port": "3306",
-				"database": "surveillance",
-				"url": "jdbc:mysql://localhost:3306/surveillance",
-				"configurationType": "MANUAL",
-				"home": "mysql_client",
-				"type": "dev",
-				"closeIdleConnection": true,
-				"auth-model": "native"
-			}
 		}
 	},
 	"connection-types": {
