@@ -10,3 +10,21 @@
     -fx-border-radius: 10px;
     -fx-text-fill: white;
 }
+.button{
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-border-color:#168FC1;
+    -fx-background-color:#168FC1;
+
+}
+
+.button:hover{
+    -fx-background-color:#0B729C;
+    -fx-text-fill:white;
+    -fx-font-weight:bold;
+    -fx-border-color:#168FC1;
+
+}
+
+
