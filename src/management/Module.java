@@ -24,7 +24,7 @@ public class Module {
 	}
 	@Override
 	public String toString() {
-		return "Module [uniqueName=" + uniqueName + ", name=" + name + ", cycle="+ ", getUniqueName()="
+		return "Module [uniqueName=" + uniqueName + ", name=" + name + ", cycle=" + ", getUniqueName()="
 				+ getUniqueName() + ", getName()=" + getName() + ", getCycle()=" + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
