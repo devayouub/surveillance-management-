@@ -1,0 +1,11 @@
+.body{
+ -fx-background-image: url("management/zaki2.png");
+    -fx-background-size: cover;
+}
+.textfield {
+
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-radius: 10px;
+    -fx-text-fill: white;
+}
