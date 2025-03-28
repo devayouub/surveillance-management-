@@ -12,7 +12,7 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1020.0" styleClass="body" stylesheets="@view.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginController">
    <children>
-      <ImageView fitHeight="329.0" fitWidth="488.0" layoutX="58.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="344.0" fitWidth="512.0" layoutX="36.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@design2.png" />
          </image>
@@ -24,14 +24,14 @@
             <Image url="@images-removebg-preview.png" />
          </image>
       </ImageView>
-      <Label layoutX="365.0" layoutY="465.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="815.0" text="making exams management easier than ever." textFill="#100051">
+      <Label layoutX="365.0" layoutY="465.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="815.0" text="exams management, as easier as it get." textFill="#100051">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <Label layoutX="65.0" layoutY="41.0" prefHeight="15.0" prefWidth="182.0" text="University USTO-MB,Oran" textFill="#100051" textOverrun="LEADING_WORD_ELLIPSIS" underline="true">
          <font>
-            <Font name="Tahoma Bold" size="12.0" />
+            <Font name="System Bold" size="11.0" />
          </font>
       </Label>
       <Button fx:id="buttonLogin" layoutX="773.0" layoutY="379.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="159.0" stylesheets="@view.css" text="Log in" textFill="#282626" />
