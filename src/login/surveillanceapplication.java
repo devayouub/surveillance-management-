@@ -10,16 +10,22 @@ import java.io.IOException;
 
 public class surveillanceapplication  extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        // Parent root=FXMLLoader.load(getClass().getResource("loginscene.fxml"));//matansech libery ajout dossier lib
-        Parent root = FXMLLoader.load(getClass().getResource("zaki.fxml"));
-        Scene scene=new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
-        //matansech ki thol file css holo f ressource
-        stage.setTitle("Hello World");
-        stage.setScene(scene);
-        stage.show();
-        stage.setResizable(false);
+    public void start(Stage stage)  {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("zaki.fxml"));
+			Parent root = loader.load();
+			   Scene scene=new Scene(root);
+		        scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
+		        stage.setTitle("Hello World");
+		        stage.setScene(scene);
+		        stage.show();
+		        stage.setResizable(false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     
     }
 
     public static void main(String[] args) {
