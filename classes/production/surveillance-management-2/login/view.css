@@ -10,7 +10,7 @@
     -fx-border-radius: 10px;
     -fx-text-fill: white;
 }
-.button{
+.button1{
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
@@ -19,7 +19,7 @@
 
 }
 
-.button:hover{
+.button1:hover{
     -fx-background-color:#0B729C;
     -fx-text-fill:white;
     -fx-font-weight:bold;
@@ -34,15 +34,48 @@
 }
 .buttondachboard{
     -fx-background-color: transparent;
-    -fx-background-radius: 0px;
+
     -fx-border-color: transparent;
-}
+   }
 .buttondachboard:hover{
-    -fx-background-color: transparent;
-    -fx-background-radius: 0px;
-    -fx-border-color: blue;
-    -fx-border-width: 0px 0px 0px 8px;
-    -fx-border-style: solid;
+    -fx-background-color: #F5F5F5;
+    -fx-background-radius: 12px;
+    -fx-border-color:transparent;
+
 }
+.vbox{
+    -fx-background-color: #002233;  /* fallback for old browsers */
+
+    -fx-background-radius: 0px 50px 0px 0px;
+
+}
+.buttonimag{
+    -fx-background-color: transparent;
+}
+.schadow{
+
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.5),5,0,0,0);
+    -fx-background-radius: 20px;
+    -fx-background-color: white;
+    -fx-border-radius: 20px;
+
+
+
+        }
+
+
+
+.imag{
+   -fx-border-radius: 0.4rem;
+    -fx-border-width: 47%;
+
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),10,0.5,0,0);}
+.label2{
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.5),5,0,0,0);
+    -fx-background-radius: 20px;
+    -fx-background-color:#002233 ;
+    -fx-border-radius: 20px;
+}
+
 
 
