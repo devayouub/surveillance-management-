@@ -38,15 +38,20 @@
     -fx-border-color: transparent;
    }
 .buttondachboard:hover{
-    -fx-background-color: #F5F5F5;
+    -fx-background-color: black;
     -fx-background-radius: 12px;
     -fx-border-color:transparent;
 
 }
 .vbox{
-    -fx-background-color: #002233;  /* fallback for old browsers */
+    -fx-background-color: #000428;  /* fallback for old browsers */
+    -fx-background-color: -webkit-linear-gradient(to right, #004e92, #000428);  /* Chrome 10-25, Safari 5.1-6 */
+    -fx-background-color: linear-gradient(to right, #004e92, #000428); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-    -fx-background-radius: 0px 50px 0px 0px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+
+
 
 }
 .buttonimag{
@@ -64,17 +69,24 @@
         }
 
 
-
-.imag{
-   -fx-border-radius: 0.4rem;
-    -fx-border-width: 47%;
-
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.5),10,0.5,0,0);}
 .label2{
     -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.5),5,0,0,0);
     -fx-background-radius: 20px;
-    -fx-background-color:#002233 ;
+    -fx-background-color: white;  /* fallback for old browsers */
+
     -fx-border-radius: 20px;
+}
+.label2:hover{
+   -fx-background-color:#2980b9;  /* fallback for old browsers */
+    -fx-background-color: -webkit-linear-gradient(to right, #6dd5fa,#2980b9 );  /* Chrome 10-25, Safari 5.1-6 */
+    -fx-background-color : linear-gradient(to right, #6dd5fa, #2980b9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+.anchorsitch{
+    -fx-background-radius: 20px;
+    -fx-background-color:#000428;
+    -fx-border-radius: 20px;
+
 }
 
 
