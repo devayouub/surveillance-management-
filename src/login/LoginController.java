@@ -4,13 +4,21 @@ import java.io.IOException;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.*;
 public class LoginController {
+	@FXML
+	private TextField usernameField;
+
+	@FXML
+	private PasswordField PasswordField;
 	        Stage stage;
 	        Scene scene;
 	        Parent root;
@@ -31,9 +39,11 @@ public class LoginController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+        //   --------------authentication-----------------------------
 		
-		
+		  String usernameEntered = usernameField.getText();
+		  String PasswordEntered = PasswordField.getText();
+		 System.out.println(usernameEntered + PasswordEntered);
 
 		
 	
