@@ -9,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,7 +21,8 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-
+        @FXML
+        public Button buttondisplay;
 
         @FXML
         private AnchorPane anchorpane;
@@ -41,9 +43,10 @@ public class LoginController implements Initializable {
         public void initialize(URL url, ResourceBundle resourceBundle) {
 
         }
+        //das methode pour change scene
         private void makeFadeout() {
                 FadeTransition ft = new FadeTransition();
-                ft.setDuration(Duration.seconds(0.2));
+                ft.setDuration(Duration.seconds(0.1));
                 ft.setNode(anchorpane);
                 ft.setFromValue(1);
                 ft.setToValue(0);
@@ -56,6 +59,7 @@ public class LoginController implements Initializable {
                 });
                 ft.play();
         }
+        //das methode pour change scene
         private void Loadscene() throws IOException {
                 Parent seconde;
                 seconde =(AnchorPane) FXMLLoader.load(getClass().getResource("dachboard.fxml"));
@@ -68,5 +72,11 @@ public class LoginController implements Initializable {
 
         public void LoginAction(javafx.event.ActionEvent actionEvent) {
                 makeFadeout();
+
+        }
+
+        public void actionexit(MouseEvent mouseEvent) {
+
+                System.exit(0);
         }
 }

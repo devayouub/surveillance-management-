@@ -11,19 +11,20 @@
     -fx-text-fill: white;
 }
 .button1{
-    -fx-text-fill: white;
-    -fx-font-family: "Arial Narrow";
-    -fx-font-weight: bold;
-    -fx-border-color:#168FC1;
-    -fx-background-color:#168FC1;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-color: white;
+
 
 }
 
 .button1:hover{
     -fx-background-color:#0B729C;
-    -fx-text-fill:white;
-    -fx-font-weight:bold;
-    -fx-border-color:#168FC1;
+    -fx-text-fill:black;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+
+
 
 }
 .vboxcoleur{
@@ -87,6 +88,24 @@
     -fx-background-color:#000428;
     -fx-border-radius: 20px;
 
+}
+.buttonlabe{
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-color: white;
+
+}
+.table-view{
+    -fx-background-color: white;
+    -fx-border-radius: 8px;
+    -fx-border-color: lightblue;
+    -fx-border-width: 2px;
+
+}
+.table-view.column-header-background{
+    -fx-background-color: transparent;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
 }
 
 
