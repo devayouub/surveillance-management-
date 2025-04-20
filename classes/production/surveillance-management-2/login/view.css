@@ -107,6 +107,65 @@
     -fx-border-width: 2px;
     -fx-text-fill: white;
 }
+.menubar{
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+
+    -fx-background-color: white;
+}
+.button-menubar{
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
+}.button-menubar:hover{
+    -fx-background-color: transparent;
+    -fx-background-radius: 0px;
+    -fx-border-color: blue;
+    -fx-border-width: 0px 0px 4px 0px;
+    -fx-border-style: solid;
+
+ }
+ .textfieldsearch{
+     -fx-background-color: transparent;
+     -fx-background-radius: 0px;
+     -fx-border-color: white;
+     -fx-border-width: 0px 0px 1px 0px;
+     -fx-border-style: solid;
+     -fx-text-fill: white;
+ }
+.button2{
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+    -fx-background-color: #E3F6F5;}
+.combo-box1{
+    -fx-border-radius: 7px;
+    -fx-border-color: #0C0950;
+    -fx-background-radius: 7px;
+    -fx-border-width: 2px;
+
+}
+.table-view1{
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #ffffff, #e0d7d7);
+    -fx-border-radius: 8px;
+    -fx-padding: 0px;
+}
+.table-view .table-column{
+    -fx-alignment: center;
+}
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom right, #fdfdfd, #e7e1e1);
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius: 8px , 8px , 0px , 0px;
+}
+.table-view .column-header , .filter {
+    -fx-background-color:transparent;
+    -fx-size:40px;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #000000;
+    -fx-font-size: 10px;
+}
+
 
 
 

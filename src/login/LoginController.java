@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
         //das methode pour change scene
         private void makeFadeout() {
                 FadeTransition ft = new FadeTransition();
-                ft.setDuration(Duration.seconds(0.1));
+                ft.setDuration(Duration.seconds(0));
                 ft.setNode(anchorpane);
                 ft.setFromValue(1);
                 ft.setToValue(0);

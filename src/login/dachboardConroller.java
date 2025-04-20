@@ -23,6 +23,20 @@ import javax.swing.text.html.ImageView;
 
 public class dachboardConroller implements Initializable {
     @FXML
+    private AnchorPane anchoreengnement;
+    @FXML
+    private AnchorPane anchormodules;
+    @FXML
+    private Button buttonengenment;
+    @FXML
+    private Button buttonmodules;
+    @FXML
+    private AnchorPane anchorspeciality;
+    @FXML
+    private Button buttonspeciality;
+
+
+    @FXML
     private AnchorPane anchorpanedachboard;
     @FXML
     private Button buttonacc;
@@ -39,6 +53,10 @@ public class dachboardConroller implements Initializable {
 
     @FXML
     private AnchorPane anchordisplay;
+    @FXML
+    private Button buttonmanegment;
+    @FXML
+    private AnchorPane anchormanegment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,16 +99,41 @@ public class dachboardConroller implements Initializable {
             anchoraccuil.setVisible(true);
             anchordisplay.setVisible(false);
             anchoruser.setVisible(false);
+            anchormanegment.setVisible(false);
         }else if(event.getSource()==buttondisplay){
             anchoraccuil.setVisible(false);
             anchoruser.setVisible(false);
             anchordisplay.setVisible(true);
+            anchormanegment.setVisible(false);
         }else if(event.getSource()==buttonuser){
             anchoraccuil.setVisible(false);
             anchordisplay.setVisible(false);
             anchoruser.setVisible(true);
+            anchormanegment.setVisible(false);
+
+        }else if(event.getSource()==buttonmanegment){
+            anchoraccuil.setVisible(false);
+            anchoruser.setVisible(false);
+            anchordisplay.setVisible(false);
+            anchormanegment.setVisible(true);
+        }
+    }
+    public void switchmenubar(javafx.event.ActionEvent event) {
+        if(event.getSource()==buttonengenment){
+            anchoreengnement.setVisible(true);
+            anchormodules.setVisible(false);
+            anchorspeciality.setVisible(false);
+        }else if(event.getSource()==buttonmodules){
+            anchoreengnement.setVisible(false);
+            anchormodules.setVisible(true);
+            anchorspeciality.setVisible(false);
+        } else if (event.getSource()==buttonspeciality) {
+            anchoreengnement.setVisible(false);
+            anchormodules.setVisible(false);
+            anchorspeciality.setVisible(true);
 
         }
+
     }
 
 
@@ -98,3 +141,4 @@ public class dachboardConroller implements Initializable {
         System.exit(0);
     }
 }
+
