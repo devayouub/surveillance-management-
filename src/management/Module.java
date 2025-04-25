@@ -29,8 +29,4 @@ public class Module {
 
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-
-
-	
-      
 }

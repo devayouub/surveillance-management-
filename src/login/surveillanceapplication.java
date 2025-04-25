@@ -1,5 +1,7 @@
 package login;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,14 +9,33 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.IOException;
-
 public class surveillanceapplication  extends Application {
     @Override
     public void start(Stage stage)  {
-		try {
+    	if (DatabaseManagement.isUserRemembered()) {
+    		FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("Dashboard.fxml"));
+			Parent root;
+			try {
+				root = loader.load();
+				 Scene scene=new Scene(root);
+			        scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
+			        stage.setTitle("Exams Management");
+			        stage.setScene(scene);
+			        stage.show();
+			        stage.setResizable(false);
+			        stage.setAlwaysOnTop(true);
+	    		
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  
+    	}
+    	
+    	else try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("zaki.fxml"));
+			loader.setLocation(getClass().getResource("Login.fxml"));
 			Parent root = loader.load();
 			   Scene scene=new Scene(root);
 		        scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
@@ -23,6 +44,7 @@ public class surveillanceapplication  extends Application {
 		        stage.setScene(scene);
 		        stage.show();
 		        stage.setResizable(false);
+		        stage.setAlwaysOnTop(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,7 +53,8 @@ public class surveillanceapplication  extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        
+    	launch();
     }
 }
 

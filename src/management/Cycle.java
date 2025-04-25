@@ -17,7 +17,6 @@ public class Cycle {
             coursesPerTerm.put(i, new ArrayList<Module>());
 	}
 	 }
-
 		public Cycle(CycleCode cycle,int terms) {
 			this.cycle = cycle;
 			this.coursesPerTerm = new HashMap<>();
