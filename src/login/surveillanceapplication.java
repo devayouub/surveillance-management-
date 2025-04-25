@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class surveillanceapplication  extends Application {
     @Override
@@ -38,6 +39,7 @@ public class surveillanceapplication  extends Application {
 			Parent root = loader.load();
 			   Scene scene=new Scene(root);
 		        scene.getStylesheets().add(getClass().getResource("view.css").toExternalForm());
+				stage.initStyle(StageStyle.UNDECORATED);
 		        stage.setTitle("Exams Management");
 		        stage.setScene(scene);
 		        stage.show();
