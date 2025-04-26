@@ -53,7 +53,6 @@ public class surveillanceapplication  extends Application {
     }
 
     public static void main(String[] args) {
-        
     	launch();
     }
 }
