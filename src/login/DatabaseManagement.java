@@ -6,12 +6,19 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.regex.Pattern;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
+import management.User;
 public class DatabaseManagement {
-    private static final String URL = "jdbc:mysql://localhost:3306/";
+    private static final String URL = "jdbc:mysql://localhost:3306/surveillance_data_base";
     private static final String USER = "root";
-    private static final String DB_PASSWORD = "";
- 
+    private static final String DB_PASSWORD = "ayoub2005";
+    static ObservableList<User> users = FXCollections.observableArrayList();
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, DB_PASSWORD);
     }
@@ -24,7 +31,7 @@ public class DatabaseManagement {
     
     public static boolean authenticateUser(String user_name , String user_password) {
     	
-    	String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+    	String query = "SELECT * FROM user WHERE user_name = ? AND password = ?";
     	
     	try (Connection conn = getConnection();
     			PreparedStatement stmnt = conn.prepareStatement(query)){
@@ -45,30 +52,38 @@ public class DatabaseManagement {
     	
     }
     
-    public static boolean addUser(String user_name ,String user_password , boolean is_admin , String user_email) {
-    	if(!isValidPassword(user_password)){
-    		System.out.println("Password must be at least 8 characters, contain 1 uppercase letter, and 1 number.");
-    	}
-    	
-    	String query = "insert into users (username, password, is_admin, user_email) VALUES (?, ?, ?, ?)";
-    	try (Connection conn = getConnection();
-    			PreparedStatement stmnt = conn.prepareStatement(query)){
-    		stmnt.setString(1, user_name);
-    		stmnt.setString(2, user_password);
-    		stmnt.setBoolean(3, is_admin);
-    		stmnt.setString(4, user_email);
-    		int result = stmnt.executeUpdate();
-    		if(result >= 1 ){
-    			return true;
-    		}
-    
-    		
-    	}catch(SQLException e) {
-    		e.printStackTrace();
-    	}
-    	    
-    	return false;
+    public static  boolean addUser(User user) {
+        // Validate password
+        if (!isValidPassword(user.getPassword())) {
+            return false;
+        }
+
+        // Prepare SQL insert statement (no need to include userID because it's AUTO_INCREMENT)
+        String query = "INSERT INTO user (user_name, is_admin, remember_me, password) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmnt = conn.prepareStatement(query)) {
+
+            // Set parameters for the insert statement
+            stmnt.setString(1, user.getUsername());
+            stmnt.setBoolean(2, user.getIsAdmin());
+            stmnt.setBoolean(3, user.getisRemembered());
+            stmnt.setString(4, user.getPassword());
+
+         
+            int result = stmnt.executeUpdate();
+            if (result >= 1) {
+
+                return true; 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+		return false;
     }
+
+    
     
     public static boolean removeUser(String user_name){
     	String query = "delete from users where username = ?";
@@ -104,11 +119,12 @@ public class DatabaseManagement {
     	
     }
     
-    public static boolean RememberMeUpdater(String user_name) {
-        String query = "UPDATE users SET remembered = TRUE WHERE username = ?";
+    public static boolean RememberMeUpdater(String user_name,boolean call) {
+        String query = "UPDATE user SET remember_me = ? WHERE user_name = ?";
         try (Connection conn = getConnection(); 
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, user_name);
+            stmt.setBoolean(1, call);
+            stmt.setString(2,user_name);
             int rowsUpdated = stmt.executeUpdate();
             if (rowsUpdated > 0) {
                return true;
@@ -121,7 +137,7 @@ public class DatabaseManagement {
     }
     
 public static boolean isUserRemembered() {
-    String query = "SELECT username FROM users WHERE remembered = TRUE LIMIT 1";
+    String query = "SELECT user_name FROM user WHERE remember_me = TRUE LIMIT 1";
     try (Connection conn = getConnection(); 
          PreparedStatement stmt = conn.prepareStatement(query);
          ResultSet rs = stmt.executeQuery()) {
@@ -132,6 +148,40 @@ public static boolean isUserRemembered() {
         e.printStackTrace();
     }
     return false;  // No user remembered
+}
+public static String getRememberedUser() {
+	String query = "SELECT user_name FROM user WHERE remember_me = TRUE LIMIT 1";
+	try (Connection conn = getConnection(); 
+	         PreparedStatement stmt = conn.prepareStatement(query);
+	         ResultSet rs = stmt.executeQuery()) {
+	        if (rs.next()) {
+	        	 return	rs.getString(1);	              // returns remembered user
+
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;  // No user remembered
+	}
+
+public static void loadUsersFromDatabase( TableView UsersTable) {
+    try (Connection conn = getConnection(); // your DB connection method
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,password FROM user")) {
+
+        while (rs.next()) {
+            int id = rs.getInt("ID_user");
+            String username = rs.getString("user_name");
+            boolean isAdmin = rs.getBoolean("is_admin");
+            boolean isRemembered = rs.getBoolean("remember_me");
+            String password = rs.getString("password");
+            users.add(new User(id, username, isAdmin, isRemembered, password));
+        }
+       
+        UsersTable.setItems(users);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
 }
 }
     
