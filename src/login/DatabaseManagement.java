@@ -24,10 +24,19 @@ public class DatabaseManagement {
     }
 
     // Validate password: at least 8 characters, 1 uppercase letter, 1 number
-    public static boolean isValidPassword(String user_password) {
-        String password_entered = "^(?=.*[A-Z])(?=.*\\d).{8,}$";
-        return Pattern.matches(password_entered, user_password);
+    public static String isValidPassword(String user_password) {
+        if (user_password.length() < 8) {
+            return "Password must contain at least 8 characters.";
+        }
+        if (!user_password.matches(".*[A-Z].*")) {
+            return "Password must contain at least one uppercase letter.";
+        }
+        if (!user_password.matches(".*\\d.*")) {
+            return "Password must contain at least one number.";
+        }
+        return "Valid"; // If it passes all checks
     }
+
     
     public static boolean authenticateUser(String user_name , String user_password) {
     	
@@ -53,11 +62,6 @@ public class DatabaseManagement {
     }
     
     public static  boolean addUser(User user) {
-        // Validate password
-        if (!isValidPassword(user.getPassword())) {
-            return false;
-        }
-
         // Prepare SQL insert statement (no need to include userID because it's AUTO_INCREMENT)
         String query = "INSERT INTO user (user_name, is_admin, remember_me, password) VALUES (?, ?, ?, ?)";
 
@@ -85,11 +89,11 @@ public class DatabaseManagement {
 
     
     
-    public static boolean removeUser(String user_name){
-    	String query = "delete from users where username = ?";
+    public static boolean removeUser(User user){
+    	String query = "delete from user where ID_user = ?";
     	try(Connection conn = getConnection();
     			PreparedStatement stmnt = conn.prepareStatement(query)){
-    		stmnt.setString(1, user_name);
+    		stmnt.setInt(1,user.getUserID());
     		int rowsaffected = stmnt.executeUpdate();
     		if(rowsaffected>0) {return true;
     		}
@@ -177,7 +181,6 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
             String password = rs.getString("password");
             users.add(new User(id, username, isAdmin, isRemembered, password));
         }
-       
         UsersTable.setItems(users);
     } catch (SQLException e) {
         e.printStackTrace();
