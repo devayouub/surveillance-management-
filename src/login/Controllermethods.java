@@ -18,7 +18,7 @@ import javafx.util.Duration;
 public class Controllermethods {
 
 	public static void FadeInto(AnchorPane currentPane, String interfaceToBeDisplayed) {
-	    FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), currentPane); // Increased duration for smoothness
+	    FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.2), currentPane); // Increased duration for smoothness
 	    fadeOut.setFromValue(1.0);
 	    fadeOut.setToValue(0.0);
 
@@ -32,7 +32,7 @@ public class Controllermethods {
 	            Stage currentStage = (Stage) currentPane.getScene().getWindow();
 	            currentStage.setScene(newScene);
 
-	            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), newRoot); // Match fadeOut duration
+	            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.2), newRoot); // Match fadeOut duration
 	            fadeIn.setFromValue(0.0);
 	            fadeIn.setToValue(1.0);
 	            fadeIn.play();

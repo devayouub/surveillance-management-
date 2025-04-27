@@ -5,6 +5,8 @@ module GitHub_surveillance_management {
     requires javafx.controls;
     requires java.desktop;
     requires javafx.base;
+	requires java.base;
+	requires jdk.compiler;
     opens management to javafx.base;
 
     opens login;

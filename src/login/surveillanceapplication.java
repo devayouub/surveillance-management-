@@ -24,7 +24,6 @@ public class surveillanceapplication  extends Application {
 			        stage.setScene(scene);
 			        stage.show();
 			        stage.setResizable(false);
-			        stage.setAlwaysOnTop(true);
 	    		
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -44,7 +43,6 @@ public class surveillanceapplication  extends Application {
 		        stage.setScene(scene);
 		        stage.show();
 		        stage.setResizable(false);
-		        stage.setAlwaysOnTop(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
