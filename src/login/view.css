@@ -12,7 +12,6 @@
 }
 .check-box{
     -fx-background-color: transparent;
-    -fx-border-color: white;
     -fx-border-radius: 10px;
     -fx-text-fill: #fce4e4;
 }
