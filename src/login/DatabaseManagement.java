@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import management.Professor;
 import management.User;
 public class DatabaseManagement {
     private static final String URL = "jdbc:mysql://localhost:3306/surveillance_data_base";
@@ -186,7 +187,69 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
         e.printStackTrace();
     }
 }
+
+
+
+    public static boolean addProfessor(Professor professor) {
+    	
+        if (!isValidEmailFormat(professor.getPrEmail())) {
+
+            return false;
+        }
+    	
+        String query = "INSERT INTO professor (prof_nom, prof_prenom, prof_email) VALUES (?, ?, ?)";
+
+        try (Connection conn = getConnection();
+                PreparedStatement stmnt = conn.prepareStatement(query)) {
+
+            stmnt.setString(1, professor.getPrLastName());  
+            stmnt.setString(2, professor.getPrFirstName()); 
+            stmnt.setString(3, professor.getPrEmail());     
+
+            int result = stmnt.executeUpdate();
+            if (result >= 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+public static boolean deleteProfessor(Professor professor) {
+    String query = "DELETE FROM professor WHERE prof_id = ?";
+
+    try (Connection conn = getConnection();
+            PreparedStatement stmnt = conn.prepareStatement(query)) {
+
+        stmnt.setInt(1, professor.getProfID());
+        int rowsAffected = stmnt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            return true;
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
 }
+
+public static boolean isValidEmailFormat(String email) {
+    if (email == null || email.isEmpty()) {
+        return false;
+    }
+
+    //  to check if email follows the format string@string.string
+    String emailformat = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+    return email.matches(emailformat);
+}
+
+}
+
+
     
     
     
