@@ -115,8 +115,8 @@ public class ProfessorsAnchorPaneManager {
             informationError.setStyle("-fx-text-fill: green;");
             informationError.setOpacity(1);
         } else {
-        	informationError.setText(validation);
-        	informationError.setStyle("-fx-text-fill: red;");
+            informationError.setText("Email must follow the format : Example@example.com");
+            informationError.setStyle("-fx-text-fill: red;");
         	informationError.setOpacity(1);
         }
     }
@@ -137,7 +137,7 @@ public class ProfessorsAnchorPaneManager {
 
       
 
-        DatabaseManagement.removeProfessor(selectedPrfessor);
+        DatabaseManagement.deleteProfessor(selectedPrfessor);
        Controllermethods.reloadTable(professorsTable);
     }
 	
