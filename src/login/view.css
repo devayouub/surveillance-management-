@@ -170,6 +170,10 @@
     -fx-text-fill: #000000;
     -fx-font-size: 10px;
 }
+.combo-box2{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
 
 
 

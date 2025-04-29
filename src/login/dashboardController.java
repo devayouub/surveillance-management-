@@ -44,6 +44,11 @@ public class dashboardController implements Initializable{
     private AnchorPane anchorDomaines;
     @FXML
     private Button buttonspeciality;
+    @FXML
+    private Button buttonclassroom;
+    @FXML
+    private AnchorPane anchorclassroom;
+
 
 
     @FXML
@@ -179,8 +184,8 @@ public class dashboardController implements Initializable{
 
     public void switchmenubar(javafx.event.ActionEvent event) {
         Controllermethods.switchPane(event,
-            Arrays.asList(buttonengenment, buttonmodules, buttonspeciality),
-            Arrays.asList(anchorProfessors, anchormodules, anchorDomaines)
+            Arrays.asList(buttonengenment, buttonspeciality, buttonmodules,buttonclassroom),
+            Arrays.asList(anchorProfessors, anchorDomaines, anchormodules,anchorclassroom)
         );
     }
     public void showPasswordActionListener(javafx.event.ActionEvent e) {
