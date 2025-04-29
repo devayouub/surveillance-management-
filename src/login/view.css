@@ -24,7 +24,7 @@
 }
 
 .button1:hover{
-    -fx-background-color:#0B729C;
+    -fx-background-color: #2728ff;
     -fx-text-fill:black;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;

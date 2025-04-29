@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="408.0" fitWidth="587.0" layoutX="14.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@7638078c63d7e022ec8c4640c3e1efcc-removebg-preview%20(1).png" />
+            <Image url="@../../../zakisur/surveillance-management-/src/login/7638078c63d7e022ec8c4640c3e1efcc-removebg-preview%20(1).png" />
          </image>
       </ImageView>
       <TextField fx:id="usernameField" layoutX="742.0" layoutY="221.0" prefHeight="42.0" prefWidth="222.0" promptText="Username" styleClass="textfield" stylesheets="@view.css" />
@@ -38,12 +38,15 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="718.0" layoutY="69.0" prefHeight="31.0" prefWidth="175.0" text="Login" textFill="WHITE">
+      <Label layoutX="700.0" layoutY="49.0" prefHeight="85.0" prefWidth="206.0" text="Login" textFill="WHITE">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="718.0" layoutY="139.0" text="welcome ! please login to your account." textFill="#f7efef" />
+      <Label layoutX="687.0" layoutY="139.0" text="welcome ! please login to your account." textFill="#f7efef">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
       <CheckBox fx:id="RememberChek" layoutX="742.0" layoutY="360.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="122.0" text="Remember me" textFill="WHITE" />
       <ImageView fx:id="imagexit" fitHeight="34.0" fitWidth="34.0" layoutX="986.0" layoutY="6.0" onMouseClicked="#actionexit" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -51,17 +54,17 @@
          </image>
       </ImageView>
       <Label fx:id="errorMessage" layoutX="740.0" layoutY="335.0" opacity="0.0" text="*Incorrect Username or password entered*" textFill="RED" />
-      <Label layoutX="139.0" layoutY="49.0" prefHeight="63.0" prefWidth="358.0" text="A New Standern For">
+      <Label layoutX="62.0" layoutY="49.0" prefHeight="63.0" prefWidth="491.0" text="Welcome to Application for ">
          <font>
             <Font name="Century Gothic Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="242.0" layoutY="115.0" text="Scheduling">
+      <Label layoutX="262.0" layoutY="112.0" text="Exames">
          <font>
             <Font name="Century Gothic Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="103.0" layoutY="157.0" prefHeight="15.0" prefWidth="454.0" text="wir sind ein group fur dich um diese application zu entwecklen in dise weld " textFill="#0d162b">
+      <Label layoutX="103.0" layoutY="157.0" prefHeight="15.0" prefWidth="414.0" text="This is an application that allows hiring professors in exam classroom " textFill="#0e234e">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
