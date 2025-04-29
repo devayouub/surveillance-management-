@@ -197,7 +197,7 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
             return false;
         }
     	
-        String query = "INSERT INTO professor (prof_nom, prof_prenom, prof_email) VALUES (?, ?, ?)";
+        String query = "INSERT INTO professor (nom_prof, prenom_prof, email_prof) VALUES (?, ?, ?)";
 
         try (Connection conn = getConnection();
                 PreparedStatement stmnt = conn.prepareStatement(query)) {
@@ -218,7 +218,7 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
 
 
 public static boolean deleteProfessor(Professor professor) {
-    String query = "DELETE FROM professor WHERE prof_id = ?";
+    String query = "DELETE FROM professor WHERE ID_prof = ?";
 
     try (Connection conn = getConnection();
             PreparedStatement stmnt = conn.prepareStatement(query)) {
