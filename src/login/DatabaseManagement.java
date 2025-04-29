@@ -223,7 +223,7 @@ public static boolean deleteProfessor(Professor professor) {
     try (Connection conn = getConnection();
             PreparedStatement stmnt = conn.prepareStatement(query)) {
 
-        stmnt.setInt(1, professor.getProfID());
+        stmnt.setInt(1, professor.getProfId());
         int rowsAffected = stmnt.executeUpdate();
 
         if (rowsAffected > 0) {
