@@ -21,7 +21,7 @@ public class ProfessorsAnchorPaneManager {
     private TextField firstNameField;
     private TextField lastNameField;
     private TextField EmailField;
-    private Button addProfessorButton;
+    private Button ConfirmProfessor;
     private Button deleteProfessorButton;
     private ObservableList<Professor> masterData = FXCollections.observableArrayList();
 
@@ -35,13 +35,13 @@ public class ProfessorsAnchorPaneManager {
 		this.firstNameField = firstNameField;
 		this.lastNameField = lastNameField;
 		this.EmailField = emailField;
-		this.addProfessorButton = addProfessorButton;
+		this.ConfirmProfessor = addProfessorButton;
 		this.deleteProfessorButton = deleteProfessorButton;
 		
 	}
 	public void initialize() {
 		// 1. Load all users into professor table
-		DatabaseManagement.loadUsersFromDatabase(professorsTable); // <--- adapt to your method
+		DatabaseManagement.loadProfessorsFromDatabase(professorsTable);// <--- adapt to your method
 		// After loading into the table, copy into masterData
 		masterData.addAll(professorsTable.getItems());
 	    // 2. Create a FilteredList wrapping masterData
@@ -73,8 +73,8 @@ public class ProfessorsAnchorPaneManager {
 
 	    // 6. Set the sorted and filtered data to the table
 	    professorsTable.setItems(sortedData);
-	     addProfessorButton.setOnAction(event -> addProfessor());
-		deleteProfessorButton.setOnAction(event -> deleteProfessor());
+	    ConfirmProfessor.setOnAction(event -> addProfessor());
+	    deleteProfessorButton.setOnAction(event -> deleteProfessor());
 	}
 	
 	public void addProfessor() {
@@ -99,19 +99,11 @@ public class ProfessorsAnchorPaneManager {
         	informationError.setOpacity(1);
             return;
         }
-        if (temporaryProfessor.getPrEmail().isEmpty()) {
-        	informationError.setStyle("-fx-text-fill: red;");
-        	informationError.setText("Must fill professor's Email field");
-        	informationError.setOpacity(1);
-            return;
-        }
-  
-
         boolean validation = DatabaseManagement.isValidEmailFormat(temporaryProfessor.getPrEmail());
         if (validation == true) {
             DatabaseManagement.addProfessor(temporaryProfessor);
-            Controllermethods.reloadTable(professorsTable);
-            informationError.setText("User added successfully");
+            reloadTable(professorsTable);
+            informationError.setText("Professor added successfully");
             informationError.setStyle("-fx-text-fill: green;");
             informationError.setOpacity(1);
         } else {
@@ -138,7 +130,11 @@ public class ProfessorsAnchorPaneManager {
       
 
         DatabaseManagement.deleteProfessor(selectedPrfessor);
-       Controllermethods.reloadTable(professorsTable);
+       reloadTable(professorsTable);
+    }
+    public static void reloadTable(TableView Table) {
+        Table.getItems().clear();
+        DatabaseManagement.loadProfessorsFromDatabase(Table);
     }
 	
 	

@@ -20,6 +20,8 @@ public class DatabaseManagement {
     private static final String USER = "root";
     private static final String DB_PASSWORD = "ayoub2005";
     static ObservableList<User> users = FXCollections.observableArrayList();
+    static ObservableList<Professor> professors = FXCollections.observableArrayList();
+
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, DB_PASSWORD);
     }
@@ -187,6 +189,24 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
         e.printStackTrace();
     }
 }
+public static void loadProfessorsFromDatabase(TableView professors) {
+    try (Connection conn = getConnection(); // your DB connection method
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,password FROM user")) {
+
+        while (rs.next()) {
+            int id = rs.getInt("ID_user");
+            String username = rs.getString("user_name");
+            boolean isAdmin = rs.getBoolean("is_admin");
+            boolean isRemembered = rs.getBoolean("remember_me");
+            String password = rs.getString("password");
+            users.add(new User(id, username, isAdmin, isRemembered, password));
+        }
+        professors.setItems(DatabaseManagement.professors);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
 
 
@@ -237,16 +257,17 @@ public static boolean deleteProfessor(Professor professor) {
 }
 
 public static boolean isValidEmailFormat(String email) {
-    if (email == null || email.isEmpty()) {
+    if (email == null) {
         return false;
     }
-
+    if (!email.isEmpty()) {
     //  to check if email follows the format string@string.string
     String emailformat = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
     return email.matches(emailformat);
 }
-
+    else return false;
+}
 }
 
 

@@ -55,10 +55,7 @@ public class Controllermethods {
             panes.get(i).setVisible(event.getSource() == buttons.get(i));
         }
     }
-    public static void reloadTable(TableView Table) {
-        Table.getItems().clear();
-        DatabaseManagement.loadUsersFromDatabase(Table);
-    }
+
     public static Object getSelected(TableView Table) {
         return Table.getSelectionModel().getSelectedItem();
     }

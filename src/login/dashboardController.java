@@ -1,5 +1,6 @@
 package login;
 
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -77,11 +78,31 @@ public class dashboardController implements Initializable{
     @FXML
     private CheckBox showPassword;
     @FXML
-    private CheckBox showPasswords;
+    private CheckBox showPasswords;   
+    @FXML
+    private Button DeleteUserButton;
     @FXML
     private Label weakPasswordLabel;
-    @FXML private Button DeleteUserButton;
-    @FXML private Label WarningLabel;
+    @FXML
+    private Label WarningLabel;
+    @FXML
+    private TextField firstname;
+    @FXML
+    private TextField lastname ;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField  searchbar;
+    @FXML
+    private Label EmailFormatError;
+    @FXML
+    private Button ConfirmProfessor;
+    @FXML
+    private Button DeleteProfessor;
+
+    @FXML
+    private Label NoProfessorSelected;
+    
    //---------------------------Tables---------------------------
     //------------------user Table--------------------------------------
      @FXML private  TableView<User> UsersTable;
@@ -115,7 +136,10 @@ public class dashboardController implements Initializable{
     			     DeleteUserButton,showPassword,showPasswords);
         userAnchorPaneManager.initialize();
         //---------------------------Department Professor AnchorPane SetUp---------------------------------------   
-        professorsAnchorPaneManager = new ProfessorsAnchorPaneManager();
+        professorsAnchorPaneManager = new ProfessorsAnchorPaneManager(professorsTable,searchbar,
+        		NoProfessorSelected,EmailFormatError,firstname,
+        		lastname, email,ConfirmProfessor,DeleteProfessor);
+        professorsAnchorPaneManager.initialize();
     }
     public void switchform(javafx.event.ActionEvent event) {
         Controllermethods.switchPane(event,
