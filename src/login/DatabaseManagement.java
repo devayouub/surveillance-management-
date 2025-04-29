@@ -43,7 +43,7 @@ public class DatabaseManagement {
     
     public static boolean authenticateUser(String user_name , String user_password) {
     	
-    	String query = "SELECT * FROM user WHERE user_name = ? AND password = ?";
+    	String query = "SELECT * FROM user WHERE user_name = ? AND user_password = ?";
     	
     	try (Connection conn = getConnection();
     			PreparedStatement stmnt = conn.prepareStatement(query)){
@@ -66,7 +66,7 @@ public class DatabaseManagement {
     
     public static  boolean addUser(User user) {
         // Prepare SQL insert statement (no need to include userID because it's AUTO_INCREMENT)
-        String query = "INSERT INTO user (user_name, is_admin, remember_me, password) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO user (user_name, is_admin, remember_me,user_password) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement stmnt = conn.prepareStatement(query)) {
@@ -174,14 +174,14 @@ public static String getRememberedUser() {
 public static void loadUsersFromDatabase( TableView UsersTable) {
     try (Connection conn = getConnection(); // your DB connection method
          Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,password FROM user")) {
+         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,user_password FROM user")) {
 
         while (rs.next()) {
             int id = rs.getInt("ID_user");
             String username = rs.getString("user_name");
             boolean isAdmin = rs.getBoolean("is_admin");
             boolean isRemembered = rs.getBoolean("remember_me");
-            String password = rs.getString("password");
+            String password = rs.getString("user_password");
             users.add(new User(id, username, isAdmin, isRemembered, password));
         }
         UsersTable.setItems(users);
@@ -192,14 +192,14 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
 public static void loadProfessorsFromDatabase(TableView professors) {
     try (Connection conn = getConnection(); // your DB connection method
          Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,password FROM user")) {
+         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,user_password FROM user")) {
 
         while (rs.next()) {
             int id = rs.getInt("ID_user");
             String username = rs.getString("user_name");
             boolean isAdmin = rs.getBoolean("is_admin");
             boolean isRemembered = rs.getBoolean("remember_me");
-            String password = rs.getString("password");
+            String password = rs.getString("user_password");
             users.add(new User(id, username, isAdmin, isRemembered, password));
         }
         professors.setItems(DatabaseManagement.professors);
@@ -217,7 +217,7 @@ public static void loadProfessorsFromDatabase(TableView professors) {
             return false;
         }
     	
-        String query = "INSERT INTO professor (prof_nom, prof_prenom, prof_email) VALUES (?, ?, ?)";
+        String query = "INSERT INTO professor (nom_prof, prenom_prenom,email_prof) VALUES (?, ?, ?)";
 
         try (Connection conn = getConnection();
                 PreparedStatement stmnt = conn.prepareStatement(query)) {
