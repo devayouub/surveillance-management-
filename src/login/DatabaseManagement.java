@@ -189,23 +189,27 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
         e.printStackTrace();
     }
 }
-public static void loadProfessorsFromDatabase(TableView professorsTable) {
-    try (Connection conn = getConnection(); //  DB connection method
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT ID_prof,nom_prof,prenom_prof,email_prof FROM professor")) {
+    public static ObservableList<Professor> loadProfessorsFromDatabase() {
+        ObservableList<Professor> professors = FXCollections.observableArrayList();
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM professor")) {
 
-        while (rs.next()) { 
-            int id = rs.getInt("ID_prof");
-            String nom_prof = rs.getString("nom_prof");
-            String prenom_prof = rs.getString("prenom_prof");
-            String email_prof = rs.getString("email_prof");
-            professors.add(new Professor(nom_prof, prenom_prof, email_prof));
+            while (rs.next()) {
+                int id = rs.getInt("ID_prof");
+                String firstName = rs.getString("prenom_prof");
+                String lastName = rs.getString("nom_prof");
+                String email = rs.getString("email_prof");
+                professors.add(new Professor(id, firstName, lastName, email));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        professorsTable.setItems(professors);
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return professors;
     }
-}
+
 
 
 
@@ -234,10 +238,21 @@ public static void loadProfessorsFromDatabase(TableView professorsTable) {
         }
         return false;
     }
-
+    public static void updateProfessor(Professor professor) {
+        String sql = "UPDATE professor SET nom_prof = ?, prenom_prof = ?,email_prof = ? WHERE ID_prof = ?";
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, professor.getPrFirstName());
+            stmt.setString(2, professor.getPrLastName());
+            stmt.setString(3, professor.getPrEmail());
+            stmt.setInt(4, professor.getProfId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 public static boolean deleteProfessor(Professor professor) {
-    String query = "DELETE FROM professor WHERE prof_id = ?";
+    String query = "DELETE FROM professor WHERE ID_prof = ?";
 
     try (Connection conn = getConnection();
             PreparedStatement stmnt = conn.prepareStatement(query)) {
@@ -259,14 +274,17 @@ public static boolean isValidEmailFormat(String email) {
     if (email == null) {
         return false;
     }
-    if (!email.isEmpty()) {
+    else {
+    	if(email.equals("")) {
+    	return true;
+    	}
     //  to check if email follows the format string@string.string
     String emailformat = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
     return email.matches(emailformat);
 }
-    else return false;
-}
+    }
+    
 }
 
 

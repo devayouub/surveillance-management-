@@ -372,7 +372,7 @@
                   <TextField fx:id="firstname" layoutX="25.0" layoutY="85.0" prefHeight="31.0" prefWidth="154.0" promptText="Firstname" styleClass="textfield" />
                   <TextField fx:id="email" layoutX="400.0" layoutY="85.0" prefHeight="30.0" prefWidth="154.0" promptText=" Email (optional)" styleClass="textfield" />
                   <TextField fx:id="lastname" layoutX="216.0" layoutY="85.0" prefHeight="31.0" prefWidth="154.0" promptText="lastname" styleClass="textfield" />
-                  <TextField fx:id="searchbar" layoutX="25.0" layoutY="149.0" prefHeight="26.0" prefWidth="258.0" promptText="search" styleClass="textfieldsearch" />
+                  <TextField fx:id="searchField" layoutX="25.0" layoutY="149.0" prefHeight="26.0" prefWidth="258.0" promptText="search" styleClass="textfieldsearch" />
                   <Button fx:id="DeleteProfessor" layoutX="491.0" layoutY="435.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="110.0" styleClass="button2" text="Delete">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
@@ -388,7 +388,7 @@
                         <Font name="Arial Black" size="12.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="professorsTable" layoutX="14.0" layoutY="203.0" prefHeight="197.0" prefWidth="690.0" styleClass="table-view1" AnchorPane.bottomAnchor="67.39999999999998" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="30.799999999999955" AnchorPane.topAnchor="203.0">
+                  <TableView fx:id="professorsTable" editable="true" layoutX="14.0" layoutY="203.0" prefHeight="197.0" prefWidth="690.0" styleClass="table-view1" AnchorPane.bottomAnchor="67.39999999999998" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="30.799999999999955" AnchorPane.topAnchor="203.0">
                     <columns>
                       <TableColumn fx:id="professorsIdColumn" prefWidth="76.80004572868347" text="ID" />
                       <TableColumn fx:id="firstnameColumn" prefWidth="157.5999755859375" text="firstname" />
@@ -396,7 +396,12 @@
                         <TableColumn minWidth="0.0" prefWidth="247.20000610351565" text="Email" />
                     </columns>
                   </TableView>
-                  <Label fx:id="EmailFormatError" layoutX="403.0" layoutY="121.0" text="Email must follow the format : Example@example.com" textFill="RED" visible="false" />
+                  <Label fx:id="EmailFormatError" layoutX="402.0" layoutY="116.0" opacity="0.0" text="Email must follow the format : Example@example.com" textFill="RED" />
+                  <Button fx:id="saveChangesButton" layoutX="359.0" layoutY="435.0" mnemonicParsing="false" styleClass="button2" text="Apply modification" visible="false">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="467.0" prefWidth="734.0" visible="false">

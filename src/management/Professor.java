@@ -7,6 +7,15 @@ public class Professor {
       private String PrFirstName;
       private String PrLastName;
       private String PrEmail;
+      private boolean modified = false;
+
+      public boolean isModified() {
+          return modified;
+      }
+
+      public void setModified(boolean modified) {
+          this.modified = modified;
+      }
 	public Professor(String prFirstName, String prLastName, String prEmail) {
 		this.ProfId= ++autoIncrement;
 		PrFirstName = prFirstName;

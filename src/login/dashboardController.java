@@ -92,14 +92,13 @@ public class dashboardController implements Initializable{
     @FXML
     private TextField email;
     @FXML
-    private TextField  searchbar;
+    private TextField  searchField;
     @FXML
     private Label EmailFormatError;
     @FXML
     private Button ConfirmProfessor;
     @FXML
     private Button DeleteProfessor;
-
     @FXML
     private Label NoProfessorSelected;
     
@@ -122,7 +121,7 @@ public class dashboardController implements Initializable{
     
      @FXML private TableColumn<Professor, String> firstnameColumn;
      
-     @FXML private TableColumn<Professor, Boolean> lastnameColumn;
+     @FXML private TableColumn<Professor, String> lastnameColumn;
     
      @FXML private TableColumn<Professor, String> EmailColumn;
      private ProfessorsAnchorPaneManager professorsAnchorPaneManager;
@@ -136,10 +135,11 @@ public class dashboardController implements Initializable{
     			     DeleteUserButton,showPassword,showPasswords);
         userAnchorPaneManager.initialize();
         //---------------------------Department Professor AnchorPane SetUp---------------------------------------   
-        professorsAnchorPaneManager = new ProfessorsAnchorPaneManager(professorsTable,searchbar,
+        professorsAnchorPaneManager = new ProfessorsAnchorPaneManager(professorsTable,searchField,
         		NoProfessorSelected,EmailFormatError,firstname,
         		lastname, email,ConfirmProfessor,DeleteProfessor);
         professorsAnchorPaneManager.initialize();
+        
     }
     public void switchform(javafx.event.ActionEvent event) {
         Controllermethods.switchPane(event,
@@ -156,5 +156,5 @@ public class dashboardController implements Initializable{
     	
         System.exit(0);
     }
-
+  
 }
