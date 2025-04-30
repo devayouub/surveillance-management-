@@ -2,31 +2,60 @@ package management;
 
 
 public class Professor {
+	  private int ProfId;
+	  private static int autoIncrement=0;
       private String PrFirstName;
       private String PrLastName;
       private String PrEmail;
+      private boolean modified = false;
+
+      public boolean isModified() {
+          return modified;
+      }
+
+      public void setModified(boolean modified) {
+          this.modified = modified;
+      }
 	public Professor(String prFirstName, String prLastName, String prEmail) {
-		super();
+		this.ProfId= ++autoIncrement;
 		PrFirstName = prFirstName;
 		PrLastName = prLastName;
 		PrEmail = prEmail;
 	}
-	private String getPrFirstName() {
+	
+	
+	public Professor(int profId, String prFirstName, String prLastName, String prEmail) {
+		ProfId = profId;
+		PrFirstName = prFirstName;
+		PrLastName = prLastName;
+		PrEmail = prEmail;
+	}
+
+
+	public int getProfId() {
+		return ProfId;
+	}
+
+	public void setProfId(int profId) {
+		ProfId = profId;
+	}
+
+	public String getPrFirstName() {
 		return PrFirstName;
 	}
-	private void setPrFirstName(String prFirstName) {
+	public void setPrFirstName(String prFirstName) {
 		PrFirstName = prFirstName;
 	}
-	private String getPrLastName() {
+	public String getPrLastName() {
 		return PrLastName;
 	}
-	private void setPrLastName(String prLastName) {
+	public void setPrLastName(String prLastName) {
 		PrLastName = prLastName;
 	}
-	private String getPrEmail() {
+	public String getPrEmail() {
 		return PrEmail;
 	}
-	private void setPrEmail(String prEmail) {
+	public void setPrEmail(String prEmail) {
 		PrEmail = prEmail;
 	}
       
