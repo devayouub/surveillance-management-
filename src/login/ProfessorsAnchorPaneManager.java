@@ -28,7 +28,9 @@ public class ProfessorsAnchorPaneManager {
 	public ProfessorsAnchorPaneManager(TableView<Professor> professorsTable, TextField searchField,
 			 Label warningLabel, Label informationError, TextField firstNameField,
 			TextField lastNameField, TextField emailField, Button addProfessorButton, Button deleteProfessorButton) {
+		
 		this.professorsTable = professorsTable;
+		setupTable();
 		this.searchField = searchField;
 		this.warningLabel = warningLabel;
 		this.informationError = informationError;
@@ -76,9 +78,16 @@ public class ProfessorsAnchorPaneManager {
 	    ConfirmProfessor.setOnAction(event -> addProfessor());
 	    deleteProfessorButton.setOnAction(event -> deleteProfessor());
 	}
+	private void setupTable() {
+        professorsTable.getColumns().get(0).setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("ProfId"));
+        professorsTable.getColumns().get(1).setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("PrFirstName"));
+        professorsTable.getColumns().get(2).setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("PrLastName"));
+        professorsTable.getColumns().get(3).setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("PrEmail"));
+        DatabaseManagement.loadProfessorsFromDatabase(professorsTable);
+	}
 	
 	public void addProfessor() {
-        if (lastNameField == null || firstNameField == null || lastNameField == null  || informationError == null) {
+        if ( firstNameField == null || lastNameField == null  || EmailField == null|| informationError == null) {
             throw new IllegalStateException("User input components not set in UsersTableManager");
         }
 
@@ -87,13 +96,13 @@ public class ProfessorsAnchorPaneManager {
         String email = EmailField.getText();
         Professor temporaryProfessor = new Professor(username, lastname, email);
 
-        if (temporaryProfessor.getPrFirstName().isEmpty()) {
+        if (firstNameField.getText().isEmpty()) {
         	informationError.setStyle("-fx-text-fill: red;");
         	informationError.setText("Must fill professor's Firstname field");
         	informationError.setOpacity(1);
             return;
         }
-        if (temporaryProfessor.getPrLastName().isEmpty()) {
+        if (lastNameField.getText().isEmpty()) {
         	informationError.setStyle("-fx-text-fill: red;");
         	informationError.setText("Must fill professor's Lastname field");
         	informationError.setOpacity(1);
@@ -102,7 +111,7 @@ public class ProfessorsAnchorPaneManager {
         boolean validation = DatabaseManagement.isValidEmailFormat(temporaryProfessor.getPrEmail());
         if (validation == true) {
             DatabaseManagement.addProfessor(temporaryProfessor);
-            reloadTable(professorsTable);
+            reloadTable();
             informationError.setText("Professor added successfully");
             informationError.setStyle("-fx-text-fill: green;");
             informationError.setOpacity(1);
@@ -130,12 +139,13 @@ public class ProfessorsAnchorPaneManager {
       
 
         DatabaseManagement.deleteProfessor(selectedPrfessor);
-       reloadTable(professorsTable);
+       reloadTable();
     }
-    public static void reloadTable(TableView Table) {
-        Table.getItems().clear();
-        DatabaseManagement.loadProfessorsFromDatabase(Table);
-    }
+	public void reloadTable() {
+	    masterData.clear(); // clear the main list
+	    DatabaseManagement.loadProfessorsFromDatabase(professorsTable);
+	}
+
 	
 	
 	

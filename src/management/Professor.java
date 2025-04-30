@@ -14,6 +14,15 @@ public class Professor {
 		PrEmail = prEmail;
 	}
 	
+	
+	public Professor(int profId, String prFirstName, String prLastName, String prEmail) {
+		ProfId = profId;
+		PrFirstName = prFirstName;
+		PrLastName = prLastName;
+		PrEmail = prEmail;
+	}
+
+
 	public int getProfId() {
 		return ProfId;
 	}

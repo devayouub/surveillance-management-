@@ -172,7 +172,7 @@ public static String getRememberedUser() {
 	}
 
 public static void loadUsersFromDatabase( TableView UsersTable) {
-    try (Connection conn = getConnection(); // your DB connection method
+    try (Connection conn = getConnection(); //  DB connection method
          Statement stmt = conn.createStatement();
          ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,user_password FROM user")) {
 
@@ -189,20 +189,19 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
         e.printStackTrace();
     }
 }
-public static void loadProfessorsFromDatabase(TableView professors) {
-    try (Connection conn = getConnection(); // your DB connection method
+public static void loadProfessorsFromDatabase(TableView professorsTable) {
+    try (Connection conn = getConnection(); //  DB connection method
          Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,user_password FROM user")) {
+         ResultSet rs = stmt.executeQuery("SELECT ID_prof,nom_prof,prenom_prof,email_prof FROM professor")) {
 
-        while (rs.next()) {
-            int id = rs.getInt("ID_user");
-            String username = rs.getString("user_name");
-            boolean isAdmin = rs.getBoolean("is_admin");
-            boolean isRemembered = rs.getBoolean("remember_me");
-            String password = rs.getString("user_password");
-            users.add(new User(id, username, isAdmin, isRemembered, password));
+        while (rs.next()) { 
+            int id = rs.getInt("ID_prof");
+            String nom_prof = rs.getString("nom_prof");
+            String prenom_prof = rs.getString("prenom_prof");
+            String email_prof = rs.getString("email_prof");
+            professors.add(new Professor(nom_prof, prenom_prof, email_prof));
         }
-        professors.setItems(DatabaseManagement.professors);
+        professorsTable.setItems(professors);
     } catch (SQLException e) {
         e.printStackTrace();
     }
@@ -217,7 +216,7 @@ public static void loadProfessorsFromDatabase(TableView professors) {
             return false;
         }
     	
-        String query = "INSERT INTO professor (nom_prof, prenom_prenom,email_prof) VALUES (?, ?, ?)";
+        String query = "INSERT INTO professor (nom_prof, prenom_prof,email_prof) VALUES (?, ?, ?)";
 
         try (Connection conn = getConnection();
                 PreparedStatement stmnt = conn.prepareStatement(query)) {
