@@ -220,7 +220,9 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
             return false;
         }
     	
+
         String query = "INSERT INTO professor (nom_prof, prenom_prof,email_prof) VALUES (?, ?, ?)";
+
 
         try (Connection conn = getConnection();
                 PreparedStatement stmnt = conn.prepareStatement(query)) {
