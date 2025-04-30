@@ -1,3 +1,10 @@
 /LoginController.class
 /viewconroller.class
 /surveillanceapplication.class
+/Controllermethods.class
+/DatabaseManagement.class
+/DepartmentAnchorPaneManager.class
+/ProfessorsAnchorPaneManager.class
+/UserAnchorPaneManager$1.class
+/UserAnchorPaneManager.class
+/dashboardController.class
