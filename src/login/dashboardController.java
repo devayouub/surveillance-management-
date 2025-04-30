@@ -52,6 +52,17 @@ public class dashboardController implements Initializable{
     private Button buttonmodules;
     @FXML
     private Button buttonspeciality;
+
+    @FXML
+    private Button buttonclassroom;
+    @FXML
+    private AnchorPane anchorclassroom;
+
+
+
+    @FXML
+    private AnchorPane anchorpanedachboard;
+
     @FXML
     private Button buttonacc;
     @FXML
@@ -147,10 +158,68 @@ public class dashboardController implements Initializable{
             Arrays.asList(anchoraccuil, anchordisplay, anchoruser, anchorDepartmentManagment)
         );
     }
-    public void LogoutActionListener(ActionEvent event) {
-    	DatabaseManagement.RememberMeUpdater(DatabaseManagement.getRememberedUser(), false);
-        Controllermethods.FadeInto(anchorpanedachboard,"Login.fxml");
-        UsersTable.getItems().clear();
+
+
+    public void switchmenubar(javafx.event.ActionEvent event) {
+        Controllermethods.switchPane(event,
+            Arrays.asList(buttonengenment, buttonspeciality, buttonmodules,buttonclassroom),
+            Arrays.asList(anchorProfessors, anchorDomaines, anchormodules,anchorclassroom)
+        );
+    }
+    public void showPasswordActionListener(javafx.event.ActionEvent e) {
+    	passwordField.setVisible(!passwordField.isVisible());
+    	passwordTextField.setVisible(!passwordTextField.isVisible());
+    	
+    }
+    public void addUserActionListener(javafx.event.ActionEvent e) {
+    	 String username = usernameField.getText();
+         String Password = passwordField.getText();
+         User temporaryUser = new User(username, makeAdmin.isSelected(), Password);
+       
+          if (temporaryUser.getUsername().equals("")){
+            weakPasswordLabel.setStyle("-fx-text-fill: red;");
+            weakPasswordLabel.setText("must fill username field");   
+            weakPasswordLabel.setOpacity(1);
+            return;
+         } 
+          
+          if(DatabaseManagement.isValidPassword(temporaryUser.getPassword()).equals("Valid")) {
+        	  DatabaseManagement.addUser(temporaryUser);
+              UsersTable.getItems().clear();
+              DatabaseManagement.loadUsersFromDatabase(UsersTable);
+              weakPasswordLabel.setText("User added successfully");
+              weakPasswordLabel.setStyle("-fx-text-fill: green;");
+              weakPasswordLabel.setOpacity(1);
+          }
+          else {
+             weakPasswordLabel.setText(DatabaseManagement.isValidPassword(temporaryUser.getPassword()));
+             weakPasswordLabel.setStyle("-fx-text-fill: red;");
+             weakPasswordLabel.setOpacity(1);
+         }
+    }
+
+    public void deleteUserActionListener(javafx.event.ActionEvent e) {
+    	User selectedUser = UsersTable.getSelectionModel().getSelectedItem();
+
+        if (selectedUser == null) {
+        	WarningLabel.setText("No user selected.");
+        	WarningLabel.setStyle("-fx-text-fill: red;");
+        	WarningLabel.setOpacity(1);
+            return;
+        }
+
+        if (UsersTable.getItems().size() == 1) {
+        	WarningLabel.setText("You cannot delete the last user.");
+        	WarningLabel.setStyle("-fx-text-fill: red;");
+        	WarningLabel.setOpacity(1);
+            return;
+        }
+    	DatabaseManagement.removeUser(selectedUser);
+    	UsersTable.getItems().clear();
+        DatabaseManagement.loadUsersFromDatabase(UsersTable);
+        
+    	
+
     }
     public void actionexit(MouseEvent mouseEvent) {
     	
