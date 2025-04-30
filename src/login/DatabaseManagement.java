@@ -20,6 +20,8 @@ public class DatabaseManagement {
     private static final String USER = "root";
     private static final String DB_PASSWORD = "ayoub2005";
     static ObservableList<User> users = FXCollections.observableArrayList();
+    static ObservableList<Professor> professors = FXCollections.observableArrayList();
+
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, DB_PASSWORD);
     }
@@ -41,7 +43,7 @@ public class DatabaseManagement {
     
     public static boolean authenticateUser(String user_name , String user_password) {
     	
-    	String query = "SELECT * FROM user WHERE user_name = ? AND password = ?";
+    	String query = "SELECT * FROM user WHERE user_name = ? AND user_password = ?";
     	
     	try (Connection conn = getConnection();
     			PreparedStatement stmnt = conn.prepareStatement(query)){
@@ -64,7 +66,7 @@ public class DatabaseManagement {
     
     public static  boolean addUser(User user) {
         // Prepare SQL insert statement (no need to include userID because it's AUTO_INCREMENT)
-        String query = "INSERT INTO user (user_name, is_admin, remember_me, password) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO user (user_name, is_admin, remember_me,user_password) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement stmnt = conn.prepareStatement(query)) {
@@ -170,16 +172,16 @@ public static String getRememberedUser() {
 	}
 
 public static void loadUsersFromDatabase( TableView UsersTable) {
-    try (Connection conn = getConnection(); // your DB connection method
+    try (Connection conn = getConnection(); //  DB connection method
          Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,password FROM user")) {
+         ResultSet rs = stmt.executeQuery("SELECT ID_user, user_name, is_admin,remember_me,user_password FROM user")) {
 
         while (rs.next()) {
             int id = rs.getInt("ID_user");
             String username = rs.getString("user_name");
             boolean isAdmin = rs.getBoolean("is_admin");
             boolean isRemembered = rs.getBoolean("remember_me");
-            String password = rs.getString("password");
+            String password = rs.getString("user_password");
             users.add(new User(id, username, isAdmin, isRemembered, password));
         }
         UsersTable.setItems(users);
@@ -187,6 +189,27 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
         e.printStackTrace();
     }
 }
+    public static ObservableList<Professor> loadProfessorsFromDatabase() {
+        ObservableList<Professor> professors = FXCollections.observableArrayList();
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM professor")) {
+
+            while (rs.next()) {
+                int id = rs.getInt("ID_prof");
+                String firstName = rs.getString("prenom_prof");
+                String lastName = rs.getString("nom_prof");
+                String email = rs.getString("email_prof");
+                professors.add(new Professor(id, firstName, lastName, email));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return professors;
+    }
+
 
 
 
@@ -197,7 +220,9 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
             return false;
         }
     	
-        String query = "INSERT INTO professor (nom_prof, prenom_prof, email_prof) VALUES (?, ?, ?)";
+
+        String query = "INSERT INTO professor (nom_prof, prenom_prof,email_prof) VALUES (?, ?, ?)";
+
 
         try (Connection conn = getConnection();
                 PreparedStatement stmnt = conn.prepareStatement(query)) {
@@ -215,7 +240,18 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
         }
         return false;
     }
-
+    public static void updateProfessor(Professor professor) {
+        String sql = "UPDATE professor SET nom_prof = ?, prenom_prof = ?,email_prof = ? WHERE ID_prof = ?";
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, professor.getPrFirstName());
+            stmt.setString(2, professor.getPrLastName());
+            stmt.setString(3, professor.getPrEmail());
+            stmt.setInt(4, professor.getProfId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 public static boolean deleteProfessor(Professor professor) {
     String query = "DELETE FROM professor WHERE ID_prof = ?";
@@ -223,7 +259,7 @@ public static boolean deleteProfessor(Professor professor) {
     try (Connection conn = getConnection();
             PreparedStatement stmnt = conn.prepareStatement(query)) {
 
-        stmnt.setInt(1, professor.getProfID());
+        stmnt.setInt(1, professor.getProfId());
         int rowsAffected = stmnt.executeUpdate();
 
         if (rowsAffected > 0) {
@@ -237,16 +273,20 @@ public static boolean deleteProfessor(Professor professor) {
 }
 
 public static boolean isValidEmailFormat(String email) {
-    if (email == null || email.isEmpty()) {
+    if (email == null) {
         return false;
     }
-
+    else {
+    	if(email.equals("")) {
+    	return true;
+    	}
     //  to check if email follows the format string@string.string
     String emailformat = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
     return email.matches(emailformat);
 }
-
+    }
+    
 }
 
 
