@@ -87,7 +87,7 @@ public class ProfessorsAnchorPaneManager {
         firstnameColumn.setCellFactory(TextFieldTableCell.<Professor>forTableColumn());
         firstnameColumn.setOnEditCommit(event -> {
             Professor professor = event.getRowValue();
-             professor.setPrLastName(event.getNewValue());
+             professor.setPrFirstName(event.getNewValue());
          	 DatabaseManagement.updateProfessor(professor);
         	 reloadTable();
 

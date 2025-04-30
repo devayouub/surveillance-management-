@@ -243,8 +243,8 @@ public static void loadUsersFromDatabase( TableView UsersTable) {
     public static void updateProfessor(Professor professor) {
         String sql = "UPDATE professor SET nom_prof = ?, prenom_prof = ?,email_prof = ? WHERE ID_prof = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, professor.getPrFirstName());
-            stmt.setString(2, professor.getPrLastName());
+            stmt.setString(1, professor.getPrLastName());
+            stmt.setString(2, professor.getPrFirstName());
             stmt.setString(3, professor.getPrEmail());
             stmt.setInt(4, professor.getProfId());
             stmt.executeUpdate();
