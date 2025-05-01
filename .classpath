@@ -11,10 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ayoub/OneDrive/Documentos/GitHub/surveillance-management-/Database/mysql-connector-j-8.2.0.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/ayoub/OneDrive/Documentos/GitHub/surveillance-management-/surveillance-management-/Database/mysql-connector-j-8.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
