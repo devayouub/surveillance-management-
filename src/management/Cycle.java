@@ -5,41 +5,38 @@ import java.util.List;
 import java.util.Map;
 
 public class Cycle {
-	private CycleCode cycle;
-    private Map<String, Domain> DomainesMap ;
-    
-	 public Cycle(String cycle) {
-		this.cycle = CycleCode.valueOf(cycle);
-		this.DomainesMap = new HashMap<String, Domain>();
+	private int id;
+	private String cyclename;
+ 
+	 public Cycle(int id,String cycle) {
+		this.id=id;
+		 this.cyclename = cycle;
 	 }
 	
-	 private CycleCode getCycle() {
-			return cycle;
+	 public String getCycle() {
+			return cyclename;
 		}
+	 
 
-		private void setCycle(CycleCode cycle) {
-			this.cycle = cycle;
-		}
-
-	private void setCoursesPerTerm(Map<String,Domain> domaines) {
-		this.DomainesMap = domaines;
+		public int getId() {
+		return id;
 	}
-	
-	 public void addDomain(Domain domain) {
-		 DomainesMap.put(domain.getDomainName(), domain);
-	    }
-   public void deleteModule(String Domain) {
-	
-    }
-   
-public boolean removeDomain(String domainName) {
-    if (DomainesMap.containsKey(domainName)) {
-    	DomainesMap.remove(domainName);
-    return true;
-    }
-    return false;
-    
-} 
+
+	private void setId(int id) {
+		this.id = id;
+	}
+
+	private String getCyclename() {
+		return cyclename;
+	}
+
+	private void setCyclename(String cyclename) {
+		this.cyclename = cyclename;
+	}
+
+		public void setCycle(String cycle) {
+			this.cyclename = cycle;
+		}
 
 
 }

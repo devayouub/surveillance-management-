@@ -14,10 +14,32 @@ public class DepartmentAnchorPaneManager {
     private AnchorPane anchormodules;
     private AnchorPane anchorDomaines;
     
-    public void switchmenubar(ActionEvent event) {
+    public DepartmentAnchorPaneManager(Button buttonengenment, Button buttonmodules, Button buttonspeciality,
+			AnchorPane anchorProfessors, AnchorPane anchormodules, AnchorPane anchorDomaines) {
+		super();
+		this.buttonengenment = buttonengenment;
+		this.buttonmodules = buttonmodules;
+		this.buttonspeciality = buttonspeciality;
+		this.anchorProfessors = anchorProfessors;
+		this.anchormodules = anchormodules;
+		this.anchorDomaines = anchorDomaines;
+	}
+    public void initialize() {
+    	buttonengenment.setOnAction(e->{
+    		switchmenubar(e);
+    	});
+    	buttonmodules.setOnAction(e->{
+    		switchmenubar(e);
+    	});
+    	buttonspeciality.setOnAction(e->{
+    		switchmenubar(e);
+    	});
+    	
+    }
+	public void switchmenubar(ActionEvent event) {
 		Controllermethods.switchPane(event,
-            Arrays.asList(buttonengenment, buttonmodules, buttonspeciality),
-            Arrays.asList(anchorProfessors, anchormodules, anchorDomaines)
+            Arrays.asList(buttonengenment, buttonspeciality,buttonmodules ),
+            Arrays.asList(anchorProfessors,anchorDomaines, anchormodules)
         );
     }
 }

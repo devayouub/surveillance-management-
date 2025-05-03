@@ -1,18 +1,26 @@
 
 package login;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import management.Cycle;
+import management.Domain;
+import management.DomainInfo;
+import management.Module;
+import management.ModuleInfo;
 import management.Professor;
 import management.User;
 public class DatabaseManagement {
@@ -286,7 +294,351 @@ public static boolean isValidEmailFormat(String email) {
     return email.matches(emailformat);
 }
     }
+public static String addModuleToDomainSemester(String domainname, int semesterNo, Module module) {
+    boolean result1 = false;
+    boolean result2 = false;
+
+    try (Connection conn = getConnection()) {
+        conn.setAutoCommit(false); // Start transaction
+
+        // Step 1: Check if module exists
+        String selectModuleSQL = "SELECT mnémonique FROM module WHERE mnémonique = ?";
+        try (PreparedStatement selectStmt = conn.prepareStatement(selectModuleSQL)) {
+            selectStmt.setString(1, module.getUniqueName());
+            try (ResultSet rs = selectStmt.executeQuery()) {
+                if (rs.next()) {
+                    return "module exists";
+                }
+            }
+        }
+
+        // Step 2: Insert the module
+        String insertModuleSQL = "INSERT INTO module (mnémonique) VALUES (?)";
+        try (PreparedStatement insertStmt = conn.prepareStatement(insertModuleSQL)) {
+            insertStmt.setString(1, module.getUniqueName());
+            int result = insertStmt.executeUpdate();
+            result1 = (result >= 1);
+        }
+
+        // Step 3: Retrieve domain ID
+        int domainId = -1;
+        String selectDomainSQL = "SELECT ID_spécialité FROM spécialité WHERE nom_spécialité = ?";
+        try (PreparedStatement domainStmt = conn.prepareStatement(selectDomainSQL)) {
+            domainStmt.setString(1, domainname);
+            try (ResultSet rs = domainStmt.executeQuery()) {
+                if (rs.next()) {
+                    domainId = rs.getInt("ID_spécialité");
+                } else {
+                    conn.rollback();
+                    return "domain not found";
+                }
+            }
+        }
+
+        // Step 4: Insert into Semester_Module table
+        String insertSemesterModuleSQL = "INSERT INTO Semester_Module (domain_id, semester_no, module_id) VALUES (?, ?, ?)";
+        try (PreparedStatement semesterStmt = conn.prepareStatement(insertSemesterModuleSQL)) {
+            semesterStmt.setInt(1, domainId);
+            semesterStmt.setInt(2, semesterNo);
+            semesterStmt.setString(3, module.getUniqueName());
+            int rowsInserted = semesterStmt.executeUpdate();
+            result2 = (rowsInserted > 0);
+        }
+
+        conn.commit(); // Commit if all succeeded
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return "failed";
+    }
+
+    return (result1 && result2) ? "success" : "failed";
+}
+
+
+
+
+
+
+public static boolean deleteModule(Module module) {
+    String deleteFromSemesterModule = "DELETE FROM semester_module WHERE module_id = ?";
+    String deleteFromModule = "DELETE FROM module WHERE mnémonique = ?";
+
+    try (Connection conn = getConnection()) {
+        conn.setAutoCommit(false); // Begin transaction
+
+        try (PreparedStatement stmt1 = conn.prepareStatement(deleteFromSemesterModule);
+             PreparedStatement stmt2 = conn.prepareStatement(deleteFromModule)) {
+
+            // Delete from semester_module
+            stmt1.setString(1, module.getUniqueName());
+            stmt1.executeUpdate();
+
+            // Delete from module
+            stmt2.setString(1, module.getUniqueName());
+            int rowsDeleted = stmt2.executeUpdate();
+
+            conn.commit(); // Commit both deletions
+            return rowsDeleted > 0;
+
+        } catch (SQLException e) {
+            conn.rollback(); // Roll back if either deletion fails
+            e.printStackTrace();
+            return false;
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+public static ObservableList<String> getCycles() {
+    ObservableList<String> cycles = FXCollections.observableArrayList();
+    String query = "SELECT * FROM Cycle";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            String name = rs.getString("nom_cycle");
+            cycles.add(name);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return cycles;
+}
+public static Cycle getCycle(String cycleName) {
+    String query = "SELECT * FROM Cycle WHERE nom_cycle = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setString(1, cycleName); // Set the parameter BEFORE executing
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                int id = rs.getInt("ID_cycle"); // Adjust column names to match your schema
+                String name = rs.getString("nom_cycle");
+
+                return new Cycle(id, name);
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return null;
+}
+public static ObservableList<String> getDomaines(String cyclename) {
+    ObservableList<String> domaines = FXCollections.observableArrayList();
+    Cycle cycle = getCycle(cyclename);
+    String query = "SELECT nom_spécialité FROM spécialité WHERE cycle_id = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        stmt.setInt(1, cycle.getId()); // Set parameter before execution
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String name = rs.getString("nom_spécialité"); // Correct column name
+                domaines.add(name);
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return domaines;
+}
+
+
     
+    
+    
+public static List<String> getModulesBySemesterAndDomain(int semesterNumber, int domainId) {
+    List<String> modules = new ArrayList<>();
+
+    String query = "SELECT m.module_name FROM Module m JOIN Semester_Module sm ON m.module_id = sm.module_id WHERE sm.semester_no = ? AND sm.domain_id = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, semesterNumber);
+        stmt.setInt(2, domainId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            modules.add(rs.getString("module_name"));
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return modules;
+}
+
+public static ObservableList<ModuleInfo> loadModuleInfo() {
+    ObservableList<ModuleInfo> data = FXCollections.observableArrayList();
+
+    String query = "SELECT c.nom_cycle, d.nom_spécialité, sm.semester_no, m.mnémonique FROM cycle c JOIN spécialité d ON c.ID_cycle = d.cycle_id JOIN Semester_Module sm ON d.ID_spécialité = sm.domain_id JOIN Module m ON sm.module_id = m.mnémonique        ORDER BY c.nom_cycle, d.nom_spécialité, sm.semester_no    ";
+    	
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            String cycle = rs.getString("nom_cycle");
+            String domain = rs.getString("nom_spécialité");
+            int semester = rs.getInt("semester_no");
+            String module = rs.getString("mnémonique");
+
+            data.add(new ModuleInfo(cycle, domain, semester, module));
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return data;
+}
+
+    
+public static boolean updateModuleMnemonique(String oldMnemonique,Module module) {
+    String updateModuleQuery = "UPDATE module SET mnémonique = ? WHERE mnémonique = ?";
+    String updateSemesterModuleQuery = "UPDATE Semester_Module SET module_mnemonic = ? WHERE module_mnemonic = ?";
+    
+    try (Connection conn = getConnection();
+         PreparedStatement stmt1 = conn.prepareStatement(updateModuleQuery);
+         PreparedStatement stmt2 = conn.prepareStatement(updateSemesterModuleQuery)) {
+
+        // Start a transaction to ensure both updates happen atomically
+        conn.setAutoCommit(false);
+
+        // Update the Module table with the new mnemonique
+        stmt1.setString(1, module.getUniqueName());
+        stmt1.setString(2, oldMnemonique);
+        int moduleUpdateCount = stmt1.executeUpdate();
+
+        // Update the Semester_Module table with the new mnemonique
+        stmt2.setString(1, module.getUniqueName());
+        stmt2.setString(2, oldMnemonique);
+        int semesterModuleUpdateCount = stmt2.executeUpdate();
+
+        // Commit the transaction if both updates succeed
+        if (moduleUpdateCount > 0 && semesterModuleUpdateCount > 0) {
+            conn.commit();  // commit both updates
+            return true;    // Successfully updated both tables
+        } else {
+            conn.rollback(); // Rollback if any of the updates failed
+            return false;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+public static boolean updateDomain(int oldkey,Domain domain) {
+    String query = "UPDATE spécialité SET nom_spécialité = ?, cycle_id = ? WHERE ID_spécialité = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setString(1, domain.getDomainName());
+        stmt.setInt(2, domain.getCycle());
+        stmt.setInt(3, oldkey);
+        return stmt.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+public static boolean addDomain(Domain domain) {
+    String insertQuery = "INSERT INTO spécialité (nom_spécialité, cycle_id) VALUES (?,?)";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
+        stmt.setString(1, domain.getDomainName());
+        stmt.setInt(2, domain.getCycle());
+
+        return stmt.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+public static boolean deleteDomain(Domain domain) {
+    String deleteSemesterModules = "DELETE FROM semester_module WHERE domain_id = ?";
+    String deleteDomain = "DELETE FROM spécialité WHERE ID_spécialité = ?";
+
+    try (Connection conn = getConnection()) {
+        conn.setAutoCommit(false); // Begin transaction
+
+        try (PreparedStatement stmt1 = conn.prepareStatement(deleteSemesterModules);
+             PreparedStatement stmt2 = conn.prepareStatement(deleteDomain)) {
+
+            stmt1.setInt(1, domain.getId());
+            stmt1.executeUpdate();
+
+            stmt2.setInt(1,domain.getId());
+            int rows = stmt2.executeUpdate();
+
+            conn.commit();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            conn.rollback(); // Rollback on failure
+            e.printStackTrace();
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return false;
+}
+
+public static ObservableList<DomainInfo> getAllDomaines() {
+    ObservableList<DomainInfo> domaines = FXCollections.observableArrayList();
+
+    String query = "SELECT s.ID_spécialité, s.nom_spécialité, c.nom_cycle " +
+                   "FROM spécialité s " +
+                   "JOIN Cycle c ON s.cycle_id = c.ID_cycle";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            int id = rs.getInt("ID_spécialité");
+            String domainName = rs.getString("nom_spécialité");
+            String cycleName = rs.getString("nom_cycle");
+
+            DomainInfo info = new DomainInfo(cycleName, domainName);
+
+            // Set the ID using reflection, since setId is private
+            Field idField = DomainInfo.class.getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(info, id);
+
+            domaines.add(info);
+        }
+
+    } catch (SQLException | NoSuchFieldException | IllegalAccessException e) {
+        e.printStackTrace();
+    }
+
+    return domaines;
 }
 
 
@@ -296,18 +648,7 @@ public static boolean isValidEmailFormat(String email) {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}    
     
     
     

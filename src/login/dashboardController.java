@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 
 import javafx.scene.control.TableColumn;
@@ -19,7 +20,12 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import management.Cycle;
+import management.Domain;
+import management.DomainInfo;
+import management.ModuleInfo;
 import management.Professor;
 import management.User;
 
@@ -114,6 +120,7 @@ public class dashboardController implements Initializable{
     
      @FXML private TableColumn<User, String> PasswordColumn;
      private UserAnchorPaneManager userAnchorPaneManager;
+    private DepartmentAnchorPaneManager departmentAnchorPaneManager;
     //------------------Professors Table---------------------------------
      @FXML private  TableView<Professor> professorsTable;
      
@@ -125,7 +132,60 @@ public class dashboardController implements Initializable{
     
      @FXML private TableColumn<Professor, String> EmailColumn;
      private ProfessorsAnchorPaneManager professorsAnchorPaneManager;
-    
+    //---------------------Modules Table---------------------------
+     @FXML
+     private TableView<ModuleInfo> modulesTable;
+
+     @FXML
+     private TableColumn<ModuleInfo, String> cycleColumn;
+     @FXML
+     private TableColumn<ModuleInfo, String> domainColumn;
+     @FXML
+     private TableColumn<ModuleInfo, Integer> semesterColumn;
+     @FXML
+     private TableColumn<ModuleInfo, String> moduleColumn;
+      private ModulesAnchorPaneManager modulesAnchorPaneManager;
+      @FXML
+      private ComboBox<String> CycleComboBox;
+      @FXML
+      private ComboBox<String>DomainComboBox;
+      @FXML
+      private ComboBox<Integer> ComboBoxTerm;
+      @FXML
+      private TextField ModuleName; 
+      @FXML
+      private Button ModuleConfirm;
+      @FXML
+      private Button ModuleDelete;
+      @FXML
+      private TextField ModuleSearchBar;
+      @FXML
+      private Label ErrorMessage;
+    //---------------------domaines Table---------------------------
+      @FXML
+      private TableView<DomainInfo> domainTable;
+
+      @FXML
+      private TableColumn<DomainInfo, String> CycleColumn;
+      @FXML
+      private TableColumn<DomainInfo, String> Domainolumn;
+
+       private DomainesAnchorPaneManager domainesAnchorPaneManager;
+       @FXML
+       private ComboBox<String> ChooseCycle;
+       @FXML
+       private TextField DomainName; 
+       @FXML
+       private Button ConfirmDomain;
+       @FXML
+       private Button DeleteDomaine;
+       @FXML
+       private TextField searchDomain;
+       @FXML
+       private Label DomainErrorMessage;
+       @FXML
+       private Label NoselectedDomain;
+       
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     //---------------------------userAnchorPane SetUp---------------------------------------   
@@ -134,11 +194,27 @@ public class dashboardController implements Initializable{
     			     makeAdmin,weakPasswordLabel,WarningLabel,AdduserButton,
     			     DeleteUserButton,showPassword,showPasswords);
         userAnchorPaneManager.initialize();
-        //---------------------------Department Professor AnchorPane SetUp---------------------------------------   
-        professorsAnchorPaneManager = new ProfessorsAnchorPaneManager(professorsTable,searchField,
+        //---------------------------Department AnchorPane SetUp---------------------------------------   
+           departmentAnchorPaneManager = new DepartmentAnchorPaneManager(buttonengenment, buttonspeciality,
+        		   buttonmodules, anchorProfessors, anchorDomaines,
+        		   anchormodules);    
+              departmentAnchorPaneManager.initialize();
+           //---------------------------Department Professor AnchorPane SetUp---------------------------------------   
+          
+         professorsAnchorPaneManager = new ProfessorsAnchorPaneManager(professorsTable,searchField,
         		NoProfessorSelected,EmailFormatError,firstname,
-        		lastname, email,ConfirmProfessor,DeleteProfessor);
+        		lastname, email,ConfirmProfessor,
+        		DeleteProfessor);
         professorsAnchorPaneManager.initialize();
+          //---------------------------Department Module AnchorPane SetUp---------------------------------------   
+        modulesAnchorPaneManager = new ModulesAnchorPaneManager(CycleComboBox,DomainComboBox,
+        		ComboBoxTerm,ModuleConfirm,ModuleDelete,
+        		modulesTable,ModuleSearchBar,ModuleName,ErrorMessage);
+        modulesAnchorPaneManager.initialize();
+      //---------------------------Department domain AnchorPane SetUp---------------------------------------   
+        domainesAnchorPaneManager = new DomainesAnchorPaneManager(ChooseCycle,DomainName,ConfirmDomain,DeleteDomaine,
+        		domainTable,searchDomain,DomainErrorMessage,NoselectedDomain);
+        domainesAnchorPaneManager.initialize();
         
     }
     public void switchform(javafx.event.ActionEvent event) {
