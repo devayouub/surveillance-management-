@@ -80,18 +80,6 @@ import management.ModuleInfo;
 	        cycleColumn.setCellValueFactory(new PropertyValueFactory<>("cycleName"));
 	        domainColumn.setCellValueFactory(new PropertyValueFactory<>("domainName")); 
 
-	        domainColumn.setEditable(true);
-
-	        domainColumn.setCellFactory(TextFieldTableCell.<DomainInfo>forTableColumn());
-	        domainColumn.setOnEditCommit(event -> {
-	        	DomainInfo domainInfo = event.getRowValue();
-	            int oldKey = domainInfo.getId();
-	            domainInfo.setDomainName(event.getNewValue());
-	         	 DatabaseManagement.updateDomain(oldKey,new Domain(oldKey,domainInfo.getDomainName()));
-	        	 reloadTable();
-
-	        });
-
 	       
 	    }
 		public void getDomainInfoFromForm() {

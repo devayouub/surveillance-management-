@@ -95,7 +95,7 @@ public class ModulesAnchorPaneManager {
         domainColumn.setCellValueFactory(new PropertyValueFactory<>("domainName"));
         semesterColumn.setCellValueFactory(new PropertyValueFactory<>("semesterNo"));
         moduleColumn.setCellValueFactory(new PropertyValueFactory<>("moduleName")); 
-
+        table.setEditable(true);
         moduleColumn.setEditable(true);
 
         moduleColumn.setCellFactory(TextFieldTableCell.<ModuleInfo>forTableColumn());
@@ -103,7 +103,7 @@ public class ModulesAnchorPaneManager {
             ModuleInfo moduleInfo = event.getRowValue();
             String oldKey = moduleInfo.getModuleName();
             moduleInfo.setModuleName(event.getNewValue());
-         	 DatabaseManagement.updateModuleMnemonique(oldKey,new Module(moduleInfo.getModuleName()));
+         	 DatabaseManagement.updateModule(oldKey,new Module(moduleInfo.getModuleName()));
         	 reloadTable();
 
         });

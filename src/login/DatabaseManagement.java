@@ -511,57 +511,62 @@ public static ObservableList<ModuleInfo> loadModuleInfo() {
 }
 
     
-public static boolean updateModuleMnemonique(String oldMnemonique,Module module) {
-    String updateModuleQuery = "UPDATE module SET mnémonique = ? WHERE mnémonique = ?";
-    String updateSemesterModuleQuery = "UPDATE Semester_Module SET module_mnemonic = ? WHERE module_mnemonic = ?";
-    
-    try (Connection conn = getConnection();
-         PreparedStatement stmt1 = conn.prepareStatement(updateModuleQuery);
-         PreparedStatement stmt2 = conn.prepareStatement(updateSemesterModuleQuery)) {
+public static boolean updateModule(String oldKey, Module module) {
+    String selectSemesterModule = "SELECT domain_id, semester_no FROM semester_module WHERE module_id = ?";
+    String deleteFromSemesterModule = "DELETE FROM semester_module WHERE module_id = ?";
+    String updateModule = "UPDATE module SET mnémonique = ? WHERE mnémonique = ?";
+    String insertIntoSemesterModule = "INSERT INTO semester_module (domain_id, semester_no, module_id) VALUES (?, ?, ?)";
 
-        // Start a transaction to ensure both updates happen atomically
-        conn.setAutoCommit(false);
+    try (Connection conn = getConnection()) {
+        conn.setAutoCommit(false); // Start transaction
 
-        // Update the Module table with the new mnemonique
-        stmt1.setString(1, module.getUniqueName());
-        stmt1.setString(2, oldMnemonique);
-        int moduleUpdateCount = stmt1.executeUpdate();
+        List<int[]> cachedSemesterModules = new ArrayList<>();
 
-        // Update the Semester_Module table with the new mnemonique
-        stmt2.setString(1, module.getUniqueName());
-        stmt2.setString(2, oldMnemonique);
-        int semesterModuleUpdateCount = stmt2.executeUpdate();
-
-        // Commit the transaction if both updates succeed
-        if (moduleUpdateCount > 0 && semesterModuleUpdateCount > 0) {
-            conn.commit();  // commit both updates
-            return true;    // Successfully updated both tables
-        } else {
-            conn.rollback(); // Rollback if any of the updates failed
-            return false;
+        // Step 1: Read and cache current semester_module rows
+        try (PreparedStatement selectStmt = conn.prepareStatement(selectSemesterModule)) {
+            selectStmt.setString(1, oldKey);
+            try (ResultSet rs = selectStmt.executeQuery()) {
+                while (rs.next()) {
+                    int domainId = rs.getInt("domain_id");
+                    int semesterNo = rs.getInt("semester_no");
+                    cachedSemesterModules.add(new int[]{domainId, semesterNo});
+                }
+            }
         }
+
+        // Step 2: Delete old semester_module entries
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteFromSemesterModule)) {
+            deleteStmt.setString(1, oldKey);
+            deleteStmt.executeUpdate();
+        }
+
+        // Step 3: Update module mnémonique
+        try (PreparedStatement updateStmt = conn.prepareStatement(updateModule)) {
+            updateStmt.setString(1, module.getUniqueName());
+            updateStmt.setString(2, oldKey);
+            updateStmt.executeUpdate();
+        }
+
+        // Step 4: Insert cached semester_module rows with new module_id
+        try (PreparedStatement insertStmt = conn.prepareStatement(insertIntoSemesterModule)) {
+            for (int[] row : cachedSemesterModules) {
+                insertStmt.setInt(1, row[0]); // domain_id
+                insertStmt.setInt(2, row[1]); // semester_no
+                insertStmt.setString(3, module.getUniqueName()); // new module_id
+                insertStmt.addBatch();
+            }
+            insertStmt.executeBatch();
+        }
+
+        conn.commit();
+        return true;
+
     } catch (SQLException e) {
         e.printStackTrace();
         return false;
     }
 }
 
-public static boolean updateDomain(int oldkey,Domain domain) {
-    String query = "UPDATE spécialité SET nom_spécialité = ?, cycle_id = ? WHERE ID_spécialité = ?";
-
-    try (Connection conn = getConnection();
-         PreparedStatement stmt = conn.prepareStatement(query)) {
-
-        stmt.setString(1, domain.getDomainName());
-        stmt.setInt(2, domain.getCycle());
-        stmt.setInt(3, oldkey);
-        return stmt.executeUpdate() > 0;
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
-    }
-}
 public static boolean addDomain(Domain domain) {
     String insertQuery = "INSERT INTO spécialité (nom_spécialité, cycle_id) VALUES (?,?)";
 
