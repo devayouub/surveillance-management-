@@ -8,7 +8,5 @@ module GitHub_surveillance_management {
 	requires java.base;
 	requires jdk.compiler;
     requires javafx.swt;
-    opens management to javafx.base;
-
     opens login;
 }
