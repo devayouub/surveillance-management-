@@ -1,49 +1,64 @@
 package login;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableCell;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import java.awt.*;
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.util.Duration;
+import management.Cycle;
+import management.Domain;
+import management.DomainInfo;
+import management.ModuleInfo;
+import management.Professor;
 import management.User;
 
 import javax.swing.text.html.ImageView;
 
 
 public class dashboardController implements Initializable{
+//-----------------------anchor-panes------------------------
+    @FXML 
+    private AnchorPane anchorpanedachboard;
     @FXML
+    private AnchorPane anchoraccuil;
+    @FXML
+    private AnchorPane anchordisplay;
+    @FXML
+    private AnchorPane anchoruser;
+    @FXML
+    private AnchorPane anchorDepartmentManagment;
+    @FXML 
     private AnchorPane anchorProfessors;
     @FXML
     private AnchorPane anchormodules;
+    @FXML
+    private AnchorPane anchorDomaines;
+
+    //---------------------other------------------------------------
     @FXML
     private Button buttonengenment;
     @FXML
     private Button buttonmodules;
     @FXML
-    private AnchorPane anchorDomaines;
-    @FXML
     private Button buttonspeciality;
+
     @FXML
     private Button buttonclassroom;
     @FXML
@@ -53,25 +68,20 @@ public class dashboardController implements Initializable{
 
     @FXML
     private AnchorPane anchorpanedachboard;
+
     @FXML
     private Button buttonacc;
     @FXML
     private ImageView imageview;
     @FXML
     private Button buttonuser;
-    @FXML
-    private AnchorPane anchoruser;
-    @FXML
-    private Button buttondisplay;
-    @FXML
-    private AnchorPane anchoraccuil;
 
     @FXML
-    private AnchorPane anchordisplay;
+    private Button buttondisplay;
+ 
     @FXML
     private Button buttonmanegment;
-    @FXML
-    private AnchorPane anchorDepartmentManagment;
+
     @FXML
     private TextField usernameField;
     @FXML
@@ -85,96 +95,139 @@ public class dashboardController implements Initializable{
     @FXML
     private CheckBox showPassword;
     @FXML
-    private CheckBox showPasswords;
-    private boolean showpasswords = false;
+    private CheckBox showPasswords;   
     @FXML
-    private javafx.scene.control.Label weakPasswordLabel;
-   
-    @FXML private  TableView<User> UsersTable;
+    private Button DeleteUserButton;
+    @FXML
+    private Label weakPasswordLabel;
+    @FXML
+    private Label WarningLabel;
+    @FXML
+    private TextField firstname;
+    @FXML
+    private TextField lastname ;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField  searchField;
+    @FXML
+    private Label EmailFormatError;
+    @FXML
+    private Button ConfirmProfessor;
+    @FXML
+    private Button DeleteProfessor;
+    @FXML
+    private Label NoProfessorSelected;
     
-    @FXML private TableColumn<User, Integer> IDColumn;
+   //---------------------------Tables---------------------------
+    //------------------user Table--------------------------------------
+     @FXML private  TableView<User> UsersTable;
     
-    @FXML private TableColumn<User, String> UsernameColumn;
+     @FXML private TableColumn<User, Integer> IDColumn;
     
-    @FXML private TableColumn<User, Boolean> IsAdminColumn;
+     @FXML private TableColumn<User, String> UsernameColumn;
+     
+     @FXML private TableColumn<User, Boolean> IsAdminColumn;
     
-    @FXML private TableColumn<User, String> PasswordColumn;
-    @FXML private Button DeleteUserButton;
-    @FXML private Label WarningLabel;
+     @FXML private TableColumn<User, String> PasswordColumn;
+     private UserAnchorPaneManager userAnchorPaneManager;
+    private DepartmentAnchorPaneManager departmentAnchorPaneManager;
+    //------------------Professors Table---------------------------------
+     @FXML private  TableView<Professor> professorsTable;
+     
+     @FXML private TableColumn<Professor, Integer> professorsIdColumn;
+    
+     @FXML private TableColumn<Professor, String> firstnameColumn;
+     
+     @FXML private TableColumn<Professor, String> lastnameColumn;
+    
+     @FXML private TableColumn<Professor, String> EmailColumn;
+     private ProfessorsAnchorPaneManager professorsAnchorPaneManager;
+    //---------------------Modules Table---------------------------
+     @FXML
+     private TableView<ModuleInfo> modulesTable;
+
+     @FXML
+     private TableColumn<ModuleInfo, String> cycleColumn;
+     @FXML
+     private TableColumn<ModuleInfo, String> domainColumn;
+     @FXML
+     private TableColumn<ModuleInfo, Integer> semesterColumn;
+     @FXML
+     private TableColumn<ModuleInfo, String> moduleColumn;
+      private ModulesAnchorPaneManager modulesAnchorPaneManager;
+      @FXML
+      private ComboBox<String> CycleComboBox;
+      @FXML
+      private ComboBox<String>DomainComboBox;
+      @FXML
+      private ComboBox<Integer> ComboBoxTerm;
+      @FXML
+      private TextField ModuleName; 
+      @FXML
+      private Button ModuleConfirm;
+      @FXML
+      private Button ModuleDelete;
+      @FXML
+      private TextField ModuleSearchBar;
+      @FXML
+      private Label ErrorMessage;
+    //---------------------domaines Table---------------------------
+      @FXML
+      private TableView<DomainInfo> domainTable;
+
+      @FXML
+      private TableColumn<DomainInfo, String> CycleColumn;
+      @FXML
+      private TableColumn<DomainInfo, String> Domainolumn;
+
+       private DomainesAnchorPaneManager domainesAnchorPaneManager;
+       @FXML
+       private ComboBox<String> ChooseCycle;
+       @FXML
+       private TextField DomainName; 
+       @FXML
+       private Button ConfirmDomain;
+       @FXML
+       private Button DeleteDomaine;
+       @FXML
+       private TextField searchDomain;
+       @FXML
+       private Label DomainErrorMessage;
+       @FXML
+       private Label NoselectedDomain;
+       
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // Make the appropriate panes visible or hidden (your existing logic)
-        anchoraccuil.setVisible(true);
-        anchordisplay.setVisible(false);
-        anchoruser.setVisible(false);
-        anchorProfessors.setVisible(false);
-       passwordTextField.setVisible(false);
-       passwordTextField.textProperty().bindBidirectional(passwordField.textProperty());
-
-        // Set up cell value factories for the table columns
-        IDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
-        UsernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        IsAdminColumn.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));
-        // Custom cell factory for password column
-        PasswordColumn.setCellFactory(column -> new TableCell<>() {
-            @Override
-            protected void updateItem(String password, boolean empty) {
-                super.updateItem(password, empty);
-                if (empty || password == null) {
-                    setText(null);
-                } else {
-                    if (showpasswords) {
-                        setText(password);
-                    } else {
-                        setText(maskPassword(password));
-                    }
-                }
-            }
-        });
-        PasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-
-        showPasswords.setOnAction(e -> {
-            showpasswords = !showpasswords;
-            UsersTable.refresh();
-            });
-        passwordField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
-            if (newFocus) {
-            	weakPasswordLabel.setText("Password must contain at least 8 characters, an uppercase letter and a number");
-            	weakPasswordLabel.setStyle("-fx-text-fill: yellow;");
-            	weakPasswordLabel.setOpacity(1);
-            	
-            }
-            if(oldFocus) {
-            	weakPasswordLabel.setOpacity(0);
-
-            }
-            
-        });
-        passwordTextField.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
-            if (newFocus) {
-            	weakPasswordLabel.setText("Password must contain at least 8 characters, an uppercase letter and a number");
-            	weakPasswordLabel.setStyle("-fx-text-fill: yellow;");
-            	weakPasswordLabel.setOpacity(1);
-            	
-            }
-            if(oldFocus) {
-            	weakPasswordLabel.setOpacity(0);
-
-            }
-            
-        });
-        DatabaseManagement.loadUsersFromDatabase(UsersTable);
+    //---------------------------userAnchorPane SetUp---------------------------------------   
+    	 userAnchorPaneManager = new UserAnchorPaneManager(UsersTable,
+    			usernameField,passwordField,passwordTextField,
+    			     makeAdmin,weakPasswordLabel,WarningLabel,AdduserButton,
+    			     DeleteUserButton,showPassword,showPasswords);
+        userAnchorPaneManager.initialize();
+        //---------------------------Department AnchorPane SetUp---------------------------------------   
+           departmentAnchorPaneManager = new DepartmentAnchorPaneManager(buttonengenment, buttonspeciality,
+        		   buttonmodules, anchorProfessors, anchorDomaines,
+        		   anchormodules);    
+              departmentAnchorPaneManager.initialize();
+           //---------------------------Department Professor AnchorPane SetUp---------------------------------------   
+          
+         professorsAnchorPaneManager = new ProfessorsAnchorPaneManager(professorsTable,searchField,
+        		NoProfessorSelected,EmailFormatError,firstname,
+        		lastname, email,ConfirmProfessor,
+        		DeleteProfessor);
+        professorsAnchorPaneManager.initialize();
+          //---------------------------Department Module AnchorPane SetUp---------------------------------------   
+        modulesAnchorPaneManager = new ModulesAnchorPaneManager(CycleComboBox,DomainComboBox,
+        		ComboBoxTerm,ModuleConfirm,ModuleDelete,
+        		modulesTable,ModuleSearchBar,ModuleName,ErrorMessage);
+        modulesAnchorPaneManager.initialize();
+      //---------------------------Department domain AnchorPane SetUp---------------------------------------   
+        domainesAnchorPaneManager = new DomainesAnchorPaneManager(ChooseCycle,DomainName,ConfirmDomain,DeleteDomaine,
+        		domainTable,searchDomain,DomainErrorMessage,NoselectedDomain);
+        domainesAnchorPaneManager.initialize();
+        
     }
-    private String maskPassword(String password) {
-        return "•".repeat(password.length());
-    }
-
-    public void LogoutActionListener(ActionEvent event) {
-    	DatabaseManagement.RememberMeUpdater(DatabaseManagement.getRememberedUser(), false);
-        Controllermethods.FadeInto(anchorpanedachboard,"Login.fxml");
-        UsersTable.getItems().clear();
-    }
-
     public void switchform(javafx.event.ActionEvent event) {
         Controllermethods.switchPane(event,
             Arrays.asList(buttonacc, buttondisplay, buttonuser, buttonmanegment),
@@ -182,71 +235,15 @@ public class dashboardController implements Initializable{
         );
     }
 
-    public void switchmenubar(javafx.event.ActionEvent event) {
-        Controllermethods.switchPane(event,
-            Arrays.asList(buttonengenment, buttonspeciality, buttonmodules,buttonclassroom),
-            Arrays.asList(anchorProfessors, anchorDomaines, anchormodules,anchorclassroom)
-        );
-    }
-    public void showPasswordActionListener(javafx.event.ActionEvent e) {
-    	passwordField.setVisible(!passwordField.isVisible());
-    	passwordTextField.setVisible(!passwordTextField.isVisible());
-    	
-    }
-    public void addUserActionListener(javafx.event.ActionEvent e) {
-    	 String username = usernameField.getText();
-         String Password = passwordField.getText();
-         User temporaryUser = new User(username, makeAdmin.isSelected(), Password);
-       
-          if (temporaryUser.getUsername().equals("")){
-            weakPasswordLabel.setStyle("-fx-text-fill: red;");
-            weakPasswordLabel.setText("must fill username field");   
-            weakPasswordLabel.setOpacity(1);
-            return;
-         } 
-          
-          if(DatabaseManagement.isValidPassword(temporaryUser.getPassword()).equals("Valid")) {
-        	  DatabaseManagement.addUser(temporaryUser);
-              UsersTable.getItems().clear();
-              DatabaseManagement.loadUsersFromDatabase(UsersTable);
-              weakPasswordLabel.setText("User added successfully");
-              weakPasswordLabel.setStyle("-fx-text-fill: green;");
-              weakPasswordLabel.setOpacity(1);
-          }
-          else {
-             weakPasswordLabel.setText(DatabaseManagement.isValidPassword(temporaryUser.getPassword()));
-             weakPasswordLabel.setStyle("-fx-text-fill: red;");
-             weakPasswordLabel.setOpacity(1);
-         }
-    }
+    public void LogoutActionListener(ActionEvent event) {
+    	DatabaseManagement.RememberMeUpdater(DatabaseManagement.getRememberedUser(), false);
+        Controllermethods.FadeInto(anchorpanedachboard,"Login.fxml");
+        UsersTable.getItems().clear();
 
-    public void deleteUserActionListener(javafx.event.ActionEvent e) {
-    	User selectedUser = UsersTable.getSelectionModel().getSelectedItem();
-
-        if (selectedUser == null) {
-        	WarningLabel.setText("No user selected.");
-        	WarningLabel.setStyle("-fx-text-fill: red;");
-        	WarningLabel.setOpacity(1);
-            return;
-        }
-
-        if (UsersTable.getItems().size() == 1) {
-        	WarningLabel.setText("You cannot delete the last user.");
-        	WarningLabel.setStyle("-fx-text-fill: red;");
-        	WarningLabel.setOpacity(1);
-            return;
-        }
-    	DatabaseManagement.removeUser(selectedUser);
-    	UsersTable.getItems().clear();
-        DatabaseManagement.loadUsersFromDatabase(UsersTable);
-        
-    	
     }
-    
-
     public void actionexit(MouseEvent mouseEvent) {
     	
         System.exit(0);
     }
-
+  
 }

@@ -63,6 +63,7 @@
                      </image>
                   </ImageView>
                </graphic>
+
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -110,12 +111,16 @@
             <Line endX="-70.40001678466797" endY="44.0" layoutX="167.0" layoutY="25.0" startX="-70.40000915527344" stroke="#fff7f7" />
          </children>
       </AnchorPane>
+
       <ImageView fx:id="imageexit" fitHeight="23.0" fitWidth="27.0" layoutX="1275.0" layoutY="3.0" onMouseClicked="#actionexit" pickOnBounds="true" preserveRatio="true">
+
          <image>
             <Image url="@cancelicon.png" />
          </image>
       </ImageView>
+
       <AnchorPane fx:id="anchoraccuil" layoutX="236.0" layoutY="22.0" prefHeight="666.0" prefWidth="1051.0" style="-fx-background-color: #EAEEF4;" visible="false">
+
          <children>
             <Label layoutX="14.0" layoutY="53.0" prefHeight="172.0" prefWidth="1016.0" style="-fx-background-color: #000428;" styleClass="label2" />
             <Label layoutX="10.0" layoutY="3.0" prefHeight="26.0" prefWidth="258.0" text=" Hallo you are in homepage" textFill="#152838">
@@ -229,12 +234,14 @@
             </Label>
          </children>
       </AnchorPane>
+
       <AnchorPane fx:id="anchordisplay" layoutX="242.0" layoutY="9.0" prefHeight="578.0" prefWidth="771.0" visible="false" AnchorPane.bottomAnchor="12.800000000000068" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="9.0">
          <children>
             <Label layoutX="10.0" layoutY="6.0" prefHeight="566.0" prefWidth="750.0" styleClass="anchorsitch" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="anchorDepartmentManagment" layoutX="242.0" layoutY="16.0" prefHeight="578.0" prefWidth="771.0" AnchorPane.bottomAnchor="12.799999999999955" AnchorPane.leftAnchor="242.4" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="8.8">
+
          <children>
             <Label layoutX="10.0" layoutY="7.0" prefHeight="660.0" prefWidth="1025.0" styleClass="anchorsitch" />
             <Label layoutX="39.0" layoutY="52.0" prefHeight="34.0" prefWidth="966.0">
@@ -243,12 +250,16 @@
                   <String fx:value="schadow" />
                </styleClass>
             </Label>
+
             <Button fx:id="buttonengenment" layoutX="57.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="34.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on professors">
+
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </Button>
+
             <Button fx:id="buttonspeciality" layoutX="300.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="34.0" prefWidth="198.0" styleClass="button-menubar" text="operations on domaines">
+
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font></Button>
@@ -257,23 +268,29 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+
             <AnchorPane fx:id="anchorProfessors" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1001.0" visible="false">
                <children>
                   <Button layoutX="858.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" styleClass="button2" text="confirm">
+
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
                   </Button>
+
                   <TextField layoutX="25.0" layoutY="77.0" prefHeight="46.0" prefWidth="233.0" promptText="Firstname" styleClass="textfield" />
                   <TextField layoutX="646.0" layoutY="77.0" prefHeight="45.0" prefWidth="255.0" promptText="Email" styleClass="textfield" />
                   <TextField layoutX="309.0" layoutY="77.0" prefHeight="46.0" prefWidth="267.0" promptText="lastname" styleClass="textfield" />
                   <TextField layoutX="25.0" layoutY="149.0" prefHeight="26.0" prefWidth="258.0" promptText="search" styleClass="textfieldsearch" />
                   <Button layoutX="869.0" layoutY="528.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="110.0" styleClass="button2" text="Delete">
+
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
                   </Button>
+
                   <ImageView fitHeight="23.0" fitWidth="16.0" layoutX="293.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+
                      <image>
                         <Image url="@../../../zakisur/surveillance-management-/src/login/chercher.png" />
                      </image>
@@ -283,48 +300,69 @@
                         <Font name="Arial Black" size="12.0" />
                      </font>
                   </Label>
+
                   <TableView layoutX="22.0" layoutY="191.2" prefHeight="323.0" prefWidth="957.0" styleClass="table-view1" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="191.0">
                     <columns>
                       <TableColumn prefWidth="124.00000619888306" text="ID" />
                       <TableColumn prefWidth="232.00000762939453" text="firstname" />
                         <TableColumn minWidth="0.0" prefWidth="290.39996337890625" text="lastname" />
                         <TableColumn minWidth="0.0" prefWidth="304.79998779296875" text="Email" />
+
                     </columns>
                   </TableView>
+                  <Label fx:id="EmailFormatError" layoutX="402.0" layoutY="116.0" opacity="0.0" text="Email must follow the format : Example@example.com" textFill="RED" />
+                  <Button fx:id="saveChangesButton" layoutX="359.0" layoutY="435.0" mnemonicParsing="false" styleClass="button2" text="Apply modification" visible="false">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="NoProfessorSelected" layoutX="309.0" layoutY="404.0" opacity="0.0" prefHeight="31.0" prefWidth="146.0" text="No Professor selected" textFill="RED" />
                </children>
             </AnchorPane>
+
             <AnchorPane fx:id="anchormodules" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0" visible="false">
                <children>
                   <ComboBox layoutX="25.0" layoutY="81.0" prefHeight="38.0" prefWidth="198.0" promptText="cycle" styleClass="combo-box1" />
                   <ComboBox layoutX="265.0" layoutY="81.0" prefHeight="38.0" prefWidth="198.0" promptText="Level" styleClass="combo-box1" />
                   <ComboBox layoutX="521.0" layoutY="81.0" prefHeight="38.0" prefWidth="190.0" promptText="domaine" styleClass="combo-box1" />
                   <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
+
                      <font>
-                        <Font name="Century Gothic" size="12.0" />
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
+
                   </Label>
                   <Label layoutX="265.0" layoutY="53.0" text="choose level" textFill="#84848e">
+
                      <font>
-                        <Font name="Century Gothic" size="12.0" />
+                        <Font name="Arial Black" size="12.0" />
                      </font>
                   </Label>
+
                   <Label layoutX="521.0" layoutY="53.0" text="choose domaine" textFill="#84848e">
+
                      <font>
                         <Font name="Century Gothic" size="12.0" />
                      </font>
                   </Label>
+
                   <ComboBox layoutX="784.0" layoutY="81.0" prefHeight="38.0" prefWidth="178.0" promptText="term" styleClass="combo-box1" />
                   <Label layoutX="784.0" layoutY="53.0" prefHeight="15.0" prefWidth="110.0" text="choose term" textFill="#84848e">
+
                      <font>
                         <Font name="Century Gothic" size="12.0" />
                      </font>
                   </Label>
+
                   <Button layoutX="866.0" layoutY="517.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" styleClass="button2" text="Confirm">
+
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
                   </Button>
+
                   <Button layoutX="737.0" layoutY="518.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" styleClass="button2" text="Delete module">
+
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
@@ -347,9 +385,11 @@
             <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0">
                <children>
                   <Button layoutX="837.0" layoutY="138.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" styleClass="button2" text="confirm">
+
                      <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                        <Font size="13.0" />
                      </font>
+
                   </Button>
                   <ComboBox layoutX="25.0" layoutY="85.0" prefHeight="38.0" prefWidth="178.0" promptText="Cycle" styleClass="combo-box1" />
                   <ComboBox layoutX="355.0" layoutY="81.0" prefHeight="38.0" prefWidth="190.0" promptText="level" styleClass="combo-box1" />
@@ -391,6 +431,7 @@
                         </Button>
                      </children>
                   </AnchorPane>
+
                </children>
             </AnchorPane>
             <Button fx:id="buttonmodules" layoutX="549.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="35.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on modules">
@@ -687,5 +728,6 @@
             <TextField fx:id="passwordTextField" layoutX="39.0" layoutY="218.0" prefHeight="42.0" prefWidth="222.0" styleClass="textfield" visible="false" />
          </children>
       </AnchorPane>
+
    </children>
 </AnchorPane>
