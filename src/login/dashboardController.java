@@ -58,6 +58,17 @@ public class dashboardController implements Initializable{
     private Button buttonmodules;
     @FXML
     private Button buttonspeciality;
+
+    @FXML
+    private Button buttonclassroom;
+    @FXML
+    private AnchorPane anchorclassroom;
+
+
+
+    @FXML
+    private AnchorPane anchorpanedachboard;
+
     @FXML
     private Button buttonacc;
     @FXML
@@ -223,10 +234,12 @@ public class dashboardController implements Initializable{
             Arrays.asList(anchoraccuil, anchordisplay, anchoruser, anchorDepartmentManagment)
         );
     }
+
     public void LogoutActionListener(ActionEvent event) {
     	DatabaseManagement.RememberMeUpdater(DatabaseManagement.getRememberedUser(), false);
         Controllermethods.FadeInto(anchorpanedachboard,"Login.fxml");
         UsersTable.getItems().clear();
+
     }
     public void actionexit(MouseEvent mouseEvent) {
     	
