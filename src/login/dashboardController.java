@@ -34,8 +34,6 @@ import javax.swing.text.html.ImageView;
 
 public class dashboardController implements Initializable{
 //-----------------------anchor-panes------------------------
-    @FXML 
-    private AnchorPane anchorpanedachboard;
     @FXML
     private AnchorPane anchoraccuil;
     @FXML
