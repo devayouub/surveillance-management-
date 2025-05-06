@@ -48,8 +48,17 @@ public class dashboardController implements Initializable{
     private AnchorPane anchormodules;
     @FXML
     private AnchorPane anchorDomaines;
-
+    @FXML
+    private AnchorPane anchorclassroom;
+    @FXML
+    private AnchorPane anchorexamsManagement;
+    @FXML
+    private AnchorPane anchorexamsAssignment;
     //---------------------other------------------------------------
+    @FXML
+    private Button managementButton;
+    @FXML
+    private Button assignmentButton;
     @FXML
     private Button buttonengenment;
     @FXML
@@ -59,10 +68,6 @@ public class dashboardController implements Initializable{
 
     @FXML
     private Button buttonclassroom;
-    @FXML
-    private AnchorPane anchorclassroom;
-
-
 
     @FXML
     private AnchorPane anchorpanedachboard;
@@ -205,8 +210,8 @@ public class dashboardController implements Initializable{
         userAnchorPaneManager.initialize();
         //---------------------------Department AnchorPane SetUp---------------------------------------   
            departmentAnchorPaneManager = new DepartmentAnchorPaneManager(buttonengenment, buttonspeciality,
-        		   buttonmodules, anchorProfessors, anchorDomaines,
-        		   anchormodules);    
+        		   buttonmodules,buttonclassroom, anchorProfessors, anchorDomaines,
+        		   anchormodules,anchorclassroom);    
               departmentAnchorPaneManager.initialize();
            //---------------------------Department Professor AnchorPane SetUp---------------------------------------   
           
@@ -228,8 +233,8 @@ public class dashboardController implements Initializable{
     }
     public void switchform(javafx.event.ActionEvent event) {
         Controllermethods.switchPane(event,
-            Arrays.asList(buttonacc, buttondisplay, buttonuser, buttonmanegment),
-            Arrays.asList(anchoraccuil, anchordisplay, anchoruser, anchorDepartmentManagment)
+            Arrays.asList(buttonacc, buttondisplay, buttonuser, buttonmanegment,managementButton, assignmentButton),
+            Arrays.asList(anchoraccuil, anchordisplay, anchoruser, anchorDepartmentManagment,anchorexamsManagement,anchorexamsAssignment)
         );
     }
 

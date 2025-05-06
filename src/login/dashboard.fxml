@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -55,7 +56,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="16.0" layoutY="323.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="178.0" styleClass="buttondachboard" stylesheets="@view.css" text="Exams Manegement" textFill="WHITE">
+            <Button fx:id="managementButton" layoutX="16.0" layoutY="323.0" mnemonicParsing="false" onAction="#switchform" prefHeight="31.0" prefWidth="178.0" styleClass="buttondachboard" stylesheets="@view.css" text="Exams Manegement" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -68,7 +69,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="buttonassignment" layoutX="20.0" layoutY="402.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="178.0" styleClass="buttondachboard" stylesheets="@view.css" text="Professors Assignment" textFill="#fff5f5">
+            <Button fx:id="assignmentButton" layoutX="20.0" layoutY="402.0" mnemonicParsing="false" onAction="#switchform" prefHeight="31.0" prefWidth="178.0" styleClass="buttondachboard" stylesheets="@view.css" text="Professors Assignment" textFill="#fff5f5">
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -240,242 +241,7 @@
             <Label layoutX="10.0" layoutY="6.0" prefHeight="566.0" prefWidth="750.0" styleClass="anchorsitch" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorDepartmentManagment" layoutX="242.0" layoutY="16.0" prefHeight="578.0" prefWidth="771.0" AnchorPane.bottomAnchor="12.799999999999955" AnchorPane.leftAnchor="242.4" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="8.8">
-
-         <children>
-            <Label layoutX="10.0" layoutY="7.0" prefHeight="660.0" prefWidth="1025.0" styleClass="anchorsitch" />
-            <Label layoutX="39.0" layoutY="52.0" prefHeight="34.0" prefWidth="966.0">
-               <styleClass>
-                  <String fx:value="menubar" />
-                  <String fx:value="schadow" />
-               </styleClass>
-            </Label>
-
-            <Button fx:id="buttonengenment" layoutX="57.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="34.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on professors">
-
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font>
-            </Button>
-
-            <Button fx:id="buttonspeciality" layoutX="300.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="34.0" prefWidth="198.0" styleClass="button-menubar" text="operations on domaines">
-
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font></Button>
-            <Label layoutX="40.0" layoutY="14.0" prefHeight="27.0" prefWidth="329.0" text="Welcome to changed Page" textFill="#e5f8ff">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-
-            <AnchorPane fx:id="anchorProfessors" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1001.0" visible="false">
-               <children>
-                  <Button layoutX="858.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" styleClass="button2" text="confirm">
-
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-
-                  <TextField layoutX="25.0" layoutY="77.0" prefHeight="46.0" prefWidth="233.0" promptText="Firstname" styleClass="textfield" />
-                  <TextField layoutX="646.0" layoutY="77.0" prefHeight="45.0" prefWidth="255.0" promptText="Email" styleClass="textfield" />
-                  <TextField layoutX="309.0" layoutY="77.0" prefHeight="46.0" prefWidth="267.0" promptText="lastname" styleClass="textfield" />
-                  <TextField layoutX="25.0" layoutY="149.0" prefHeight="26.0" prefWidth="258.0" promptText="search" styleClass="textfieldsearch" />
-                  <Button layoutX="869.0" layoutY="528.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="110.0" styleClass="button2" text="Delete">
-
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-
-                  <ImageView fitHeight="23.0" fitWidth="16.0" layoutX="293.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
-
-                     <image>
-                        <Image url="@../../../zakisur/surveillance-management-/src/login/chercher.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="25.0" layoutY="23.0" prefHeight="18.0" prefWidth="445.0" text="FIll in the informations of the professor you wish to add:" textFill="#fff6f6">
-                     <font>
-                        <Font name="Arial Black" size="12.0" />
-                     </font>
-                  </Label>
-
-                  <TableView layoutX="22.0" layoutY="191.2" prefHeight="323.0" prefWidth="957.0" styleClass="table-view1" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="191.0">
-                    <columns>
-                      <TableColumn prefWidth="124.00000619888306" text="ID" />
-                      <TableColumn prefWidth="232.00000762939453" text="firstname" />
-                        <TableColumn minWidth="0.0" prefWidth="290.39996337890625" text="lastname" />
-                        <TableColumn minWidth="0.0" prefWidth="304.79998779296875" text="Email" />
-
-                    </columns>
-                  </TableView>
-                  <Label fx:id="EmailFormatError" layoutX="402.0" layoutY="116.0" opacity="0.0" text="Email must follow the format : Example@example.com" textFill="RED" />
-                  <Button fx:id="saveChangesButton" layoutX="359.0" layoutY="435.0" mnemonicParsing="false" styleClass="button2" text="Apply modification" visible="false">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="NoProfessorSelected" layoutX="309.0" layoutY="404.0" opacity="0.0" prefHeight="31.0" prefWidth="146.0" text="No Professor selected" textFill="RED" />
-               </children>
-            </AnchorPane>
-
-            <AnchorPane fx:id="anchormodules" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0" visible="false">
-               <children>
-                  <ComboBox layoutX="25.0" layoutY="81.0" prefHeight="38.0" prefWidth="198.0" promptText="cycle" styleClass="combo-box1" />
-                  <ComboBox layoutX="265.0" layoutY="81.0" prefHeight="38.0" prefWidth="198.0" promptText="Level" styleClass="combo-box1" />
-                  <ComboBox layoutX="521.0" layoutY="81.0" prefHeight="38.0" prefWidth="190.0" promptText="domaine" styleClass="combo-box1" />
-                  <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
-
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-
-                  </Label>
-                  <Label layoutX="265.0" layoutY="53.0" text="choose level" textFill="#84848e">
-
-                     <font>
-                        <Font name="Arial Black" size="12.0" />
-                     </font>
-                  </Label>
-
-                  <Label layoutX="521.0" layoutY="53.0" text="choose domaine" textFill="#84848e">
-
-                     <font>
-                        <Font name="Century Gothic" size="12.0" />
-                     </font>
-                  </Label>
-
-                  <ComboBox layoutX="784.0" layoutY="81.0" prefHeight="38.0" prefWidth="178.0" promptText="term" styleClass="combo-box1" />
-                  <Label layoutX="784.0" layoutY="53.0" prefHeight="15.0" prefWidth="110.0" text="choose term" textFill="#84848e">
-
-                     <font>
-                        <Font name="Century Gothic" size="12.0" />
-                     </font>
-                  </Label>
-
-                  <Button layoutX="866.0" layoutY="517.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" styleClass="button2" text="Confirm">
-
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-
-                  <Button layoutX="737.0" layoutY="518.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" styleClass="button2" text="Delete module">
-
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="25.0" layoutY="23.0" text="plaese enter all information to change:" textFill="WHITE">
-                     <font>
-                        <Font name="Arial Black" size="14.0" />
-                     </font>
-                  </Label>
-                  <TableView layoutX="16.0" layoutY="203.0" prefHeight="298.0" prefWidth="602.0" styleClass="table-view1">
-                    <columns>
-                      <TableColumn editable="false" prefWidth="212.8000259399414" resizable="false" text="Namemodule" />
-                        <TableColumn prefWidth="386.39996337890625" resizable="false" sortType="DESCENDING" text="mnemonique" />
-                    </columns>
-                  </TableView>
-                  <TextField layoutX="690.0" layoutY="254.0" prefHeight="42.0" prefWidth="230.0" promptText="Name modle" styleClass="textfield" />
-                  <TextField layoutX="690.0" layoutY="339.0" prefHeight="42.0" prefWidth="230.0" styleClass="textfield" text="Mnemonique" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0">
-               <children>
-                  <Button layoutX="837.0" layoutY="138.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" styleClass="button2" text="confirm">
-
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-
-                  </Button>
-                  <ComboBox layoutX="25.0" layoutY="85.0" prefHeight="38.0" prefWidth="178.0" promptText="Cycle" styleClass="combo-box1" />
-                  <ComboBox layoutX="355.0" layoutY="81.0" prefHeight="38.0" prefWidth="190.0" promptText="level" styleClass="combo-box1" />
-                  <TextField layoutX="644.0" layoutY="76.0" prefHeight="46.0" prefWidth="230.0" promptText="domaine's name" styleClass="check-box" />
-                  <Label layoutX="25.0" layoutY="23.0" prefHeight="18.0" prefWidth="345.0" text="please enter all information to changed:" textFill="#fff6f6">
-                     <font>
-                        <Font name="Arial Black" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="355.0" layoutY="53.0" text="choose level" textFill="#84848e">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="644.0" layoutY="53.0" text="choose domaine" textFill="#84848e">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-                  <AnchorPane fx:id="anchorspealitesuive" layoutX="12.0" layoutY="190.0" prefHeight="366.0" prefWidth="984.0">
-                     <children>
-                        <TableView layoutY="16.0" prefHeight="302.0" prefWidth="966.0" style="-fx-background-color: transpere;" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="16.0">
-                          <columns>
-                            <TableColumn prefWidth="118.40003514289856" text="Cycle" />
-                            <TableColumn prefWidth="208.7999725341797" text="domaine" />
-                              <TableColumn prefWidth="256.7999572753906" text="semestre" />
-                              <TableColumn prefWidth="374.400146484375" text="module" />
-                          </columns>
-                        </TableView>
-                        <Button fx:id="DeleteDomaine" layoutX="865.0" layoutY="344.0" mnemonicParsing="false" styleClass="button2" text="Delete domaine">
-                           <font>
-                              <Font name="Arial Rounded MT Bold" size="12.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-
-               </children>
-            </AnchorPane>
-            <Button fx:id="buttonmodules" layoutX="549.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="35.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on modules">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonclassroom" layoutX="784.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="35.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on classrooms">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="14.0" />
-               </font>
-            </Button>
-            <AnchorPane fx:id="anchorclassroom" layoutX="21.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0" visible="false">
-               <children>
-                  <Label layoutX="28.0" layoutY="22.0" prefHeight="22.0" prefWidth="460.0" text="Fill in the informations of the Classroom you witch to add: " textFill="#d7d0d0">
-                     <font>
-                        <Font name="Arial Black" size="14.0" />
-                     </font>
-                  </Label>
-                  <TableView layoutX="14.0" layoutY="198.0" prefHeight="309.0" prefWidth="978.0" styleClass="table-view1">
-                    <columns>
-                      <TableColumn prefWidth="209.60001373291016" text="Number of the classroom" />
-                      <TableColumn minWidth="3.20001220703125" prefWidth="203.20001220703125" text="Type" />
-                        <TableColumn minWidth="3.20001220703125" prefWidth="246.39993286132812" text="MinimumPr" />
-                        <TableColumn minWidth="3.20001220703125" prefWidth="314.40008544921875" text="MaximumPr" />
-                    </columns>
-                  </TableView>
-                  <TextField layoutX="28.0" layoutY="79.0" prefHeight="42.0" prefWidth="230.0" promptText="number classroom" styleClass="textfield" />
-                  <ComboBox layoutX="395.0" layoutY="79.0" prefHeight="42.0" prefWidth="234.0" promptText="type" styleClass="combo-box2" />
-                  <Button layoutX="729.0" layoutY="121.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" styleClass="button2" text="Confirm">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="876.0" layoutY="525.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" styleClass="button2" text="Delete">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="anchorexames" layoutX="237.0" layoutY="4.0" prefHeight="690.0" prefWidth="1051.0" stylesheets="@view.css" visible="false">
+      <AnchorPane fx:id="anchorexamsManagement" layoutX="237.0" layoutY="4.0" prefHeight="690.0" prefWidth="1051.0" stylesheets="@view.css">
          <children>
             <Label layoutX="12.0" layoutY="11.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" />
             <Label layoutX="46.0" layoutY="30.0" prefHeight="15.0" prefWidth="219.0" text="Welcom to Exams page: " textFill="#e5f8ff">
@@ -489,12 +255,12 @@
                   <String fx:value="schadow" />
                </styleClass>
             </Label>
-            <Button fx:id="change_room_teacher_button_exam_assignment1" layoutX="617.0" layoutY="85.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="34.0" prefWidth="373.0" styleClass="button-menubar" text="Initialization Exams with automatique method">
+            <Button fx:id="change_room_teacher_button_exam_assignment1" layoutX="617.0" layoutY="85.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="373.0" styleClass="button-menubar" text="Initialization Exams with automatique method">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="direct_teacher_button_exam_assignment1" layoutX="51.0" layoutY="87.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="30.0" prefWidth="422.0" styleClass="button-menubar" text="Initialization Exams with manuale method">
+            <Button fx:id="direct_teacher_button_exam_assignment1" layoutX="51.0" layoutY="87.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="422.0" styleClass="button-menubar" text="Initialization Exams with manuale method">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -519,11 +285,11 @@
                   <ComboBox fx:id="combobox_time_direct_teacher_exam_manegment" layoutX="276.0" layoutY="92.0" prefHeight="42.0" prefWidth="178.0" promptText="Time" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="21.0" layoutY="63.0" prefHeight="18.0" prefWidth="166.0" text="1 - Choose Date :" textFill="WHITE" />
                   <Label layoutX="276.0" layoutY="63.0" prefHeight="18.0" prefWidth="166.0" text="2 - Choose Time :" textFill="WHITE" />
-                  <ComboBox fx:id="combobox_domain_direct_teacher_exam_manegment" layoutX="276.0" layoutY="181.0" prefHeight="42.0" prefWidth="190.0" promptText="Domain" styleClass="combo-box1" stylesheets="@view.css" />
+                  <ComboBox fx:id="combobox_domain_direct_teacher_exam_manegment" layoutX="276.0" layoutY="181.0" prefHeight="42.0" prefWidth="178.0" promptText="Domain" styleClass="combo-box1" stylesheets="@view.css" />
                   <ComboBox fx:id="combobox_cycle_direct_teacher_exam_manegment" layoutX="21.0" layoutY="180.0" prefHeight="42.0" prefWidth="190.0" promptText="Cycle" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="21.0" layoutY="147.0" prefHeight="18.0" prefWidth="166.0" text="3 - Choose Cycle :" textFill="WHITE" />
                   <Label layoutX="276.0" layoutY="147.0" prefHeight="18.0" prefWidth="166.0" text="4 - Choose Domain :" textFill="WHITE" />
-                  <ComboBox fx:id="combobox_module_direct_teacher_exam_manegment" layoutX="23.0" layoutY="281.0" prefHeight="42.0" prefWidth="178.0" promptText="Module" styleClass="combo-box1" stylesheets="@view.css" />
+                  <ComboBox fx:id="combobox_module_direct_teacher_exam_manegment" layoutX="23.0" layoutY="281.0" prefHeight="42.0" prefWidth="190.0" promptText="Module" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="21.0" layoutY="250.0" prefHeight="18.0" prefWidth="166.0" text="5 - Choose Module :" textFill="WHITE" />
                   <Line endX="443.1340637207031" endY="9.372039794921875" layoutX="63.0" layoutY="16.0" startX="443.134033203125" startY="442.0" stroke="WHITE" />
                   <TextField fx:id="textfield_list_teacher_direct_teacher_exam_assignment1" layoutX="526.0" layoutY="67.0" prefHeight="46.0" prefWidth="249.0" promptText="Add teacher" styleClass="textfield" />
@@ -537,7 +303,7 @@
                      </font>
                   </Button>
                   <ComboBox fx:id="combobox_domain_direct_teacher_exam_manegment1" layoutX="710.0" layoutY="252.0" prefHeight="31.0" prefWidth="154.0" promptText="Domain" styleClass="combo-box1" stylesheets="@view.css" />
-                  <ComboBox fx:id="combobox_cycle_direct_teacher_exam_manegment1" layoutX="529.0" layoutY="250.0" prefHeight="35.0" prefWidth="154.0" promptText="Cycle" styleClass="combo-box1" stylesheets="@view.css" />
+                  <ComboBox fx:id="combobox_cycle_direct_teacher_exam_manegment1" layoutX="529.0" layoutY="253.0" prefHeight="30.0" prefWidth="154.0" promptText="Cycle" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="529.0" layoutY="202.0" prefHeight="18.0" prefWidth="280.0" text=" Choose  classroom you want to add" textFill="#f4f2f2">
                      <font>
                         <Font size="14.0" />
@@ -578,7 +344,7 @@
             <Label layoutX="40.0" layoutY="66.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorpane_exam_assignment" layoutX="252.0" layoutY="19.0" prefHeight="700.0" prefWidth="1300.0" visible="false" AnchorPane.bottomAnchor="12.799999999999955" AnchorPane.leftAnchor="242.4" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="8.8">
+      <AnchorPane fx:id="anchorexamsAssignment" layoutX="252.0" layoutY="19.0" prefHeight="700.0" prefWidth="1300.0" visible="false" AnchorPane.bottomAnchor="12.799999999999955" AnchorPane.leftAnchor="242.4" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="8.8">
          <children>
             <Label layoutX="8.0" layoutY="4.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" textFill="WHITE" />
             <Label layoutX="37.0" layoutY="26.0" prefHeight="27.0" prefWidth="318.0" text="Exam Assignment :" textFill="#e5f8ff">
@@ -597,7 +363,7 @@
                   <String fx:value="schadow" />
                </styleClass>
             </Label>
-            <Button fx:id="change_room_teacher_button_exam_assignment" layoutX="596.0" layoutY="97.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="34.0" prefWidth="403.0" styleClass="button-menubar" text="Change the teacher examination room">
+            <Button fx:id="change_room_teacher_button_exam_assignment" layoutX="596.0" layoutY="97.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="403.0" styleClass="button-menubar" text="Change the teacher examination room">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
@@ -629,7 +395,7 @@
                      </font></Button>
                </children>
             </AnchorPane>
-            <Button fx:id="direct_teacher_button_exam_assignment" layoutX="63.0" layoutY="97.0" mnemonicParsing="false" onAction="#switchmenubar" prefHeight="34.0" prefWidth="439.0" styleClass="button-menubar" text="Direct the teacher to the examination room">
+            <Button fx:id="direct_teacher_button_exam_assignment" layoutX="63.0" layoutY="97.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="439.0" styleClass="button-menubar" text="Direct the teacher to the examination room">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
@@ -645,7 +411,7 @@
                   <ComboBox fx:id="combobox_time_change_teacher_room_exam_assignment" layoutX="238.0" layoutY="99.0" prefHeight="39.0" prefWidth="166.0" promptText="Time" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="14.0" layoutY="72.0" prefHeight="18.0" prefWidth="166.0" text="1 - Choose Date :" textFill="WHITE" />
                   <Label layoutX="240.0" layoutY="72.0" prefHeight="18.0" prefWidth="166.0" text="2 - Choose Time :" textFill="WHITE" />
-                  <ComboBox fx:id="combobox_domain_change_teacher_room_exam_assignment" layoutX="245.0" layoutY="174.0" prefHeight="42.0" prefWidth="190.0" promptText="Domain" styleClass="combo-box1" stylesheets="@view.css" />
+                  <ComboBox fx:id="combobox_domain_change_teacher_room_exam_assignment" layoutX="238.0" layoutY="197.0" prefHeight="42.0" prefWidth="190.0" promptText="Domain" styleClass="combo-box1" stylesheets="@view.css" />
                   <ComboBox fx:id="combobox_cycle_change_teacher_room_exam_assignment" layoutX="20.0" layoutY="200.0" prefHeight="39.0" prefWidth="178.0" promptText="Cycle" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="14.0" layoutY="172.0" prefHeight="18.0" prefWidth="166.0" text="3 - Choose Cycle :" textFill="WHITE" />
                   <Label layoutX="240.0" layoutY="172.0" prefHeight="18.0" prefWidth="166.0" text="4 - Choose Domain :" textFill="WHITE" />
@@ -665,7 +431,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchoruser" layoutX="242.0" layoutY="14.0" prefHeight="678.0" prefWidth="1051.0">
+      <AnchorPane fx:id="anchoruser" layoutX="242.0" layoutY="14.0" prefHeight="678.0" prefWidth="1051.0" visible="false">
          <children>
             <Label layoutX="12.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" textFill="#fce4e4" />
             <TableView fx:id="UsersTable" layoutX="46.0" layoutY="314.0" prefHeight="298.0" prefWidth="794.0" style="-fx-background-color: transparent;">
@@ -676,17 +442,12 @@
                   <TableColumn fx:id="PasswordColumn" prefWidth="277.60015869140625" text="Password" />
               </columns>
             </TableView>
-            <Button layoutX="893.0" layoutY="415.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" styleClass="button2" text="Modify">
+            <Button fx:id="DeleteUserButton" layoutX="893.0" layoutY="478.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" styleClass="button2" text="Delete">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="DeleteUserButton" layoutX="893.0" layoutY="478.0" mnemonicParsing="false" onAction="#deleteUserActionListener" prefHeight="27.0" prefWidth="96.0" styleClass="button2" text="Delete">
-               <font>
-                  <Font name="Century Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="AdduserButton" layoutX="755.0" layoutY="274.0" mnemonicParsing="false" onAction="#addUserActionListener" prefHeight="20.0" prefWidth="74.0" styleClass="button2" text="ADD">
+            <Button fx:id="AdduserButton" layoutX="755.0" layoutY="274.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="74.0" styleClass="button2" text="ADD">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
@@ -707,7 +468,7 @@
                   <Image url="@Userimage-removebg-preview.png" />
                </image>
             </ImageView>
-            <CheckBox fx:id="showPassword" layoutX="294.0" layoutY="239.0" mnemonicParsing="false" onAction="#showPasswordActionListener" prefHeight="18.0" prefWidth="135.0" text="show password" textFill="#fce4e4" />
+            <CheckBox fx:id="showPassword" layoutX="294.0" layoutY="239.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="135.0" text="show password" textFill="#fce4e4" />
             <Label layoutX="34.0" layoutY="112.0" prefHeight="18.0" prefWidth="382.0" text="please enter the details of the user you wish to add:" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -728,6 +489,235 @@
             <TextField fx:id="passwordTextField" layoutX="39.0" layoutY="218.0" prefHeight="42.0" prefWidth="222.0" styleClass="textfield" visible="false" />
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="anchorDepartmentManagment" layoutX="242.0" layoutY="16.0" prefHeight="578.0" prefWidth="771.0" visible="false" AnchorPane.bottomAnchor="12.799999999999955" AnchorPane.leftAnchor="242.4" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="8.8">
+
+         <children>
+            <Label layoutX="10.0" layoutY="7.0" prefHeight="660.0" prefWidth="1025.0" styleClass="anchorsitch" />
+            <Label layoutX="39.0" layoutY="52.0" prefHeight="34.0" prefWidth="966.0">
+               <styleClass>
+                  <String fx:value="menubar" />
+                  <String fx:value="schadow" />
+               </styleClass>
+            </Label>
+
+            <Button fx:id="buttonengenment" layoutX="57.0" layoutY="52.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on professors">
+
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
+
+            <Button fx:id="buttonspeciality" layoutX="300.0" layoutY="52.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="198.0" styleClass="button-menubar" text="operations on domaines">
+
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font></Button>
+            <Label layoutX="40.0" layoutY="14.0" prefHeight="27.0" prefWidth="329.0" text="Welcome to changed Page" textFill="#e5f8ff">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+
+            <AnchorPane fx:id="anchormodules" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0" visible="false">
+               <children>
+                  <ComboBox fx:id="CycleComboBox" layoutX="25.0" layoutY="81.0" prefHeight="38.0" prefWidth="198.0" promptText="cycle" styleClass="combo-box1" />
+                  <ComboBox fx:id="DomainComboBox" layoutX="285.0" layoutY="81.0" prefHeight="38.0" prefWidth="190.0" promptText="domaine" styleClass="combo-box1" />
+                  <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
+
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+
+                  </Label>
+
+                  <Label layoutX="285.0" layoutY="60.0" text="choose domaine" textFill="#84848e">
+
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                  </Label>
+
+                  <ComboBox fx:id="ComboBoxTerm" layoutX="548.0" layoutY="81.0" prefHeight="38.0" prefWidth="178.0" promptText="term" styleClass="combo-box1" />
+                  <Label layoutX="548.0" layoutY="60.0" prefHeight="15.0" prefWidth="110.0" text="choose term" textFill="#84848e">
+
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                  </Label>
+
+                  <Button fx:id="ModuleConfirm" layoutX="867.0" layoutY="166.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" styleClass="button2" text="Confirm">
+
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+
+                  <Button fx:id="ModuleDelete" layoutX="866.0" layoutY="513.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" styleClass="button2" text="Delete module">
+
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="25.0" layoutY="23.0" text="plaese enter all information to change:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="modulesTable" layoutX="18.0" layoutY="205.0" prefHeight="298.0" prefWidth="966.0" styleClass="table-view1">
+                    <columns>
+                        <TableColumn fx:id="cycleColumn" prefWidth="299.1999206542969" resizable="false" sortType="DESCENDING" text="cycle" />
+                        <TableColumn fx:id="domainColumn" prefWidth="235.20001220703125" resizable="false" sortType="DESCENDING" text="domain" />
+                        <TableColumn fx:id="semesterColumn" prefWidth="191.199951171875" resizable="false" sortType="DESCENDING" text="term" />
+                        <TableColumn fx:id="moduleColumn" prefWidth="235.20001983642578" resizable="false" sortType="DESCENDING" text="mnemonique" />
+                    </columns>
+                  </TableView>
+                  <TextField fx:id="ModuleName" layoutX="763.0" layoutY="79.0" prefHeight="42.0" prefWidth="208.0" styleClass="textfield" text="Mnemonique" />
+                  <TextField fx:id="ModuleSearchBar" layoutX="18.0" layoutY="166.0" prefHeight="26.0" prefWidth="290.0" promptText="search.." styleClass="textfieldsearch" />
+                  <Label fx:id="NoselectedModule" layoutX="520.0" layoutY="513.0" text="Label" />
+                  <Label fx:id="ErrorMessage" layoutX="763.0" layoutY="133.0" text="Label" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="558.0" prefWidth="1002.0" visible="false">
+               <children>
+                  <Label fx:id="NoselectedDomain" layoutX="422.0" layoutY="519.0" text="Label" />
+                  <TextField fx:id="searchDomain" layoutX="31.0" layoutY="183.0" prefHeight="26.0" prefWidth="311.0" promptText="search.." styleClass="textfieldsearch" />
+                  <Label fx:id="DomainErrorMessage" layoutX="334.0" layoutY="138.0" text="Label" />
+                  <Button fx:id="ConfirmDomain" layoutX="794.0" layoutY="142.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" styleClass="button2" text="confirm">
+
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="13.0" />
+                     </font>
+
+                  </Button>
+                  <ComboBox fx:id="ChooseCycle" layoutX="25.0" layoutY="85.0" prefHeight="38.0" prefWidth="178.0" promptText="Cycle" styleClass="combo-box1" />
+                  <TextField fx:id="DomainName" layoutX="335.0" layoutY="85.0" prefHeight="46.0" prefWidth="230.0" promptText="domaine's name" styleClass="textfield" />
+                  <Label layoutX="25.0" layoutY="23.0" prefHeight="18.0" prefWidth="345.0" text="please enter all information to changed:" textFill="#fff6f6">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="334.0" layoutY="53.0" text="choose domaine" textFill="#84848e">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="domainTable" layoutX="31.2" layoutY="216.8" prefHeight="298.0" prefWidth="939.0" style="-fx-background-color: transpere;" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="217.0">
+                    <columns>
+                      <TableColumn fx:id="CycleColumn" prefWidth="190.40000462532043" text="Cycle" />
+                      <TableColumn fx:id="Domainolumn" prefWidth="227.2000274658203" text="domaine" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="DeleteDomaine" layoutX="862.0" layoutY="528.0" mnemonicParsing="false" styleClass="button2" text="Delete domaine">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+
+               </children>
+            </AnchorPane>
+            <Button fx:id="buttonmodules" layoutX="549.0" layoutY="52.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on modules">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonclassroom" layoutX="784.0" layoutY="52.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="198.0" styleClass="button-menubar" text="Operations on classrooms">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
+            <AnchorPane fx:id="anchorclassroom" layoutX="21.0" layoutY="88.0" prefHeight="566.0" prefWidth="1009.0" visible="false">
+               <children>
+                  <Label layoutX="28.0" layoutY="22.0" prefHeight="22.0" prefWidth="460.0" text="Fill in the informations of the Classroom you witch to add: " textFill="#d7d0d0">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="ClassroomTabel" layoutX="15.0" layoutY="199.0" prefHeight="309.0" prefWidth="978.0" styleClass="table-view1">
+                    <columns>
+                      <TableColumn fx:id="NumberClassroomColums" prefWidth="209.60001373291016" text="Number of the classroom" />
+                      <TableColumn fx:id="TypeClassroomColums" minWidth="3.20001220703125" prefWidth="203.20001220703125" text="Type" />
+                        <TableColumn fx:id="MinimumPrClassroomColums" minWidth="3.20001220703125" prefWidth="246.39993286132812" text="MinimumPr" />
+                        <TableColumn fx:id="MaximumPrClassroomColums" minWidth="3.20001220703125" prefWidth="314.40008544921875" text="MaximumPr" />
+                    </columns>
+                  </TableView>
+                  <TextField fx:id="ClassroomName" layoutX="28.0" layoutY="86.0" prefHeight="42.0" prefWidth="208.0" promptText="number classroom" styleClass="textfield" />
+                  <ComboBox fx:id="ClassroomType" layoutX="394.0" layoutY="86.0" prefHeight="42.0" prefWidth="219.0" promptText="type" styleClass="combo-box1" />
+                  <Button fx:id="ConfirmeClassroom" layoutX="853.0" layoutY="149.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" styleClass="button2" text="Confirm">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deleteClassroom" layoutX="867.0" layoutY="525.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" styleClass="button2" text="Delete">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="searchClassroom" layoutX="20.0" layoutY="163.0" prefHeight="26.0" prefWidth="250.0" styleClass="textfieldsearch" />
+               </children>
+            </AnchorPane>
+
+            <AnchorPane fx:id="anchorProfessors" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1001.0" visible="false">
+               <children>
+                  <Button fx:id="ConfirmProfessor" layoutX="858.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" styleClass="button2" text="confirm">
+
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+
+                  <TextField fx:id="firstname" layoutX="25.0" layoutY="77.0" prefHeight="46.0" prefWidth="233.0" promptText="Firstname" styleClass="textfield" />
+                  <TextField fx:id="email" layoutX="646.0" layoutY="77.0" prefHeight="45.0" prefWidth="255.0" promptText="Email" styleClass="textfield" />
+                  <TextField fx:id="lastname" layoutX="309.0" layoutY="77.0" prefHeight="46.0" prefWidth="267.0" promptText="lastname" styleClass="textfield" />
+                  <TextField fx:id="searchField" layoutX="25.0" layoutY="149.0" prefHeight="26.0" prefWidth="258.0" promptText="search" styleClass="textfieldsearch" />
+                  <Button fx:id="DeleteProfessor" layoutX="869.0" layoutY="528.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="110.0" styleClass="button2" text="Delete">
+
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+
+                  <ImageView fitHeight="23.0" fitWidth="16.0" layoutX="293.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+
+                     <image>
+                        <Image url="@../../../zakisur/surveillance-management-/src/login/chercher.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="25.0" layoutY="23.0" prefHeight="18.0" prefWidth="445.0" text="FIll in the informations of the professor you wish to add:" textFill="#fff6f6">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+
+                  <TableView fx:id="professorsTable" layoutX="22.0" layoutY="191.2" prefHeight="323.0" prefWidth="957.0" styleClass="table-view1" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="191.0">
+                    <columns>
+                      <TableColumn fx:id="professorsIdColumn" prefWidth="124.00000619888306" text="ID" />
+                      <TableColumn fx:id="firstnameColumn" prefWidth="232.00000762939453" text="firstname" />
+                        <TableColumn fx:id="lastnameColumn" minWidth="0.0" prefWidth="290.39996337890625" text="lastname" />
+                        <TableColumn fx:id="EmailColumn" minWidth="0.0" prefWidth="304.79998779296875" text="Email" />
+
+                    </columns>
+                  </TableView>
+                  <Label fx:id="EmailFormatError" layoutX="402.0" layoutY="116.0" opacity="0.0" text="Email must follow the format : Example@example.com" textFill="RED" />
+                  <Button fx:id="saveChangesButton" layoutX="359.0" layoutY="435.0" mnemonicParsing="false" styleClass="button2" text="Apply modification" visible="false">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="NoProfessorSelected" layoutX="309.0" layoutY="404.0" opacity="0.0" prefHeight="31.0" prefWidth="146.0" text="No Professor selected" textFill="RED" />
+                  <Label fx:id="EmailFormatError" layoutX="646.0" layoutY="134.0" text="Label" />
+                  <Label fx:id="NoProfessorSelected" layoutX="470.0" layoutY="519.0" text="Label" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
 
    </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>

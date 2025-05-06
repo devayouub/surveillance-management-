@@ -10,21 +10,28 @@ public class DepartmentAnchorPaneManager {
     private Button buttonengenment;
     private Button buttonmodules;
     private Button buttonspeciality;
+    private Button buttonsalle;
+    
     private AnchorPane anchorProfessors;
     private AnchorPane anchormodules;
     private AnchorPane anchorDomaines;
+    private AnchorPane anchorsalle;
     
+  
     public DepartmentAnchorPaneManager(Button buttonengenment, Button buttonmodules, Button buttonspeciality,
-			AnchorPane anchorProfessors, AnchorPane anchormodules, AnchorPane anchorDomaines) {
+			Button buttonsalle, AnchorPane anchorProfessors, AnchorPane anchormodules, AnchorPane anchorDomaines,
+			AnchorPane anchorsalle) {
 		super();
 		this.buttonengenment = buttonengenment;
 		this.buttonmodules = buttonmodules;
 		this.buttonspeciality = buttonspeciality;
+		this.buttonsalle = buttonsalle;
 		this.anchorProfessors = anchorProfessors;
 		this.anchormodules = anchormodules;
 		this.anchorDomaines = anchorDomaines;
+		this.anchorsalle = anchorsalle;
 	}
-    public void initialize() {
+	public void initialize() {
     	buttonengenment.setOnAction(e->{
     		switchmenubar(e);
     	});
@@ -34,12 +41,15 @@ public class DepartmentAnchorPaneManager {
     	buttonspeciality.setOnAction(e->{
     		switchmenubar(e);
     	});
+    	buttonsalle.setOnAction(e->{
+    		switchmenubar(e);
+    	});
     	
     }
 	public void switchmenubar(ActionEvent event) {
 		Controllermethods.switchPane(event,
-            Arrays.asList(buttonengenment, buttonspeciality,buttonmodules ),
-            Arrays.asList(anchorProfessors,anchorDomaines, anchormodules)
+            Arrays.asList(buttonengenment, buttonspeciality,buttonmodules,buttonsalle ),
+            Arrays.asList(anchorProfessors,anchorDomaines, anchormodules,anchorsalle)
         );
     }
 }
