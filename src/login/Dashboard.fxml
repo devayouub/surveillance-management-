@@ -445,7 +445,7 @@
                   <TextField fx:id="textfield_room_teacher_change_teacher_room_exam_assignment1" layoutX="771.0" layoutY="150.0" prefHeight="46.0" prefWidth="230.0" promptText="Room name" styleClass="textfield" />
                   <ScrollPane prefHeight="245.0" prefWidth="1002.0" style="-fx-background-color: #000428;" stylesheets="@view.css" AnchorPane.bottomAnchor="27.99999999999997" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="12.799999999999955" AnchorPane.topAnchor="261.0">
                      <content>
-                        <FlowPane fx:id="classroom_flowpane" hgap="30.0" prefHeight="233.0" prefWidth="966.0" style="-fx-background-color: #000428;" stylesheets="@view.css" vgap="30.0" />
+                        <FlowPane hgap="30.0" prefHeight="233.0" prefWidth="966.0" style="-fx-background-color: #000428;" stylesheets="@view.css" vgap="30.0" />
                      </content>
                   </ScrollPane>
                </children>
