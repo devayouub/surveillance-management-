@@ -26,7 +26,7 @@ import management.User;
 public class DatabaseManagement {
     private static final String URL = "jdbc:mysql://localhost:3306/surveillance_data_base";
     private static final String USER = "root";
-    private static final String DB_PASSWORD = "ayoub2005";
+    private static final String DB_PASSWORD = "myaymen#10sql@";
     static ObservableList<User> users = FXCollections.observableArrayList();
     static ObservableList<Professor> professors = FXCollections.observableArrayList();
 

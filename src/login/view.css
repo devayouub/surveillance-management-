@@ -174,7 +174,46 @@
     -fx-background-color: transparent;
     -fx-text-fill: white;
 }
+#scrollpane_after_confirm_display_salle_exam_assignment{
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+scroll-pane {
+    -fx-background-color: transparent;
+}
 
+.scroll-pane .viewport {
+    -fx-background-color: #f0f0f0; /* your desired background */
+}
+.flow-pane {
+    -fx-background-color: #e0e0e0; /* Replace with your desired color */
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-height: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #888;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #ddd;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-shape: "";
+    -fx-padding: 0;
+}
 
 
 
