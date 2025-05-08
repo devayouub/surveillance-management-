@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="anchorpane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" styleClass="body" stylesheets="@view.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.LoginController">
    <children>
-      <ImageView fitHeight="430.0" fitWidth="708.0" layoutX="16.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="430.0" fitWidth="708.0" layoutX="22.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@7638078c63d7e022ec8c4640c3e1efcc-removebg-preview%20(1).png" />
          </image>
