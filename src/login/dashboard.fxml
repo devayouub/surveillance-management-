@@ -396,7 +396,7 @@
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font></Button>
                   <DatePicker fx:id="AssignmentDate" layoutX="26.0" layoutY="74.0" prefHeight="30.0" prefWidth="175.0" />
-                  <FlowPane fx:id="ClassroomFlowPane" layoutX="2.0" layoutY="261.0" prefHeight="200.0" prefWidth="200.0" />
+                  <FlowPane fx:id="classroom_flowpane" layoutX="2.0" layoutY="261.0" prefHeight="200.0" prefWidth="200.0" />
                   <ListView fx:id="professors" layoutX="632.0" layoutY="111.0" prefHeight="96.0" prefWidth="242.0" styleClass="list-view1" visible="false" />
                   <Button fx:id="Confirm1" layoutX="114.0" layoutY="231.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="221.0" styleClass="button2" text="confirm">
                      <font>
@@ -620,8 +620,51 @@
                   <Label fx:id="NoSelectedClassRoom" layoutX="476.0" layoutY="516.0" text="Label" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="558.0" prefWidth="1002.0">
+               <children>
+                  <Label fx:id="NoselectedDomain" layoutX="473.0" layoutY="516.0" text="Label" />
+                  <TextField fx:id="searchDomain" layoutX="108.0" layoutY="158.0" prefHeight="26.0" prefWidth="312.0" promptText="search.." styleClass="textfieldsearch" />
+                  <Label fx:id="DomainErrorMessage" layoutX="391.0" layoutY="135.0" text="Label" />
+                  <Button fx:id="ConfirmDomain" layoutX="660.0" layoutY="144.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" styleClass="button2" text="confirm">
 
-            <AnchorPane fx:id="anchormodules" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0" visible="false">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="13.0" />
+                     </font>
+
+                  </Button>
+                  <ComboBox fx:id="ChooseCycle" layoutX="25.0" layoutY="93.0" prefHeight="34.0" prefWidth="219.0" promptText="Cycle" styleClass="combo-box1" />
+                  <TextField fx:id="DomainName" layoutX="392.0" layoutY="95.0" prefHeight="34.0" prefWidth="230.0" promptText="domaine's name" styleClass="textfield" />
+                  <Label layoutX="25.0" layoutY="23.0" prefHeight="18.0" prefWidth="345.0" text="please enter all information to changed:" textFill="#fff6f6">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="334.0" layoutY="53.0" text="choose domaine" textFill="#84848e">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="domainTable" editable="true" layoutX="99.2" layoutY="199.4" prefHeight="310.0" prefWidth="774.0" styleClass="table-view1" AnchorPane.bottomAnchor="48.60000000000002" AnchorPane.leftAnchor="99.2" AnchorPane.rightAnchor="128.80000000000007" AnchorPane.topAnchor="199.4">
+                    <columns>
+                      <TableColumn fx:id="CycleColumn" prefWidth="317.60001373291016" text="Cycle" />
+                      <TableColumn fx:id="Domainolumn" prefWidth="454.3999328613281" text="domaine" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="DeleteDomaine" layoutX="660.0" layoutY="524.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" styleClass="button2" text="Delete ">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+
+               </children>
+            </AnchorPane>
+
+            <AnchorPane fx:id="anchormodules" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0">
                <children>
                   <ComboBox fx:id="CycleComboBox" layoutX="25.0" layoutY="93.0" prefHeight="35.0" prefWidth="219.0" promptText="cycle" styleClass="combo-box1" />
                   <ComboBox fx:id="DomainComboBox" layoutX="286.0" layoutY="93.0" prefHeight="35.0" prefWidth="190.0" promptText="domaine" styleClass="combo-box1" />
@@ -678,49 +721,6 @@
                   <TextField fx:id="ModuleSearchBar" layoutX="108.0" layoutY="158.0" prefHeight="26.0" prefWidth="312.0" promptText="search.." styleClass="textfieldsearch" />
                   <Label fx:id="NoselectedModule" layoutX="473.0" layoutY="516.0" text="Label" />
                   <Label fx:id="ErrorMessage" layoutX="795.0" layoutY="129.0" text="Label" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="558.0" prefWidth="1002.0">
-               <children>
-                  <Label fx:id="NoselectedDomain" layoutX="473.0" layoutY="516.0" text="Label" />
-                  <TextField fx:id="searchDomain" layoutX="108.0" layoutY="158.0" prefHeight="26.0" prefWidth="312.0" promptText="search.." styleClass="textfieldsearch" />
-                  <Label fx:id="DomainErrorMessage" layoutX="391.0" layoutY="135.0" text="Label" />
-                  <Button fx:id="ConfirmDomain" layoutX="660.0" layoutY="144.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" styleClass="button2" text="confirm">
-
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="13.0" />
-                     </font>
-
-                  </Button>
-                  <ComboBox fx:id="ChooseCycle" layoutX="25.0" layoutY="93.0" prefHeight="34.0" prefWidth="219.0" promptText="Cycle" styleClass="combo-box1" />
-                  <TextField fx:id="DomainName" layoutX="392.0" layoutY="95.0" prefHeight="34.0" prefWidth="230.0" promptText="domaine's name" styleClass="textfield" />
-                  <Label layoutX="25.0" layoutY="23.0" prefHeight="18.0" prefWidth="345.0" text="please enter all information to changed:" textFill="#fff6f6">
-                     <font>
-                        <Font name="Arial Black" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="334.0" layoutY="53.0" text="choose domaine" textFill="#84848e">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="domainTable" editable="true" layoutX="99.2" layoutY="199.4" prefHeight="310.0" prefWidth="774.0" styleClass="table-view1" AnchorPane.bottomAnchor="48.60000000000002" AnchorPane.leftAnchor="99.2" AnchorPane.rightAnchor="128.80000000000007" AnchorPane.topAnchor="199.4">
-                    <columns>
-                      <TableColumn fx:id="CycleColumn" prefWidth="317.60001373291016" text="Cycle" />
-                      <TableColumn fx:id="Domainolumn" prefWidth="454.3999328613281" text="domaine" />
-                    </columns>
-                  </TableView>
-                  <Button fx:id="DeleteDomaine" layoutX="660.0" layoutY="524.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" styleClass="button2" text="Delete ">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-
                </children>
             </AnchorPane>
          </children>
