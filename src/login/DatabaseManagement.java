@@ -771,7 +771,7 @@ public static ObservableList<Professor> getUnassignedSurveillants(LocalDate exam
 
 
 public static boolean doesSalleExist(String salleName) {
-    String query = "SELECT 1 FROM salle WHERE salle_name = ? LIMIT 1";
+    String query = "SELECT 1 FROM salle WHERE nom_salle = ? LIMIT 1";
 
     try (Connection conn = getConnection();
          PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -789,7 +789,7 @@ public static boolean doesSalleExist(String salleName) {
     return false; // Return false if there is an error or no result
 }
 public static boolean addSalle(String salleName, int min,int max) {
-    String query = "INSERT INTO salle (nom_salle, minProf,maxProf) VALUES (?,?,?)";
+    String query = "INSERT INTO salle VALUES (?,?,?)";
 
     try (Connection conn = getConnection();
          PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -798,6 +798,7 @@ public static boolean addSalle(String salleName, int min,int max) {
         stmt.setInt(2, min);
         stmt.setInt(3, max);
         int rowsAffected = stmt.executeUpdate();
+        System.out.println("done");
         return rowsAffected > 0;
 
     } catch (SQLException e) {
@@ -845,13 +846,13 @@ public static List<ClassRoom> loadAllSalles() {
         	  salles.add(salle);
 
           }
-          return salles;
+          
 
     }
     }catch (SQLException e) {
         e.printStackTrace();
     }
-return null;
+return salles;
 }
 }
 

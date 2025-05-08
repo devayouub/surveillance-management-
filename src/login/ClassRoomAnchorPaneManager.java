@@ -109,7 +109,7 @@ public class ClassRoomAnchorPaneManager {
             return;
         }
         ClassRoom classroom;
-        if(classroomNumber.equals("Amphi")) {
+        if(classroomType.equals("Amphi")) {
          classroom = new ClassRoom(classroomNumber,2,4);
          DatabaseManagement.addSalle(classroom.getClassnumber(),classroom.getMin(),classroom.getMax());
          reloadTable();

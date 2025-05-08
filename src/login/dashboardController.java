@@ -179,6 +179,8 @@ public class dashboardController implements Initializable{
       private TextField ModuleSearchBar;
       @FXML
       private Label ErrorMessage;
+      @FXML
+      private Label  NoselectedModule;
     //---------------------domaines Table---------------------------
       @FXML
       private TableView<DomainInfo> domainTable;
@@ -271,7 +273,7 @@ public class dashboardController implements Initializable{
            //---------------------------Department Module AnchorPane SetUp---------------------------------------   
         modulesAnchorPaneManager = new ModulesAnchorPaneManager(CycleComboBox,DomainComboBox,
         		ComboBoxTerm,ModuleConfirm,ModuleDelete,
-        		modulesTable,ModuleSearchBar,ModuleName,ErrorMessage);
+        		modulesTable,ModuleSearchBar,ModuleName,ErrorMessage,NoselectedModule);
         modulesAnchorPaneManager.initialize();
            //---------------------------Department domain AnchorPane SetUp---------------------------------------   
         domainesAnchorPaneManager = new DomainesAnchorPaneManager(ChooseCycle,DomainName,ConfirmDomain,DeleteDomaine,

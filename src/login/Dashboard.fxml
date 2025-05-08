@@ -255,64 +255,6 @@
             <Label layoutX="40.0" layoutY="66.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchoruser" layoutX="242.0" layoutY="14.0" prefHeight="678.0" prefWidth="1051.0" visible="false">
-         <children>
-            <Label layoutX="12.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" textFill="#fce4e4" />
-            <TableView fx:id="UsersTable" layoutX="46.0" layoutY="314.0" prefHeight="298.0" prefWidth="794.0" style="-fx-background-color: transparent;">
-              <columns>
-                <TableColumn fx:id="IDColumn" prefWidth="102.39999389648438" text="ID" />
-                <TableColumn fx:id="UsernameColumn" prefWidth="189.60000610351562" text="Username" />
-                  <TableColumn fx:id="IsAdminColumn" prefWidth="216.80001831054688" text="Admin?" />
-                  <TableColumn fx:id="PasswordColumn" prefWidth="277.60015869140625" text="Password" />
-              </columns>
-            </TableView>
-            <Button fx:id="DeleteUserButton" layoutX="893.0" layoutY="478.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" styleClass="button2" text="Delete">
-               <font>
-                  <Font name="Century Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="AdduserButton" layoutX="755.0" layoutY="274.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="74.0" styleClass="button2" text="ADD">
-               <font>
-                  <Font name="Century Gothic Bold" size="12.0" />
-               </font>
-            </Button>
-            <Label layoutX="32.0" layoutY="26.0" prefHeight="35.0" prefWidth="358.0" text="Administration management" textFill="#e5f8ff">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="usernameField" layoutX="41.0" layoutY="149.0" prefHeight="42.0" prefWidth="219.0" promptText="username" styleClass="textfield" />
-            <Label layoutX="34.0" layoutY="61.0" text="this page provides user management capabilities for the application" textFill="WHITE">
-               <font>
-                  <Font name="Century Gothic" size="14.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="132.0" fitWidth="135.0" layoutX="893.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Userimage-removebg-preview.png" />
-               </image>
-            </ImageView>
-            <CheckBox fx:id="showPassword" layoutX="294.0" layoutY="239.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="135.0" text="show password" textFill="#fce4e4" />
-            <Label layoutX="34.0" layoutY="112.0" prefHeight="18.0" prefWidth="382.0" text="please enter the details of the user you wish to add:" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="weakPasswordLabel" layoutX="39.0" layoutY="253.0" prefHeight="30.0" prefWidth="410.0" text="*password must contain at least 8 letters, an Uppercase letter and a number*" textFill="#df0000">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
-            <CheckBox fx:id="makeAdmin" layoutX="86.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
-            <PasswordField fx:id="passwordField" layoutX="40.0" layoutY="218.0" prefHeight="42.0" prefWidth="222.0" promptText="password" styleClass="textfield" />
-            <CheckBox fx:id="showPasswords" layoutX="726.0" layoutY="629.0" mnemonicParsing="false" text="show passwords " textFill="#fce4e4" />
-            <Label fx:id="WarningLabel" layoutX="584.0" layoutY="429.0" prefHeight="38.0" prefWidth="198.0" textAlignment="CENTER" textFill="#d40101" wrapText="true" />
-            <CheckBox fx:id="makeAdmin1" layoutX="200.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
-            <CheckBox fx:id="makeAdmin11" layoutX="317.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
-            <CheckBox fx:id="makeAdmin111" layoutX="517.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
-            <TextField fx:id="passwordTextField" layoutX="39.0" layoutY="218.0" prefHeight="42.0" prefWidth="222.0" styleClass="textfield" visible="false" />
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="anchorexamsManagement" layoutX="237.0" layoutY="4.0" prefHeight="690.0" prefWidth="1051.0" stylesheets="@view.css">
          <children>
             <Label layoutX="12.0" layoutY="11.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" />
@@ -499,6 +441,64 @@
             </AnchorPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="anchoruser" layoutX="242.0" layoutY="14.0" prefHeight="678.0" prefWidth="1051.0">
+         <children>
+            <Label layoutX="12.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" textFill="#fce4e4" />
+            <TableView fx:id="UsersTable" layoutX="46.0" layoutY="314.0" prefHeight="298.0" prefWidth="794.0" style="-fx-background-color: transparent;" styleClass="table-view1">
+              <columns>
+                <TableColumn fx:id="IDColumn" prefWidth="102.39999389648438" text="ID" />
+                <TableColumn fx:id="UsernameColumn" prefWidth="189.60000610351562" text="Username" />
+                  <TableColumn fx:id="IsAdminColumn" prefWidth="216.80001831054688" text="Admin?" />
+                  <TableColumn fx:id="PasswordColumn" prefWidth="277.60015869140625" text="Password" />
+              </columns>
+            </TableView>
+            <Button fx:id="DeleteUserButton" layoutX="893.0" layoutY="478.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" styleClass="button2" text="Delete">
+               <font>
+                  <Font name="Century Gothic Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="AdduserButton" layoutX="755.0" layoutY="274.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="74.0" styleClass="button2" text="ADD">
+               <font>
+                  <Font name="Century Gothic Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label layoutX="32.0" layoutY="26.0" prefHeight="35.0" prefWidth="358.0" text="Administration management" textFill="#e5f8ff">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameField" layoutX="41.0" layoutY="149.0" prefHeight="42.0" prefWidth="219.0" promptText="username" styleClass="textfield" />
+            <Label layoutX="34.0" layoutY="61.0" text="this page provides user management capabilities for the application" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="132.0" fitWidth="135.0" layoutX="893.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Userimage-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <CheckBox fx:id="showPassword" layoutX="294.0" layoutY="239.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="135.0" text="show password" textFill="#fce4e4" />
+            <Label layoutX="34.0" layoutY="112.0" prefHeight="18.0" prefWidth="382.0" text="please enter the details of the user you wish to add:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="weakPasswordLabel" layoutX="39.0" layoutY="253.0" prefHeight="30.0" prefWidth="410.0" text="*password must contain at least 8 letters, an Uppercase letter and a number*" textFill="#df0000">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="makeAdmin" layoutX="86.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
+            <PasswordField fx:id="passwordField" layoutX="40.0" layoutY="218.0" prefHeight="42.0" prefWidth="222.0" promptText="password" styleClass="textfield" />
+            <CheckBox fx:id="showPasswords" layoutX="726.0" layoutY="629.0" mnemonicParsing="false" text="show passwords " textFill="#fce4e4" />
+            <Label fx:id="WarningLabel" layoutX="584.0" layoutY="429.0" prefHeight="38.0" prefWidth="198.0" textAlignment="CENTER" textFill="#d40101" wrapText="true" />
+            <CheckBox fx:id="makeAdmin1" layoutX="200.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
+            <CheckBox fx:id="makeAdmin11" layoutX="317.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
+            <CheckBox fx:id="makeAdmin111" layoutX="517.0" layoutY="277.0" mnemonicParsing="false" text="make Admin" textFill="#fce4e4" />
+            <TextField fx:id="passwordTextField" layoutX="39.0" layoutY="218.0" prefHeight="42.0" prefWidth="222.0" styleClass="textfield" visible="false" />
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="anchorDepartmentManagment" layoutX="242.0" layoutY="16.0" prefHeight="578.0" prefWidth="771.0" AnchorPane.bottomAnchor="12.799999999999955" AnchorPane.leftAnchor="242.4" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="8.8">
 
          <children>
@@ -590,11 +590,41 @@
                   <Label fx:id="NoProfessorSelected" layoutX="470.0" layoutY="519.0" text="Label" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="anchorclassroom" layoutX="21.0" layoutY="88.0" prefHeight="566.0" prefWidth="1009.0">
+               <children>
+                  <Label layoutX="28.0" layoutY="22.0" prefHeight="22.0" prefWidth="460.0" text="Fill in the informations of the Classroom you witch to add: " textFill="#d7d0d0">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="ClassroomTabel" editable="true" layoutX="103.0" layoutY="199.0" prefHeight="310.0" prefWidth="773.0" styleClass="table-view1">
+                    <columns>
+                      <TableColumn fx:id="NumberClassroomColumn" prefWidth="405.5999221801758" text="Number of the classroom" />
+                      <TableColumn fx:id="TypeClassroomColumn" minWidth="3.20001220703125" prefWidth="365.60003662109375" text="Type" />
+                    </columns>
+                  </TableView>
+                  <TextField fx:id="ClassroomName" layoutX="28.0" layoutY="94.0" prefHeight="34.0" prefWidth="219.0" promptText="number classroom" styleClass="textfield" />
+                  <ComboBox fx:id="ClassroomType" layoutX="394.0" layoutY="94.0" prefHeight="34.0" prefWidth="230.0" promptText="type" styleClass="combo-box1" />
+                  <Button fx:id="ConfirmeClassroom" layoutX="664.0" layoutY="144.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" styleClass="button2" text="Confirm">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deleteClassroom" layoutX="663.0" layoutY="525.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" styleClass="button2" text="Delete">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="searchClassroom" layoutX="111.0" layoutY="158.0" prefHeight="26.0" prefWidth="312.0" promptText="search.." styleClass="textfieldsearch" />
+                  <Label fx:id="ClassExists" layoutX="394.0" layoutY="135.0" text="Label" />
+                  <Label fx:id="NoSelectedClassRoom" layoutX="476.0" layoutY="516.0" text="Label" />
+               </children>
+            </AnchorPane>
 
             <AnchorPane fx:id="anchormodules" layoutX="24.0" layoutY="88.0" prefHeight="566.0" prefWidth="1002.0" visible="false">
                <children>
-                  <ComboBox fx:id="CycleComboBox" layoutX="25.0" layoutY="81.0" prefHeight="38.0" prefWidth="198.0" promptText="cycle" styleClass="combo-box1" />
-                  <ComboBox fx:id="DomainComboBox" layoutX="285.0" layoutY="81.0" prefHeight="38.0" prefWidth="190.0" promptText="domaine" styleClass="combo-box1" />
+                  <ComboBox fx:id="CycleComboBox" layoutX="25.0" layoutY="93.0" prefHeight="35.0" prefWidth="219.0" promptText="cycle" styleClass="combo-box1" />
+                  <ComboBox fx:id="DomainComboBox" layoutX="286.0" layoutY="93.0" prefHeight="35.0" prefWidth="190.0" promptText="domaine" styleClass="combo-box1" />
                   <Label layoutX="25.0" layoutY="53.0" text="choose cycle" textFill="#84848e">
 
                      <font>
@@ -610,7 +640,7 @@
                      </font>
                   </Label>
 
-                  <ComboBox fx:id="ComboBoxTerm" layoutX="548.0" layoutY="81.0" prefHeight="38.0" prefWidth="178.0" promptText="term" styleClass="combo-box1" />
+                  <ComboBox fx:id="ComboBoxTerm" layoutX="548.0" layoutY="93.0" prefHeight="35.0" prefWidth="178.0" promptText="term" styleClass="combo-box1" />
                   <Label layoutX="548.0" layoutY="60.0" prefHeight="15.0" prefWidth="110.0" text="choose term" textFill="#84848e">
 
                      <font>
@@ -618,14 +648,14 @@
                      </font>
                   </Label>
 
-                  <Button fx:id="ModuleConfirm" layoutX="867.0" layoutY="166.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" styleClass="button2" text="Confirm">
+                  <Button fx:id="ModuleConfirm" layoutX="661.0" layoutY="145.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" styleClass="button2" text="Confirm">
 
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
                   </Button>
 
-                  <Button fx:id="ModuleDelete" layoutX="866.0" layoutY="513.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" styleClass="button2" text="Delete module">
+                  <Button fx:id="ModuleDelete" layoutX="661.0" layoutY="525.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" styleClass="button2" text="Delete ">
 
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
@@ -636,7 +666,7 @@
                         <Font name="Arial Black" size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="modulesTable" editable="true" layoutX="18.0" layoutY="205.0" prefHeight="298.0" prefWidth="966.0" styleClass="table-view1">
+                  <TableView fx:id="modulesTable" editable="true" layoutX="99.0" layoutY="199.0" prefHeight="310.0" prefWidth="774.0" styleClass="table-view1">
                     <columns>
                         <TableColumn fx:id="cycleColumn" prefWidth="299.1999206542969" resizable="false" sortType="DESCENDING" text="cycle" />
                         <TableColumn fx:id="domainColumn" prefWidth="235.20001220703125" resizable="false" sortType="DESCENDING" text="domain" />
@@ -644,13 +674,13 @@
                         <TableColumn fx:id="moduleColumn" prefWidth="235.20001983642578" resizable="false" sortType="DESCENDING" text="mnemonique" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="ModuleName" layoutX="763.0" layoutY="79.0" prefHeight="42.0" prefWidth="208.0" styleClass="textfield" text="Mnemonique" />
-                  <TextField fx:id="ModuleSearchBar" layoutX="18.0" layoutY="166.0" prefHeight="26.0" prefWidth="290.0" promptText="search.." styleClass="textfieldsearch" />
-                  <Label fx:id="NoselectedModule" layoutX="520.0" layoutY="513.0" text="Label" />
-                  <Label fx:id="ErrorMessage" layoutX="763.0" layoutY="133.0" text="Label" />
+                  <TextField fx:id="ModuleName" layoutX="763.0" layoutY="91.0" prefHeight="35.0" prefWidth="208.0" styleClass="textfield" text="Mnemonique" />
+                  <TextField fx:id="ModuleSearchBar" layoutX="108.0" layoutY="158.0" prefHeight="26.0" prefWidth="312.0" promptText="search.." styleClass="textfieldsearch" />
+                  <Label fx:id="NoselectedModule" layoutX="473.0" layoutY="516.0" text="Label" />
+                  <Label fx:id="ErrorMessage" layoutX="795.0" layoutY="129.0" text="Label" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="558.0" prefWidth="1002.0" visible="false">
+            <AnchorPane fx:id="anchorDomaines" layoutX="24.0" layoutY="88.0" prefHeight="558.0" prefWidth="1002.0">
                <children>
                   <Label fx:id="NoselectedDomain" layoutX="473.0" layoutY="516.0" text="Label" />
                   <TextField fx:id="searchDomain" layoutX="108.0" layoutY="158.0" prefHeight="26.0" prefWidth="312.0" promptText="search.." styleClass="textfieldsearch" />
@@ -679,7 +709,7 @@
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="domainTable" editable="true" layoutX="99.2" layoutY="199.4" prefHeight="310.0" prefWidth="774.0" style="-fx-background-color: transpere;" AnchorPane.bottomAnchor="48.60000000000002" AnchorPane.leftAnchor="99.2" AnchorPane.rightAnchor="128.80000000000007" AnchorPane.topAnchor="199.4">
+                  <TableView fx:id="domainTable" editable="true" layoutX="99.2" layoutY="199.4" prefHeight="310.0" prefWidth="774.0" styleClass="table-view1" AnchorPane.bottomAnchor="48.60000000000002" AnchorPane.leftAnchor="99.2" AnchorPane.rightAnchor="128.80000000000007" AnchorPane.topAnchor="199.4">
                     <columns>
                       <TableColumn fx:id="CycleColumn" prefWidth="317.60001373291016" text="Cycle" />
                       <TableColumn fx:id="Domainolumn" prefWidth="454.3999328613281" text="domaine" />
@@ -691,36 +721,6 @@
                      </font>
                   </Button>
 
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="anchorclassroom" layoutX="21.0" layoutY="88.0" prefHeight="566.0" prefWidth="1009.0">
-               <children>
-                  <Label layoutX="28.0" layoutY="22.0" prefHeight="22.0" prefWidth="460.0" text="Fill in the informations of the Classroom you witch to add: " textFill="#d7d0d0">
-                     <font>
-                        <Font name="Arial Black" size="14.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="ClassroomTabel" editable="true" layoutX="103.0" layoutY="199.0" prefHeight="310.0" prefWidth="773.0" styleClass="table-view1">
-                    <columns>
-                      <TableColumn fx:id="NumberClassroomColumn" prefWidth="405.5999221801758" text="Number of the classroom" />
-                      <TableColumn fx:id="TypeClassroomColumn" minWidth="3.20001220703125" prefWidth="365.60003662109375" text="Type" />
-                    </columns>
-                  </TableView>
-                  <TextField fx:id="ClassroomName" layoutX="28.0" layoutY="94.0" prefHeight="34.0" prefWidth="219.0" promptText="number classroom" styleClass="textfield" />
-                  <ComboBox fx:id="ClassroomType" layoutX="394.0" layoutY="94.0" prefHeight="34.0" prefWidth="230.0" promptText="type" styleClass="combo-box1" />
-                  <Button fx:id="ConfirmeClassroom" layoutX="664.0" layoutY="144.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" styleClass="button2" text="Confirm">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="deleteClassroom" layoutX="663.0" layoutY="525.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" styleClass="button2" text="Delete">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <TextField fx:id="searchClassroom" layoutX="111.0" layoutY="158.0" prefHeight="26.0" prefWidth="312.0" promptText="search.." styleClass="textfieldsearch" />
-                  <Label fx:id="ClassExists" layoutX="394.0" layoutY="135.0" text="Label" />
-                  <Label fx:id="NoselectedDomain" layoutX="476.0" layoutY="516.0" text="Label" />
                </children>
             </AnchorPane>
          </children>

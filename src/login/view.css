@@ -141,19 +141,109 @@
     -fx-background-radius: 7px;
     -fx-border-radius: 7px;
     -fx-background-color: #E3F6F5;}
-.combo-box1{
-    -fx-border-radius: 7px;
+.combo-box1 {
+    -fx-background-color: #06005b;
     -fx-border-color: white;
-    -fx-background-radius: 7px;
-    -fx-border-width: 2px;
-
+    -fx-border-radius: 10;
+        -fx-padding: 0; /* Remove default interior padding */
+        -fx-border-width: 1.5;
+    
+    -fx-background-radius: 10;
+    -fx-padding: 4;
+    -fx-text-fill: white;
+       -fx-padding: 0 0 0 6; 
 }
-.table-view1{
+.combo-box1 .text-field {
+    -fx-padding: 0 0 0 4; /* Minimal left padding for text */
     -fx-background-color: transparent;
-    -fx-border-color: linear-gradient(to bottom right, #ffffff, #e0d7d7);
-    -fx-border-radius: 8px;
-    -fx-padding: 0px;
+    -fx-text-fill: white;
 }
+.combo-box1 .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.combo-box1 .arrow {
+    -fx-background-color: white;
+}
+
+.combo-box1 .list-cell {
+    -fx-background-color: #06005b; /* Matches ComboBox */
+    -fx-text-fill: white;
+}
+
+.combo-box1 .list-view {
+    -fx-background-color: #06005b; /* Matches ComboBox */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.combo-box1 .list-cell:hover{
+    -fx-background-color: #1a1a70; /* Slight contrast for interaction */
+    -fx-text-fill: white;
+    }
+
+
+
+.table-view1 {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 2;
+}
+
+.table-view1 .column-header-background {
+    -fx-background-color: transparent; /* Make header background transparent */
+    -fx-border-color: transparent;
+    -fx-border-radius: 10;
+}
+.table-view1 .table-row-cell:selected {
+    -fx-background-color: #06005b; /* Custom color when row is selected */
+    -fx-text-fill: white;          /* Text color for selected row */
+}
+
+.table-view1 .filler {
+    -fx-background-color: transparent; /* Fill empty space */
+}
+
+.table-view1 .viewport {
+    -fx-background-color: transparent;
+}
+
+.table-view1 .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-width: 8px;
+}
+
+.table-view1 .scroll-bar .thumb {
+    -fx-background-color: #888888;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 5px;
+}
+
+.table-view1 .scroll-bar .thumb:hover {
+    -fx-background-color: #555555;
+}
+
+.table-view1 .scroll-bar .track {
+    -fx-background-color: #333333;
+}
+
+.table-view1 .table-row-cell {
+    -fx-background-color: #0b0048;
+    -fx-border-color: black;
+    -fx-border-width: 0.125px 0px 0px 0px; /* top and bottom only; adjust as needed */
+    
+    -fx-text-fill: white;
+}
+
+.table-view1 .table-cell {
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}
+
 .table-view .table-column{
     -fx-alignment: center;
 }

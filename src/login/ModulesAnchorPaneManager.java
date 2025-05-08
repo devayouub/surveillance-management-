@@ -29,9 +29,10 @@ public class ModulesAnchorPaneManager {
     TableView table;
     TextField searchField;
     Label ErrorMessage;
+    Label NoselectedModule;
     private ObservableList<ModuleInfo> masterData = FXCollections.observableArrayList();
        public ModulesAnchorPaneManager(ComboBox<String> cycle, ComboBox<String> domain, ComboBox<Integer> term,
-			Button confirm, Button delete, TableView table,TextField searchbar,TextField module,Label ErrorMessage) {
+			Button confirm, Button delete, TableView table,TextField searchbar,TextField module,Label ErrorMessage,Label NoselectedModule) {
     	   
 		this.cycle = cycle;
 		this.domain = domain;
@@ -42,6 +43,7 @@ public class ModulesAnchorPaneManager {
 		this.searchField=searchbar;
         this.module=module;	
         this.ErrorMessage=ErrorMessage;
+        this.NoselectedModule=NoselectedModule;
         setupTable();
        }
        public void initialize() {
@@ -136,16 +138,16 @@ reloadTable();
 	 
 
 	public void deleteModule() {
-        if (ErrorMessage == null) {
+        if (NoselectedModule == null) {
             throw new IllegalStateException("Warning label not set in UsersTableManager");
         }
 
         ModuleInfo selectedModule = (ModuleInfo) Controllermethods.getSelected(table);
 
         if (selectedModule == null) {
-        	ErrorMessage.setText("No Module was selected.");
-        	ErrorMessage.setStyle("-fx-text-fill: red;");
-        	ErrorMessage.setOpacity(1);
+        	NoselectedModule.setText("No Module was selected.");
+        	NoselectedModule.setStyle("-fx-text-fill: red;");
+        	NoselectedModule.setOpacity(1);
             return;
         }
 
