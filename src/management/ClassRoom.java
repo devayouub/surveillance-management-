@@ -3,49 +3,45 @@ import java.util.ArrayList;
 
 public class ClassRoom {
          private String classnumber;
-         private int MinimumPr;
-         private int MaximumPr;
-         private ArrayList <Professor> professors;
-		public ClassRoom(String classnumber, int minimumPr, int maximumPr) {
-			if(!classnumber.matches("\\d{4}$")) {
-				  throw new IllegalArgumentException("classroom's number must be constitued of 4 digits");	
-				}
-			if(minimumPr> maximumPr) {
-				throw new IllegalArgumentException("THE MIN MUST BE SMALLER THAN THE MAX");
-			}
+        private  int min;
+        private int max;
+        private String Type;
+        
+		public String getType() {
+			return Type;
+		}
+		public void setType(String type) {
+			Type = type;
+		}
+		public ClassRoom(String classnumber, String type) {
+			super();
 			this.classnumber = classnumber;
-			this.MinimumPr = minimumPr;
-			this.MaximumPr = maximumPr;
-			this.professors = new ArrayList<Professor>();
+			Type = type;
+		}
+		public ClassRoom(String classnumber, int min, int max) {
+			super();
+			this.classnumber = classnumber;
+			this.min = min;
+			this.max = max;
 		}
 		public String getClassnumber() {
 			return classnumber;
 		}
 		public void setClassnumber(String classnumber) {
-			if(!classnumber.matches("d{4}$")) {
-				  throw new IllegalArgumentException("classroom's number must be constitued of 4 digits");	
-				}
 			this.classnumber = classnumber;
 		}
-		public int getMinimumPr() {
-			return MinimumPr;
+		public int getMin() {
+			return min;
 		}
-		public void setMinimumPr(int minimumPr) {
-			MinimumPr = minimumPr;
+		public void setMin(int min) {
+			this.min = min;
 		}
-		public int getMaximumPr() {
-			return MaximumPr;
+		public int getMax() {
+			return max;
 		}
-		public void setMaximumPr(int maximumPr) {
-			MaximumPr = maximumPr;
+		public void setMax(int max) {
+			this.max = max;
+
 		}
-	 public void addProfessor(Professor prof) {
-		 professors.add(prof);
-	 }
-//	   public static void main(String[]args) {
-//	   
-//	  new ClassRoom("1a62", 4, 2);
-//	   
-// }
-	 
 }
+		
