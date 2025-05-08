@@ -12,16 +12,33 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+
 import javafx.scene.text.Text;
 
 
 import java.net.URL;
+
 import java.util.*;
 
 import javafx.util.Duration;
+
+import java.util.Arrays;
+import java.util.ResourceBundle;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import management.ClassRoom;
+
 import management.Cycle;
 import management.Domain;
 import management.DomainInfo;
@@ -206,11 +223,59 @@ public class dashboardController implements Initializable{
        private Label DomainErrorMessage;
        @FXML
        private Label NoselectedDomain;
+
        //--------------------------------test for salle -----------------------------------
        private Map<String, Integer> roomProfessorsCount = new HashMap<>();
        private Map<String, Integer> roomMinCapacity = new HashMap<>();
        private Map<String, Integer> roomMaxCapacity = new HashMap<>();
        private Map<String, List<String>> roomAssignedProfessors = new HashMap<>();
+
+       //----------------------Classroom AnchorPane---------------------
+       @FXML
+       private TextField ClassroomName;
+       @FXML
+       private ComboBox<String> ClassroomType;
+       @FXML
+       private Button ConfirmeClassroom;
+       @FXML
+       private TextField searchClassroom;
+       @FXML    
+       private TableView<ClassRoom> ClassroomTabel;
+       @FXML
+       private TableColumn<ClassRoom, String> NumberClassroomColumn;
+       @FXML
+       private TableColumn<ClassRoom, String> TypeClassroomColumn;
+       @FXML
+       private Button deleteClassroom;
+       @FXML
+       private Label ClassExists;
+       @FXML
+       private Label NoSelectedClassRoom;
+        ClassRoomAnchorPaneManager classRoomAnchorPaneManager;
+       //-----------------------------------Assignment------------------------------------
+       @FXML
+       private DatePicker AssignmentDate;
+       @FXML
+       private ComboBox<String> AssignmentTime;
+       @FXML
+       private ComboBox<String> AssignmentCycle;
+       @FXML
+       private ComboBox<String> AssignmentDomain;
+       @FXML
+       private FlowPane ClassroomFlowPane;
+       @FXML
+       private TextField ProfessorTexField;
+       @FXML
+       private ListView<String> professors;
+       @FXML
+       private Button Confirm;
+       @FXML
+       private Button Confirm1;
+       
+       AssignmentAnchorPaneManager assignmentAnchorPaneManager ;
+       
+       
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     //---------------------------userAnchorPane SetUp---------------------------------------   
@@ -219,7 +284,7 @@ public class dashboardController implements Initializable{
     			     makeAdmin,weakPasswordLabel,WarningLabel,AdduserButton,
     			     DeleteUserButton,showPassword,showPasswords);
         userAnchorPaneManager.initialize();
-        //---------------------------Department AnchorPane SetUp---------------------------------------   
+           //---------------------------Department AnchorPane SetUp---------------------------------------   
            departmentAnchorPaneManager = new DepartmentAnchorPaneManager(buttonengenment, buttonspeciality,
         		   buttonmodules,buttonclassroom, anchorProfessors, anchorDomaines,
         		   anchormodules,anchorclassroom);    
@@ -231,15 +296,16 @@ public class dashboardController implements Initializable{
         		lastname, email,ConfirmProfessor,
         		DeleteProfessor);
         professorsAnchorPaneManager.initialize();
-          //---------------------------Department Module AnchorPane SetUp---------------------------------------   
+           //---------------------------Department Module AnchorPane SetUp---------------------------------------   
         modulesAnchorPaneManager = new ModulesAnchorPaneManager(CycleComboBox,DomainComboBox,
         		ComboBoxTerm,ModuleConfirm,ModuleDelete,
         		modulesTable,ModuleSearchBar,ModuleName,ErrorMessage);
         modulesAnchorPaneManager.initialize();
-      //---------------------------Department domain AnchorPane SetUp---------------------------------------   
+           //---------------------------Department domain AnchorPane SetUp---------------------------------------   
         domainesAnchorPaneManager = new DomainesAnchorPaneManager(ChooseCycle,DomainName,ConfirmDomain,DeleteDomaine,
         		domainTable,searchDomain,DomainErrorMessage,NoselectedDomain);
         domainesAnchorPaneManager.initialize();
+
 
       //---------------------------Exam Assignment Salle AnchorPane SetUp---------------------------------------
         classroom_flowpane.setStyle("-fx-background-color:#000428;");
@@ -274,6 +340,18 @@ public class dashboardController implements Initializable{
             delay += 150;
 
     }
+
+      //---------------------------Department ClassRoom AnchorPane SetUp---------------------------------------   
+        classRoomAnchorPaneManager = new ClassRoomAnchorPaneManager(ClassroomName,ClassroomType,
+        		ConfirmeClassroom,searchClassroom,  ClassroomTabel,
+        		deleteClassroom,ClassExists,NoSelectedClassRoom);
+        classRoomAnchorPaneManager.initialize();
+     //------------------------Assignment AnchorPane setUp--------------------------------------------
+        AssignmentAnchorPaneManager assignmentAnchorPaneManager = new AssignmentAnchorPaneManager(AssignmentDate,
+        		AssignmentTime, AssignmentCycle, AssignmentDomain, ClassroomFlowPane,
+        		ProfessorTexField, Confirm,professors,Confirm1);
+        assignmentAnchorPaneManager.initialize();
+
     }
     public void switchform(javafx.event.ActionEvent event) {
         Controllermethods.switchPane(event,

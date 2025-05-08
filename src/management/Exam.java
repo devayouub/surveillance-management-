@@ -1,41 +1,34 @@
 package management;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Exam {
+	private LocalDate date;
+	private String hour;
 	private Module module;
-	private LocalDateTime date;
-    private ArrayList <ClassRoom> classrooms;
-    private ArrayList <Professor> professors;
-	public Exam(Module module, LocalDateTime date) {
-		this.module = module;
+	public Exam(LocalDate date, String hour, Module module) {
+		super();
 		this.date = date;
-	    this.professors = new ArrayList <Professor>();
-		this.classrooms = new ArrayList<ClassRoom>();
+		this.hour = hour;
+		this.module = module;
 	}
-	public void addClassRoom(ClassRoom room) {
-		classrooms.add(room);
-	   }
-	   public void deleteClassRoom(int index) {
-		   classrooms.remove(index);
-	   }
-	   public void updateClassRoom(int index,ClassRoom room) {
-		   classrooms.set(index, room);
-	   }
-		private ArrayList<Professor> getProfessors() {
-		  	return professors;
-		  }
-
-		  private void setProfessors(ArrayList<Professor> professor) {
-		  	this.professors = professor;
-		  }
-		  public void addProfessor(Professor professor) {
-			  professors.add(professor);
-		     }
-		     public void deleteProfessor(int index) {
-		    	 professors.remove(index);
-		     }
-		     public void updateProfessors(int index,Professor professor) {
-		    	 professors.set(index, professor);
-		     }
+	public LocalDate getDate() {
+		return date;
+	}
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+	public String getHour() {
+		return hour;
+	}
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+	public Module getModule() {
+		return module;
+	}
+	public void setModule(Module module) {
+		this.module = module;
+	}
+	
 }

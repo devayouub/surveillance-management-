@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -16,9 +17,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import management.ClassRoom;
 import management.Cycle;
 import management.Domain;
 import management.DomainInfo;
+import management.Exam;
 import management.Module;
 import management.ModuleInfo;
 import management.Professor;
@@ -646,6 +649,212 @@ public static ObservableList<DomainInfo> getAllDomaines() {
     return domaines;
 }
 
+public static String getModuleIdsByDomainAndDateTime(String domainName, int semesterNo, LocalDate examDate, String examHeure) {
+    
+    String query = "SELECT sm.module_id " +
+                   "FROM semester_module sm " +
+                   "JOIN spécialité s ON sm.domain_id = s.ID_spécialité " +
+                   "JOIN exam e ON e.mnémonique = sm.module_id " + // Join with the exam table
+                   "WHERE s.nom_spécialité = ? AND sm.semester_no = ? " +
+                   "AND e.exam_date = ? AND e.exam_heure = ?"; // Conditions for exam date and time
+    
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        stmt.setString(1, domainName);
+        stmt.setInt(2, semesterNo);
+        stmt.setDate(3, java.sql.Date.valueOf(examDate)); // Set the exam date
+        stmt.setString(4, examHeure); // Set the exam time
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            // Return the first module_id that matches
+            if (rs.next()) {
+                return rs.getString("module_id");
+            }
+        }
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return null; // Return null if no match found
+}
+
+
+    
+public static int getSemesterByExamDateTimeAndDomain(LocalDate examDate, String examHeure, int domainId) {
+    String query = "SELECT sm.semester_no " +
+                   "FROM exam e " +
+                   "JOIN semester_module sm ON e.mnémonique = sm.module_id " +
+                   "WHERE e.exam_date = ? AND e.exam_heure = ? AND sm.domain_id = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setDate(1, java.sql.Date.valueOf(examDate));
+        stmt.setString(2, examHeure);
+        stmt.setInt(3, domainId);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("semester_no");
+            } else {
+                System.err.println("No semester found for the given date/time/domain");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0; // or -1 if you want to indicate "not found"
+}
+
+public static Integer getSpecialiteIdByCycleAndName(int cycleId, String nomSpecialite) {
+    String query = "SELECT ID_spécialité FROM spécialité WHERE cycle_id = ? AND nom_spécialité = ?";
+    
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, cycleId);
+        stmt.setString(2, nomSpecialite);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("ID_spécialité");
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace(); // Or handle the exception as needed
+    }
+
+    return null; // Return null if not found
+}
+public static ObservableList<Professor> getUnassignedSurveillants(LocalDate examDate, String examHeure, String mnemonique) {
+    ObservableList<Professor> professors = FXCollections.observableArrayList();
+
+    String query =
+        "SELECT DISTINCT p.ID_prof, p.nom_prof, p.prenom_prof, p.email_prof " +
+        "FROM examiner e " +
+        "JOIN exam ex ON e.ID_exam = ex.ID_exam " +
+        "JOIN professor p ON e.ID_prof = p.ID_prof " +
+        "WHERE ex.exam_date = ? AND ex.exam_heure = ? AND ex.mnémonique = ? " +
+        "AND e.ID_prof NOT IN ( " +
+        "    SELECT s.ID_prof FROM surveillance s " +
+        "    WHERE s.exam = ex.ID_exam " +
+        ") " +
+        "ORDER BY p.nom_prof, p.prenom_prof";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setDate(1, java.sql.Date.valueOf(examDate));
+        stmt.setString(2, examHeure);
+        stmt.setString(3, mnemonique);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Professor prof = new Professor(
+                    rs.getInt("ID_prof"),
+                    rs.getString("prenom_prof"),
+                    rs.getString("nom_prof"),
+                    rs.getString("email_prof")
+                );
+                professors.add(prof);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return professors;
+}
+
+
+public static boolean doesSalleExist(String salleName) {
+    String query = "SELECT 1 FROM salle WHERE salle_name = ? LIMIT 1";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        stmt.setString(1, salleName);
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            return rs.next(); // If there's at least one result, the salle exists
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return false; // Return false if there is an error or no result
+}
+public static boolean addSalle(String salleName, int min,int max) {
+    String query = "INSERT INTO salle (nom_salle, minProf,maxProf) VALUES (?,?,?)";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setString(1, salleName);
+        stmt.setInt(2, min);
+        stmt.setInt(3, max);
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return false;
+}
+public static boolean deleteSalleByName(String salleName) {
+    String query = "DELETE FROM salle WHERE nom_salle = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setString(1, salleName);
+
+        int rowsAffected = stmt.executeUpdate();
+        return rowsAffected > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return false;
+}
+public static List<ClassRoom> loadAllSalles() {
+    List<ClassRoom> salles = new ArrayList<>();
+    String query = "SELECT nom_salle,minProf,maxProf FROM salle";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+        	String name = rs.getString("nom_salle");
+            int min = rs.getInt("minProf");
+            int max = rs.getInt("maxProf");
+          if(min==1) {
+            ClassRoom salle = new ClassRoom(name,"Salle");
+      	  salles.add(salle);
+
+        }
+          if(min==2) {
+              ClassRoom salle = new ClassRoom(name,"Amphi");
+        	  salles.add(salle);
+
+          }
+          return salles;
+
+    }
+    }catch (SQLException e) {
+        e.printStackTrace();
+    }
+return null;
+}
+}
+
 
     
     
@@ -653,7 +862,6 @@ public static ObservableList<DomainInfo> getAllDomaines() {
     
     
     
-}    
     
     
     
@@ -671,21 +879,7 @@ public static ObservableList<DomainInfo> getAllDomaines() {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
     
     
