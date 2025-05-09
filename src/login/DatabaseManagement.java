@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
@@ -729,20 +731,10 @@ public static Integer getSpecialiteIdByCycleAndName(int cycleId, String nomSpeci
 
     return null; // Return null if not found
 }
-public static ObservableList<Professor> getUnassignedSurveillants(LocalDate examDate, String examHeure, String mnemonique) {
-    ObservableList<Professor> professors = FXCollections.observableArrayList();
+public static Exam getExamByDetails(LocalDate examDate, String examHeure, String mnemonique) {
+    Exam exam = null;
 
-    String query =
-        "SELECT DISTINCT p.ID_prof, p.nom_prof, p.prenom_prof, p.email_prof " +
-        "FROM examiner e " +
-        "JOIN exam ex ON e.ID_exam = ex.ID_exam " +
-        "JOIN professor p ON e.ID_prof = p.ID_prof " +
-        "WHERE ex.exam_date = ? AND ex.exam_heure = ? AND ex.mnémonique = ? " +
-        "AND e.ID_prof NOT IN ( " +
-        "    SELECT s.ID_prof FROM surveillance s " +
-        "    WHERE s.exam = ex.ID_exam " +
-        ") " +
-        "ORDER BY p.nom_prof, p.prenom_prof";
+    String query = "SELECT * FROM exam WHERE exam_date = ? AND exam_heure = ? AND mnémonique = ?";
 
     try (Connection conn = getConnection();
          PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -750,6 +742,39 @@ public static ObservableList<Professor> getUnassignedSurveillants(LocalDate exam
         stmt.setDate(1, java.sql.Date.valueOf(examDate));
         stmt.setString(2, examHeure);
         stmt.setString(3, mnemonique);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                exam = new Exam(rs.getDate("exam_date").toLocalDate(), 
+                		rs.getString("exam_heure"), 
+                		new Module( rs.getString("mnémonique")),
+                		rs.getInt("ID_exam"));
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return exam;
+}
+public static ObservableList<Professor> getUnassignedSurveillants2(int examId) {
+    ObservableList<Professor> professors = FXCollections.observableArrayList();
+
+    String query =
+        "SELECT DISTINCT p.ID_prof, p.nom_prof, p.prenom_prof, p.email_prof " +
+        "FROM examiner e " +
+        "JOIN professor p ON e.ID_prof = p.ID_prof " +
+        "WHERE e.ID_exam = ? " +
+        "AND e.ID_prof NOT IN ( " +
+        "    SELECT s.ID_prof FROM surveillance s WHERE s.exam = ? " +
+        ") " +
+        "ORDER BY p.nom_prof, p.prenom_prof";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, examId);
+        stmt.setInt(2, examId);  // For the subquery
 
         try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -768,7 +793,6 @@ public static ObservableList<Professor> getUnassignedSurveillants(LocalDate exam
 
     return professors;
 }
-
 
 public static boolean doesSalleExist(String salleName) {
     String query = "SELECT 1 FROM salle WHERE nom_salle = ? LIMIT 1";
@@ -854,6 +878,164 @@ public static List<ClassRoom> loadAllSalles() {
     }
 return salles;
 }
+public static String getRoomStatus(String nomSalle) {
+    String query = "SELECT COUNT(s.nom_salle) AS rep_count, " +
+                  "sal.minProf, sal.maxProf " +
+                  "FROM salle sal " +
+                  "LEFT JOIN surveillance s ON sal.nom_salle = s.nom_salle " +
+                  "WHERE sal.nom_salle = ? " +
+                  "GROUP BY sal.minProf, sal.maxProf";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        stmt.setString(1, nomSalle);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                int repCount = rs.getInt("rep_count");
+                int minProf = rs.getInt("minProf");
+                int maxProf = rs.getInt("maxProf");
+
+                if (repCount < minProf) return "red";
+                else if (repCount < maxProf) return "yellow";
+                else return "green";
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return "error";
+}
+public static ObservableList<String> getSallesWithStatusByExamId(int examId) {
+    ObservableList<String> sallesWithStatus = FXCollections.observableArrayList();
+
+    String query = "SELECT DISTINCT es.nom_salle " +
+                   "FROM examen_salle es " +
+                   "WHERE es.id_exam = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, examId);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String salle = rs.getString("nom_salle");
+                String status = getRoomStatus(salle);
+
+                // Add status label with room name (e.g., "yellow - RoomA")
+                sallesWithStatus.add(status+"-"+salle );
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return sallesWithStatus;
+}
+
+public static ObservableList<String> getAvailableSalles(int examId) {
+    ObservableList<String> availableSalles = FXCollections.observableArrayList();
+
+    // Query all rooms assigned to this exam by its ID
+    String examRoomsQuery = "SELECT DISTINCT es.nom_salle " +
+                            "FROM examen_salle es " +
+                            "WHERE es.id_exam = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(examRoomsQuery)) {
+
+        stmt.setInt(1, examId);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String salle = rs.getString("nom_salle");
+                String status = getRoomStatus(salle);
+
+                if (status.equals("red") || status.equals("yellow")) {
+                    availableSalles.add(status + " - " + salle);
+                }
+                // Fully occupied rooms (green) are excluded
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return availableSalles;
+}
+
+public static void insertSurveillance(int examId, int professorId, String nom) {
+    String query = "INSERT INTO surveillance (ID_prof, nom_salle,exam) VALUES (?, ?, ?)";
+
+    try (Connection connection = getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+
+      
+        statement.setInt(1, professorId);
+        statement.setString(2, nom);
+        statement.setInt(3, examId);
+        int rowsInserted = statement.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println("Surveillance row inserted successfully.");
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Error inserting surveillance row: " + e.getMessage());
+    }
+}
+
+public static Map<String, Integer[]> getRoomCapacities(int examId) {
+    Map<String, Integer[]> roomCapacities = new HashMap<>();
+
+    String query = """
+        SELECT s.nom_salle, s.minProf, s.maxProf
+        FROM examen_salle es
+        JOIN salle s ON es.nom_salle = s.nom_salle
+        WHERE es.id_exam = ?
+    """;
+
+    try (Connection conn = getConnection();  // Replace with your connection method
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, examId);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                String roomName = rs.getString("nom_salle");
+                int minProf = rs.getInt("minProf");
+                int maxProf = rs.getInt("maxProf");
+                roomCapacities.put(roomName, new Integer[]{minProf, maxProf});
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return roomCapacities;
+}
+
+public static boolean markProfessorPresent(int profId, int examId) {
+    String query = "UPDATE examiner SET is_present = TRUE WHERE ID_prof = ? AND ID_exam= ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, profId);
+        stmt.setInt(2, examId);
+        int rowsUpdated = stmt.executeUpdate();
+
+        return rowsUpdated > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+
 }
 
 

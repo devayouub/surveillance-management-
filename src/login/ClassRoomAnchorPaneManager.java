@@ -87,7 +87,6 @@ public class ClassRoomAnchorPaneManager {
         if ( ClassroomName == null || ClassroomType == null) {
             throw new IllegalStateException("classroom input components not set in UsersTableManager");
         }
-
         String classroomNumber = ClassroomName.getText();
         String classroomType = ClassroomType.getValue();
         if (ClassroomName.getText().isEmpty()) {
@@ -117,7 +116,7 @@ public class ClassRoomAnchorPaneManager {
          ClassExists.setStyle("-fx-text-fill: green;");
          ClassExists.setOpacity(1);
         }
-        if(classroomNumber.equals("Salle")) {
+        if(classroomType.equals("Salle")) {
           classroom = new ClassRoom(classroomNumber,1,3);
           DatabaseManagement.addSalle(classroom.getClassnumber(),classroom.getMin(),classroom.getMax());
           reloadTable();

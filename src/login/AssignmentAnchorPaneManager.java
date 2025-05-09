@@ -1,8 +1,10 @@
 package login;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.animation.FadeTransition;
@@ -17,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -28,6 +31,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import management.Cycle;
 import management.Exam;
@@ -35,30 +39,43 @@ import management.Professor;
 
 public class AssignmentAnchorPaneManager {
     private DatePicker AssignmentDate;
+    
     private ComboBox<String> AssignmentTime;
+    
     private ComboBox<String> AssignmentCycle;
+    
     private ComboBox<String> AssignmentDomain;
+    
     private FlowPane ClassroomFlowPane;
-
+    
+    private ScrollPane scrollpane;
+    
     private TextField ProfessorTexField;
-    private ListView<String> professors;
+    
+    private ListView<Professor> professors;
+    
     private Button Confirm;
+    
     private Button Confirm1;
-    private FlowPane classroom_flowpane;
-    private ScrollPane  scrollpane_after_confirm_display_salle_exam_assignment;
-    private final ObservableList<String> suggestions = FXCollections.observableArrayList();
+    Exam TemporaryExam ;
+    
+    ObservableList<Professor> suggestions = FXCollections.observableArrayList();
+    
     private List<String> data = new ArrayList<>();
+
+	private ObservableList<Professor> unassignedList = FXCollections.observableArrayList();
+
     //--------------------------------test for salle -----------------------------------
     private Map<String, Integer> roomProfessorsCount = new HashMap<>();
     private Map<String, Integer> roomMinCapacity = new HashMap<>();
     private Map<String, Integer> roomMaxCapacity = new HashMap<>();
     private Map<String, List<String>> roomAssignedProfessors = new HashMap<>();
-    private List<String> professorNames = new ArrayList<>();
+    private Professor selectedProfessor;
     
 	public AssignmentAnchorPaneManager(DatePicker assignmentDate, ComboBox<String> assignmentTime,
 			ComboBox<String> assignmentCycle, ComboBox<String> assignmentDomain, FlowPane classroomFlowPane,
-			TextField professorTexField, Button confirm,ListView<String> ListView,Button Confirm1,FlowPane classroom_flowpane
-			,ScrollPane scrollpane_after_confirm_display_salle_exam_assignment) {
+			TextField professorTexField, Button confirm,ListView<Professor> ListView,Button Confirm1
+			,ScrollPane scrollpane) {
 		super();
 		AssignmentDate = assignmentDate;
 		AssignmentTime = assignmentTime;
@@ -69,18 +86,25 @@ public class AssignmentAnchorPaneManager {
 		Confirm = confirm;
 		professors = ListView;
         this.Confirm1 = Confirm1;
-        this.classroom_flowpane=classroom_flowpane;
-        this.scrollpane_after_confirm_display_salle_exam_assignment=scrollpane_after_confirm_display_salle_exam_assignment;
+        this.scrollpane =scrollpane;
 }	
-	// Field-level variable (add this at the top of your class)
-	private ObservableList<Professor> unassignedList = FXCollections.observableArrayList();
 
 	public void initialize() {
+		professors.setCellFactory(param -> new ListCell<>() {
+		    @Override
+		    protected void updateItem(Professor prof, boolean empty) {
+		        super.updateItem(prof, empty);
+		        if (empty || prof == null) {
+		            setText(null);
+		        } else {
+		            setText(prof.getPrFirstName() + " " + prof.getPrLastName());
+		        }
+		    }
+		});
 	    professors.setItems(suggestions);
 	    double rowHeight = 24;
 	    professors.setFixedCellSize(rowHeight);
-
-	    suggestions.addListener((javafx.collections.ListChangeListener<String>) change -> {
+	    suggestions.addListener((javafx.collections.ListChangeListener<Professor>) change -> {
 	        int size = suggestions.size();
 	        int maxVisibleRows = 5;
 	        int rowsToShow = Math.min(size, maxVisibleRows);
@@ -112,9 +136,24 @@ public class AssignmentAnchorPaneManager {
 	                management.Module module = new management.Module(
 	            DatabaseManagement.getModuleIdsByDomainAndDateTime(AssignmentDomain.getValue(),semester,AssignmentDate.getValue(),AssignmentTime.getValue()));
 	              String mnemonic = module.getUniqueName();
-	                unassignedList = DatabaseManagement.getUnassignedSurveillants(
-	                     AssignmentDate.getValue(), AssignmentTime.getValue(), mnemonic);
-	                
+	               TemporaryExam = DatabaseManagement.getExamByDetails(AssignmentDate.getValue(), AssignmentTime.getValue(), mnemonic);
+	                unassignedList = DatabaseManagement.getUnassignedSurveillants2(
+	                     TemporaryExam.getId());
+	                List<String> SallesList = new ArrayList<>(DatabaseManagement.getSallesWithStatusByExamId(TemporaryExam.getId()));
+
+	                SettingUpSalles(SallesList);
+
+	                // Load min/max capacity for each room
+	                Map<String, Integer[]> capacities = DatabaseManagement.getRoomCapacities(TemporaryExam.getId());
+	                for (Map.Entry<String, Integer[]> entry : capacities.entrySet()) {
+	                    String room = entry.getKey();
+	                    int min = entry.getValue()[0];
+	                    int max = entry.getValue()[1];
+	                    roomMinCapacity.put(room, min);
+	                    roomMaxCapacity.put(room, max);
+	                    roomProfessorsCount.putIfAbsent(room, 0);  // Initialize count if missing
+	                    roomAssignedProfessors.putIfAbsent(room, new ArrayList<>());
+	                }
 	    });
 
 	    // Search filter setup
@@ -126,55 +165,41 @@ public class AssignmentAnchorPaneManager {
 	            professors.setVisible(true);
 
 	            ObservableList<Professor> results = filterProfessorsByName(unassignedList, newValue);
-	            List<String> names = results.stream()
-	                .map(p -> p.getPrFirstName() + " " + p.getPrLastName())
-	                .collect(Collectors.toList());
-	            suggestions.setAll(names);	
+	            suggestions.setAll(results);	
 	            }
 	    });
 	    professors.setOnMouseClicked(event -> {
-	        String selected = professors.getSelectionModel().getSelectedItem();
-	        if (selected != null) {
-	            ProfessorTexField.setText(selected);
-	            professors.setVisible(false);
-	        }
+	    	Professor selected = professors.getSelectionModel().getSelectedItem();
+	    	if (selected != null) {
+	    	   String SelectedProfessor1 = selected.getPrFirstName() + " " + selected.getPrLastName(); // Optional for display
+	    	    ProfessorTexField.setText(SelectedProfessor1);
+	    	    professors.setVisible(false);
+	    	    selectedProfessor = selected;
+	    	}
+	   
 	    });
 	    Confirm.setOnAction(e -> {
-	        // handle final confirmation
+	        if (!ProfessorTexField.getText().isEmpty()) {
+	            String typedName = ProfessorTexField.getText().toLowerCase();
+	            for (Professor prof : unassignedList) {
+	                String fullName = (prof.getPrFirstName() + " " + prof.getPrLastName()).toLowerCase();
+	                if (fullName.equals(typedName)) {
+	                    selectedProfessor = prof;
+	                    break;
+	                }
+	            }
+	        }
 	    });
-        classroom_flowpane.setStyle("-fx-background-color:#000428;");
-        classroom_flowpane.setHgap(20);
-        classroom_flowpane.setVgap(20);
-        classroom_flowpane.setAlignment(Pos.TOP_CENTER);
-        classroom_flowpane.setPadding(new Insets(20)); // Add padding around content
 
-        scrollpane_after_confirm_display_salle_exam_assignment.setFitToWidth(true);
+	    ClassroomFlowPane.setStyle("-fx-background-color:#000428;");
+	    ClassroomFlowPane.setHgap(20);
+	    ClassroomFlowPane.setVgap(20);
+	    ClassroomFlowPane.setAlignment(Pos.TOP_CENTER);
+	    ClassroomFlowPane.setPadding(new Insets(20)); // Add padding around content
 
-        List<String> roomNames = List.of("A5", "A8", "1203", "1205", "B1", "B2", "C1", "C2", "D1", "D2", "E1", "E2", "F1", "F2", "G1","2220","3030","1100","0000");
-
-        for (String roomName : roomNames) {
-            roomProfessorsCount.put(roomName, 0);
-            roomMinCapacity.put(roomName, 1);
-            roomMaxCapacity.put(roomName, 2);
-            roomAssignedProfessors.put(roomName, new ArrayList<>());
-        }
-
-        int delay = 0;
-        for (String roomName : roomNames) {
-            VBox roomPane = createRoomPane(roomName);
-            roomPane.setOpacity(0);
-            classroom_flowpane.getChildren().add(roomPane);
-
-            FadeTransition fade = new FadeTransition(Duration.millis(400), roomPane);
-            fade.setFromValue(0);
-            fade.setToValue(1);
-            fade.setDelay(Duration.millis(delay));
-            fade.play();
-
-            delay += 150;
-
+	    scrollpane.setFitToWidth(true);
     }
-	}
+	
 
 	public static ObservableList<Professor> filterProfessorsByName(ObservableList<Professor> inputList, String searchString) {
 	    ObservableList<Professor> filteredList = FXCollections.observableArrayList();
@@ -193,79 +218,119 @@ public class AssignmentAnchorPaneManager {
 	    return filteredList;
 	}
 
-	}   
-	
+	public void SettingUpSalles(List<String> rawStatusList) {
+	    List<String> roomNames = new ArrayList<>();
+
+	    for (String entry : rawStatusList) {
+	            roomNames.add(entry);
+	        }
+	    
+
+	    int delay = 0;
+	    for (String roomName : roomNames) {
+	    	 String[] parts = roomName.split("-");
+	    	 if (parts.length == 2) {
+	        VBox roomPane = createRoomPane(parts[1],parts[0]);
+	        roomPane.setOpacity(0);
+	        ClassroomFlowPane.getChildren().add(roomPane);
+	    	 
+	        FadeTransition fade = new FadeTransition(Duration.millis(400), roomPane);
+	        fade.setFromValue(0);
+	        fade.setToValue(1);
+	        fade.setDelay(Duration.millis(delay));
+	        fade.play();
+
+	        delay += 150;
+	    }
+	}
+	}
 //-------------------------------Methode for Salle -----------------------------------//
-private VBox createRoomPane(String roomName) {
-    VBox box = new VBox();
-    box.setAlignment(Pos.CENTER);
-    box.setPrefSize(100, 100);
+	private VBox createRoomPane(String roomName,String color) {
+	    VBox box = new VBox();
+	    box.setAlignment(Pos.CENTER);
+	    box.setSpacing(8);
+	    box.setPrefSize(120, 120);
+	    box.setPadding(new Insets(10));
+	    box.setStyle("-fx-background-radius: 10; -fx-cursor: hand;");
 
-    setRoomColor(box, Color.web("#ff4d4d"));
+	    // Initial color (red = under min capacity)
+	    setRoomColor(box, Color.web(color));
 
-    Label label = new Label(roomName);
-    label.setFont(new Font("Arial Rounded MT Bold", 16));
-    label.setTextFill(Color.WHITE);
-    label.setWrapText(true);
-    label.setAlignment(Pos.CENTER);
-    label.setMaxWidth(180);
-    label.setStyle("-fx-text-alignment: center;");
+	    Label label = new Label(roomName);
+	    label.setFont(Font.font("Arial Rounded MT Bold", FontWeight.BOLD, 14));
+	    label.setTextFill(Color.WHITE);
+	    label.setWrapText(true);
+	    label.setAlignment(Pos.CENTER);
+	    label.setMaxWidth(100);
+	    label.setStyle("-fx-text-alignment: center;");
 
-    box.getChildren().add(label);
+	    box.getChildren().add(label);
 
-    box.setOnMouseClicked((MouseEvent event) -> {
-       String professor = getNextProfessor();
-        if (professor == null || professor.isEmpty()) {
-            showAlert("No professor selected! Please add professor first.");
-           return;
-        }
+	    // Mouse click assigns professor
+	    box.setOnMouseClicked(event -> {
+	        try {
+	            if (selectedProfessor == null) {
+	                showAlert("No professor selected! Please select a professor before assigning.");
+	                return;
+	            }
 
-        int currentCount = roomProfessorsCount.get(roomName);
-        int maxCount = roomMaxCapacity.get(roomName);
+	            String professorName = selectedProfessor.getPrLastName();
+	            int currentCount = roomProfessorsCount.getOrDefault(roomName, 0);
+	            int maxCount = roomMaxCapacity.getOrDefault(roomName, 2);
+	            int minCount = roomMinCapacity.getOrDefault(roomName, 1);
 
-        if (currentCount >= maxCount) {
-            showAlert("Room " + roomName + " is already full!");
-            return;
-        }
+	            // Initialize the list if it's null
+	            roomAssignedProfessors.putIfAbsent(roomName, new ArrayList<>());
+	            List<String> assigned = roomAssignedProfessors.get(roomName);
 
-        currentCount++;
-        roomProfessorsCount.put(roomName, currentCount);
-        roomAssignedProfessors.get(roomName).add(professor);
+	            if (assigned.contains(professorName)) {
+	                showAlert("Professor " + professorName + " is already assigned to room " + roomName + "!");
+	                return;
+	            }
 
+	            if (currentCount >= maxCount) {
+	                showAlert("Room " + roomName + " is already full!");
+	                return;
+	            }
 
+	            // Assign professor
+	            currentCount++;
+	            roomProfessorsCount.put(roomName, currentCount);
+	            assigned.add(professorName);
+	            DatabaseManagement.insertSurveillance(TemporaryExam.getId(), selectedProfessor.getProfId(), roomName);
+                DatabaseManagement.markProfessorPresent(selectedProfessor.getProfId(), TemporaryExam.getId());
+	            // Update color based on new count
+	            if (currentCount < minCount) {
+	                setRoomColor(box, Color.web("#ff4d4d")); // Red
+	            } else if (currentCount < maxCount) {
+	                setRoomColor(box, Color.web("#FFA500")); // Yellow
+	            } else {
+	                setRoomColor(box, Color.web("#4CAF50")); // Green
+	            }
 
-        if (currentCount == maxCount) {
-            setRoomColor(box, Color.web("#4CAF50"));
-        } else {
-            setRoomColor(box, Color.web("#FFA500"));
-        }
+	            showAlert("Professor assigned to Room " + roomName);
+	        } catch (Exception e) {
+	            showAlert("Error while assigning professor: " + e.getMessage());
+	        }
+	    });
 
-        showAlert("Professor assigned to Room " + roomName);
+	    // Hover effect
+	    box.setOnMouseEntered(event -> {
+	        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), box);
+	        scaleTransition.setToX(1.1);
+	        scaleTransition.setToY(1.1);
+	        scaleTransition.play();
+	    });
 
-    });
+	    box.setOnMouseExited(event -> {
+	        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), box);
+	        scaleTransition.setToX(1.0);
+	        scaleTransition.setToY(1.0);
+	        scaleTransition.play();
+	    });
 
-    box.setOnMouseEntered(event -> {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), box);
-        scaleTransition.setToX(1.12);
-        scaleTransition.setToY(1.12);
-        scaleTransition.play();
-    });
-
-    box.setOnMouseExited(event -> {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), box);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
-        scaleTransition.play();
-    });
-
-    return box;
-}
-  private String getNextProfessor() {
-      if (!professorNames.isEmpty()) {
-          return professorNames.remove(0);
-      }
-      return null;
-  }
+	    return box;
+	}
 
 
   private void setRoomColor(VBox box, Color color) {
@@ -280,18 +345,7 @@ private VBox createRoomPane(String roomName) {
       alert.setContentText(message);
       alert.showAndWait();
   }
-  @FXML
-  private void onConfirmProfessor() {
-      String name = textfield_list_teacher_direct_teacher_exam_assignment.getText().trim();
-      if (!name.isEmpty()) {
-          professorNames.add(name);
-          textfield_list_teacher_direct_teacher_exam_assignment.clear();
-          showAlert("Professor \"" + name + "\" added to the list.");
-      } else {
-          showAlert("Please enter a valid professor name.");
-      }
-  }
-
+}
 
 
 	
