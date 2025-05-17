@@ -1,6 +1,8 @@
 package management;
 
 
+import javafx.collections.ObservableList;
+
 public class Professor {
 	  private int ProfId;
 	  private static int autoIncrement=0;
@@ -9,14 +11,17 @@ public class Professor {
       private String PrEmail;
       private boolean modified = false;
 
-      public boolean isModified() {
+	public static void setItems(ObservableList<String> suggestions) {
+	}
+
+	public boolean isModified() {
           return modified;
       }
 
       public void setModified(boolean modified) {
           this.modified = modified;
       }
-	public Professor(String prFirstName, String prLastName, String prEmail) {
+		public Professor(String prFirstName, String prLastName, String prEmail) {
 		this.ProfId= ++autoIncrement;
 		PrFirstName = prFirstName;
 		PrLastName = prLastName;

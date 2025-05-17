@@ -26,7 +26,7 @@ import management.User;
 public class DatabaseManagement {
     private static final String URL = "jdbc:mysql://localhost:3306/surveillance_data_base";
     private static final String USER = "root";
-    private static final String DB_PASSWORD = "ayoub2005";
+    private static final String DB_PASSWORD = "zakaria14kh";
     static ObservableList<User> users = FXCollections.observableArrayList();
     static ObservableList<Professor> professors = FXCollections.observableArrayList();
 
@@ -394,7 +394,7 @@ public static boolean deleteModule(Module module) {
 
 public static ObservableList<String> getCycles() {
     ObservableList<String> cycles = FXCollections.observableArrayList();
-    String query = "SELECT * FROM Cycle";
+    String query = "SELECT * FROM cycle";
 
     try (Connection conn = getConnection();
          PreparedStatement stmt = conn.prepareStatement(query);
@@ -404,6 +404,7 @@ public static ObservableList<String> getCycles() {
             String name = rs.getString("nom_cycle");
             cycles.add(name);
         }
+        return cycles;
 
     } catch (SQLException e) {
         e.printStackTrace();
@@ -645,6 +646,65 @@ public static ObservableList<DomainInfo> getAllDomaines() {
 
     return domaines;
 }
+    public static ObservableList<String> getModuleIdsByDomainAndSemester(String domainName, int semesterNo) {
+        ObservableList<String> moduleIds = FXCollections.observableArrayList();
+
+        String query = "SELECT sm.modules_id " +
+                "FROM semester_module sm " +
+                "JOIN specialité s ON sm.domain_id = s.ID_spécialité " +
+                "WHERE s.nom_spécialité = ? AND sm.semester_no = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, domainName);
+            stmt.setInt(2, semesterNo);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String moduleId = rs.getString("modules_id");
+                    moduleIds.add(moduleId);
+                }
+            }
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+        return moduleIds;
+    }
+    public static ObservableList<Professor> searchProfessorsByName(String searchString) {
+        ObservableList<Professor> matchingProfessors = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM professor " +
+                "WHERE LOWER(nom_prof) LIKE LOWER(?) " +
+                "OR LOWER(prenom_prof) LIKE LOWER(?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Add wildcards for partial matching
+            String searchPattern = "%" + searchString + "%";
+            stmt.setString(1, searchPattern);
+            stmt.setString(2, searchPattern);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Professor prof = new Professor(
+                            rs.getInt("ID_prof"),
+                            rs.getString("prenom_prof"),
+                            rs.getString("nom_prof"),
+                            rs.getString("email_prof")
+                    );
+                    matchingProfessors.add(prof);
+                }
+            }
+
+        } catch (SQLException e) {    }
+
+        return matchingProfessors;
+    }
 
 
     

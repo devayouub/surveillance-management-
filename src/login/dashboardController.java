@@ -6,22 +6,16 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.scene.control.TextField;
-
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+
 import management.Cycle;
 import management.Domain;
 import management.DomainInfo;
@@ -54,6 +48,10 @@ public class dashboardController implements Initializable{
     private AnchorPane anchorexamsManagement;
     @FXML
     private AnchorPane anchorexamsAssignment;
+    @FXML
+    private AnchorPane AnchorpanemanualExams;
+    @FXML
+    private AnchorPane Anchorpaneautomatiqueexams ;
     //---------------------other------------------------------------
     @FXML
     private Button managementButton;
@@ -121,6 +119,10 @@ public class dashboardController implements Initializable{
     private Button DeleteProfessor;
     @FXML
     private Label NoProfessorSelected;
+    @FXML
+    private Button manualinizialisebutton;
+    @FXML
+    private Button automatiqueinizialisebutton;
     
    //---------------------------Tables---------------------------
     //------------------user Table--------------------------------------
@@ -135,6 +137,7 @@ public class dashboardController implements Initializable{
      @FXML private TableColumn<User, String> PasswordColumn;
      private UserAnchorPaneManager userAnchorPaneManager;
     private DepartmentAnchorPaneManager departmentAnchorPaneManager;
+    private ExamsAnchorpaneManagment examsAnchorpaneManagment;
     //------------------Professors Table---------------------------------
      @FXML private  TableView<Professor> professorsTable;
      
@@ -199,10 +202,45 @@ public class dashboardController implements Initializable{
        private Label DomainErrorMessage;
        @FXML
        private Label NoselectedDomain;
-       
+    //---------------------ManuelExams Table---------------------------
+    @FXML
+    private DatePicker datapickerexams;
+    @FXML
+    private ComboBox<String> timeComboBox;
+    @FXML
+    private ComboBox<String> CycleCombobox;
+    @FXML
+    private ComboBox<String> DomainCombobox;
+    @FXML
+    private ComboBox<String> moduleComboBox;
+    @FXML
+    private TextField professorTextField;
+    @FXML
+    private Button addProfessorToClassRoom;
+    @FXML
+    private ComboBox<String> CycleCombobox2;
+    @FXML
+    private ComboBox<String> DomainComboBox2;
+    @FXML
+    private TextField Classroomname;
+    @FXML
+    private Button addclassroomToExam;
+    @FXML
+    private Button Display;
+    @FXML
+    private  Button Confimebutton;
+    @FXML
+    ListView LIsteviewProffesseursExams;
+
+    @FXML
+    private ComboBox<Integer> comboboxSemestre;
+    private ManualMethodeAnchorpaneManagment manualMethodeAnchorpaneManagment;
+
+
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-    //---------------------------userAnchorPane SetUp---------------------------------------   
+    //---------------------------userAnchorPane SetUp---------------------------------------
     	 userAnchorPaneManager = new UserAnchorPaneManager(UsersTable,
     			usernameField,passwordField,passwordTextField,
     			     makeAdmin,weakPasswordLabel,WarningLabel,AdduserButton,
@@ -229,7 +267,13 @@ public class dashboardController implements Initializable{
         domainesAnchorPaneManager = new DomainesAnchorPaneManager(ChooseCycle,DomainName,ConfirmDomain,DeleteDomaine,
         		domainTable,searchDomain,DomainErrorMessage,NoselectedDomain);
         domainesAnchorPaneManager.initialize();
-        
+        //---------------------------ExamsManegment AnchorPane SetUp---------------------------------------
+        examsAnchorpaneManagment= new ExamsAnchorpaneManagment(manualinizialisebutton,automatiqueinizialisebutton,AnchorpanemanualExams,Anchorpaneautomatiqueexams);
+        examsAnchorpaneManagment.initialize();
+        //---------------------------ExamsManual AnchorPane SetUp---------------------------------------
+        manualMethodeAnchorpaneManagment= new ManualMethodeAnchorpaneManagment(datapickerexams,timeComboBox,CycleComboBox,DomainComboBox,comboboxSemestre,moduleComboBox,professorTextField,addProfessorToClassRoom,CycleCombobox2,DomainComboBox2,Classroomname,addclassroomToExam,Display,Confimebutton,LIsteviewProffesseursExams );
+        manualMethodeAnchorpaneManagment.initialize();
+        //---------------------------ExamsAutomatic AnchorPane SetUp---------------------------------------
     }
     public void switchform(javafx.event.ActionEvent event) {
         Controllermethods.switchPane(event,
@@ -247,6 +291,9 @@ public class dashboardController implements Initializable{
     public void actionexit(MouseEvent mouseEvent) {
     	
         System.exit(0);
+
+
     }
+
   
 }
