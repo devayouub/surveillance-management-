@@ -244,7 +244,7 @@
             <Label layoutX="10.0" layoutY="6.0" prefHeight="566.0" prefWidth="750.0" styleClass="anchorsitch" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorexamsManagement" layoutX="237.0" layoutY="4.0" prefHeight="690.0" prefWidth="1051.0" stylesheets="@view.css">
+      <AnchorPane fx:id="anchorexamsManagement" layoutX="237.0" layoutY="4.0" prefHeight="690.0" prefWidth="1051.0" stylesheets="@view.css" visible="false">
          <children>
             <Label layoutX="12.0" layoutY="11.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" />
             <Label layoutX="46.0" layoutY="30.0" prefHeight="15.0" prefWidth="219.0" text="Welcom to Exams page: " textFill="#e5f8ff">
@@ -349,15 +349,71 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorProfile" layoutX="242.0" layoutY="10.0" prefHeight="678.0" prefWidth="1051.0" visible="false">
+      <AnchorPane fx:id="anchorProfile" layoutX="242.0" layoutY="10.0" prefHeight="678.0" prefWidth="1051.0">
          <children>
-            <Label layoutX="7.0" layoutY="9.0" prefHeight="660.0" prefWidth="1034.0" styleClass="anchorsitch" />
-            <Label layoutX="32.0" layoutY="23.0" prefHeight="23.0" prefWidth="290.0" text="Welcome to your Profile" textFill="#add8e1">
+            <Label fx:id="anchorpane_proile" layoutX="7.0" layoutY="9.0" prefHeight="660.0" prefWidth="1034.0" styleClass="anchorsitch" />
+            <Label layoutX="32.0" layoutY="23.0" prefHeight="35.0" prefWidth="428.0" text="Welcome to User change password :" textFill="#add8e1">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <Label layoutX="40.0" layoutY="66.0" />
+            <AnchorPane fx:id="anchorpane_change_password" layoutX="23.0" layoutY="66.0" prefHeight="583.0" prefWidth="1002.0" AnchorPane.bottomAnchor="28.799999999999955" AnchorPane.leftAnchor="23.20000000000016" AnchorPane.rightAnchor="25.800000000000068" AnchorPane.topAnchor="66.0">
+               <children>
+                  <Label layoutX="28.0" layoutY="41.0" prefHeight="44.0" prefWidth="134.0" text="password :" textFill="#fffbfb">
+                     <font>
+                        <Font name="Lucida Sans Unicode" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="27.0" layoutY="79.0" prefHeight="44.0" prefWidth="469.0" text="Please enter your courent password to change your password" textFill="#fffefe">
+                     <font>
+                        <Font name="Lucida Sans Unicode" size="15.0" />
+                     </font>
+                  </Label>
+                  <Line endX="949.3999633789062" endY="1.9073486328125E-6" layoutX="53.0" layoutY="35.0" startX="-53.00001907348633" startY="1.9073486328125E-6" stroke="WHITE" AnchorPane.bottomAnchor="552.6" AnchorPane.leftAnchor="-0.5000190734863281" AnchorPane.rightAnchor="3.0000366210937273" AnchorPane.topAnchor="29.500001907348633" />
+                  <Line endX="951.0928344726562" endY="4.2355059122201055E-5" layoutX="53.0" layoutY="155.0" startX="-53.00001907348633" startY="1.9073486328125E-6" stroke="WHITE" AnchorPane.bottomAnchor="428.60000000000014" AnchorPane.leftAnchor="1.4999809265136719" AnchorPane.rightAnchor="1.4000366210937045" AnchorPane.topAnchor="154.50000190734863" />
+                  <Label layoutX="28.0" layoutY="421.4" prefHeight="44.0" prefWidth="175.0" text="Confirm password :" textFill="#fffbfb" AnchorPane.bottomAnchor="119.39999999999998" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="805.6" AnchorPane.topAnchor="421.4">
+                     <font>
+                        <Font name="Lucida Sans Unicode" size="17.0" />
+                     </font>
+                  </Label>
+                  <PasswordField layoutX="258.0" layoutY="190.0" prefHeight="35.0" prefWidth="239.0" promptText="courent password">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </PasswordField>
+                  <Line endX="951.0928344726562" endY="4.2355059122201055E-5" layoutX="53.0" layoutY="270.0" startX="-53.00001907348633" startY="1.9073486328125E-6" stroke="WHITE" />
+                  <Label layoutX="26.4" layoutY="290.6" prefHeight="65.0" prefWidth="174.0" text="New password :" textFill="#fffbfb" AnchorPane.bottomAnchor="229.39999999999998" AnchorPane.leftAnchor="26.4" AnchorPane.rightAnchor="808.8" AnchorPane.topAnchor="290.6">
+                     <font>
+                        <Font name="Lucida Sans Unicode" size="17.0" />
+                     </font>
+                  </Label>
+                  <PasswordField layoutX="258.0" layoutY="305.0" prefHeight="35.0" prefWidth="239.0" promptText="new password">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </PasswordField>
+                  <Line endX="951.0928344726562" endY="4.2355059122201055E-5" layoutX="53.0" layoutY="390.0" startX="-53.00001907348633" startY="1.9073486328125E-6" stroke="WHITE" />
+                  <Label layoutX="28.0" layoutY="182.0" prefHeight="44.0" prefWidth="175.0" text="Courent password :" textFill="#fffbfb" AnchorPane.bottomAnchor="358.4000000000001" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="805.5999999999999" AnchorPane.topAnchor="182.0">
+                     <font>
+                        <Font name="Lucida Sans Unicode" size="17.0" />
+                     </font>
+                  </Label>
+                  <PasswordField layoutX="259.0" layoutY="425.0" prefHeight="35.0" prefWidth="239.0" promptText="confirm password">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </PasswordField>
+                  <Line endX="951.0928344726562" endY="4.2355059122201055E-5" layoutX="53.0" layoutY="510.0" startX="-53.00001907348633" startY="1.9073486328125E-6" stroke="WHITE" />
+                  <Button layoutX="612.0" layoutY="528.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="191.0" styleClass="buttonlabe" text="change password" />
+                  <Button layoutX="838.0" layoutY="528.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="143.0" styleClass="buttonlabe" text="cancel" />
+                  <CheckBox layoutX="26.0" layoutY="529.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="143.0" text="Show password">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="anchorexamsAssignment" layoutX="252.0" layoutY="19.0" prefHeight="700.0" prefWidth="1300.0" visible="false" AnchorPane.bottomAnchor="12.799999999999955" AnchorPane.leftAnchor="242.4" AnchorPane.rightAnchor="6.399999999999977" AnchorPane.topAnchor="8.8">
