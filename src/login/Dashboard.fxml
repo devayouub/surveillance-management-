@@ -7,14 +7,15 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -244,10 +245,10 @@
             <Label layoutX="10.0" layoutY="6.0" prefHeight="566.0" prefWidth="750.0" styleClass="anchorsitch" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorexamsManagement" layoutX="237.0" layoutY="4.0" prefHeight="690.0" prefWidth="1051.0" stylesheets="@view.css" visible="false">
+      <AnchorPane fx:id="anchorexamsManagement" layoutX="237.0" layoutY="4.0" prefHeight="690.0" prefWidth="1051.0" stylesheets="@view.css">
          <children>
             <Label layoutX="12.0" layoutY="11.0" prefHeight="666.0" prefWidth="1026.0" styleClass="anchorsitch" />
-            <Label layoutX="46.0" layoutY="30.0" prefHeight="15.0" prefWidth="219.0" text="Welcom to Exams page: " textFill="#e5f8ff">
+            <Label layoutX="46.0" layoutY="30.0" prefHeight="27.0" prefWidth="294.0" text="Welcom to Exams Manaegement : " textFill="#e5f8ff">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -258,28 +259,23 @@
                   <String fx:value="schadow" />
                </styleClass>
             </Label>
-            <Button fx:id="automatiqueinizialisebutton" layoutX="617.0" layoutY="85.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="373.0" styleClass="button-menubar" text="Initialization Exams with automatique method">
+            <Button fx:id="automatiqueinizialisebutton" layoutX="541.0" layoutY="85.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="466.0" styleClass="button-menubar" text="Initialization classroom">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="manualinizialisebutton" layoutX="51.0" layoutY="87.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="422.0" styleClass="button-menubar" text="Initialization Exams with manuale method">
+            <Button fx:id="manualinizialisebutton" layoutX="51.0" layoutY="87.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="482.0" styleClass="button-menubar" text="Initialization Eprouve">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <AnchorPane fx:id="AnchorpanemanualExams" layoutX="38.0" layoutY="142.0" prefHeight="521.0" prefWidth="993.0">
+            <AnchorPane fx:id="AnchorpanemanualExams" layoutX="38.0" layoutY="142.0" prefHeight="521.0" prefWidth="993.0" visible="false" AnchorPane.bottomAnchor="26.799999999999955" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="19.200000000000045" AnchorPane.topAnchor="142.39999999999998">
                <children>
-                  <TextField fx:id="Classroomname" layoutX="529.0" layoutY="323.0" prefHeight="46.0" prefWidth="258.0" promptText="Add classroom" styleClass="textfield" />
-                  <Button fx:id="Display" layoutX="885.0" layoutY="470.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" styleClass="button2" text="display">
+                  <Button fx:id="Display" layoutX="530.0" layoutY="418.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="194.0" styleClass="button2" text="display eprouve">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font></Button>
-                  <Button fx:id="addclassroomToExam" layoutX="535.0" layoutY="385.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" styleClass="button2" text="Add">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0" />
-                     </font></Button>
-                  <Label layoutX="15.0" layoutY="5.0" prefHeight="18.0" prefWidth="382.0" text="Enter the details of the theacher you want to direct :" textFill="WHITE">
+                  <Label layoutX="15.0" layoutY="5.0" prefHeight="18.0" prefWidth="382.0" text="Enter the information of eprouve :" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -293,53 +289,60 @@
                   <Label layoutX="276.0" layoutY="147.0" prefHeight="18.0" prefWidth="166.0" text="4 - Choose Domain :" textFill="WHITE" />
                   <ComboBox fx:id="moduleComboBox" layoutX="276.0" layoutY="283.0" prefHeight="42.0" prefWidth="190.0" promptText="Module" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="276.0" layoutY="251.0" prefHeight="18.0" prefWidth="166.0" text="6 - Choose Module :" textFill="WHITE" />
-                  <Line endX="443.1340637207031" endY="9.372039794921875" layoutX="63.0" layoutY="16.0" startX="443.134033203125" startY="442.0" stroke="WHITE" />
-                  <TextField fx:id="professorTextField" layoutX="526.0" layoutY="67.0" prefHeight="46.0" prefWidth="249.0" promptText="Add teacher" styleClass="textfield" />
-                  <Label layoutX="529.0" layoutY="25.0" prefHeight="18.0" prefWidth="280.0" text=" Choose teacher you want to add" textFill="#f4f2f2">
+                  <Line endX="443.1340637207031" endY="9.372039794921875" layoutX="63.0" layoutY="16.0" startX="443.1340637207031" startY="354.1333312988281" stroke="WHITE" />
+                  <TextField fx:id="professorTextField" layoutX="563.0" layoutY="85.0" prefHeight="46.0" prefWidth="249.0" promptText="Add teacher" styleClass="textfield" />
+                  <Label layoutX="561.0" layoutY="40.0" prefHeight="18.0" prefWidth="280.0" text=" Choose teacher you want to add :" textFill="#f4f2f2">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <Button fx:id="addProfessorToClassRoom" layoutX="535.0" layoutY="134.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" styleClass="button2" text="Add">
+                  <Button fx:id="addProfessorToClassRoom" layoutX="575.0" layoutY="180.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="148.0" styleClass="button2" text="Add teacher">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="DomainComboBox2" layoutX="710.0" layoutY="252.0" prefHeight="31.0" prefWidth="154.0" promptText="Domain" styleClass="combo-box1" stylesheets="@view.css" />
-                  <ComboBox fx:id="CycleCombobox2" layoutX="529.0" layoutY="253.0" prefHeight="30.0" prefWidth="154.0" promptText="Cycle" styleClass="combo-box1" stylesheets="@view.css" />
-                  <Label layoutX="529.0" layoutY="202.0" prefHeight="18.0" prefWidth="280.0" text=" Choose  classroom you want to add" textFill="#f4f2f2">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
                   <DatePicker fx:id="datapickerexams" layoutX="27.0" layoutY="95.0" prefHeight="39.0" prefWidth="178.0" />
                   <ComboBox fx:id="comboboxSemestre" layoutX="22.0" layoutY="283.0" prefHeight="42.0" prefWidth="190.0" promptText="Semestre" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="21.0" layoutY="251.0" prefHeight="18.0" prefWidth="166.0" text="5 - Choose Semestre :" textFill="WHITE" />
-                  <Button fx:id="Confimebutton" layoutX="390.0" layoutY="385.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" styleClass="button2" text="Confirme">
+                  <Button fx:id="Confimebutton" layoutX="26.0" layoutY="421.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="191.0" styleClass="button2" text="Confirme eprouve">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="12.0" />
                      </font>
                   </Button>
-                  <ListView fx:id="LIsteviewProffesseursExams" layoutX="543.0" layoutY="112.0" prefHeight="200.0" prefWidth="222.0" />
+                  <Line endX="556.933349609375" endY="3.0517578125E-5" layoutX="428.0" layoutY="370.0" startX="-427.9999694824219" startY="3.0517578125E-5" stroke="#f2f2f2" />
+                  <Label layoutX="26.0" layoutY="379.0" prefHeight="30.0" prefWidth="370.0" text="Confirm to add new eprouve :" textFill="#fcfcfc">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="526.0" layoutY="379.0" prefHeight="30.0" prefWidth="370.0" text="Click on Display to see the list of eprouve :" textFill="#fcfcfc">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorepqnedisplay_exames_manegment" layoutX="15.0" layoutY="129.0" prefHeight="444.0" prefWidth="744.0" visible="false">
+            <AnchorPane fx:id="anchorepqnedisplay_exames_manegment" layoutX="15.0" layoutY="129.0" prefHeight="539.0" prefWidth="1010.0" visible="false">
                <children>
-                  <Button layoutX="645.0" layoutY="407.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" styleClass="button2" text="Back">
+                  <Button layoutX="792.0" layoutY="472.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="175.0" styleClass="button2" text="Back">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
                   </Button>
-                  <TableView layoutX="10.0" layoutY="3.0" prefHeight="398.0" prefWidth="728.0" styleClass="table-view1">
+                  <TableView layoutX="10.0" layoutY="57.0" prefHeight="398.0" prefWidth="987.0" styleClass="table-view1">
                     <columns>
                       <TableColumn prefWidth="126.22555541992188" resizable="false" text="Date" />
-                      <TableColumn minWidth="8.334991455078125" prefWidth="68.1744384765625" resizable="false" text="Time" />
-                        <TableColumn prefWidth="78.54852294921875" resizable="false" text="Cycle" />
-                        <TableColumn prefWidth="84.87750244140625" resizable="false" text="Domaine" />
-                        <TableColumn prefWidth="97.52239990234375" resizable="false" text="Module" />
-                        <TableColumn prefWidth="168.4835205078125" resizable="false" text="Professors" />
-                        <TableColumn prefWidth="104.48358154296875" resizable="false" text="Classroom" />
+                      <TableColumn minWidth="8.334991455078125" prefWidth="143.4666748046875" resizable="false" text="Time" />
+                        <TableColumn prefWidth="139.7333984375" resizable="false" text="Cycle" />
+                        <TableColumn prefWidth="82.6666259765625" resizable="false" text="Domaine" />
+                        <TableColumn prefWidth="167.20001220703125" resizable="false" text="Module" />
+                        <TableColumn prefWidth="326.66668701171875" resizable="false" text="Professors" />
                     </columns>
                   </TableView>
+                  <Label layoutX="29.0" layoutY="8.0" prefHeight="43.0" prefWidth="418.0" text="List of professors :" textFill="#f4f3f3">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="Anchorpaneautomatiqueexams" layoutX="28.0" layoutY="129.0" prefHeight="530.0" prefWidth="978.0" visible="false">
@@ -347,9 +350,48 @@
                   <Button layoutX="383.0" layoutY="215.0" mnemonicParsing="false" text="Button" />
                </children>
             </AnchorPane>
+            <AnchorPane layoutX="33.0" layoutY="131.0" prefHeight="537.0" prefWidth="991.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="19.2" AnchorPane.topAnchor="142.39999999999998">
+               <children>
+                  <ComboBox fx:id="DomainComboBox2" layoutX="23.0" layoutY="159.0" prefHeight="31.0" prefWidth="172.0" promptText="Domain" styleClass="combo-box1" stylesheets="@view.css" />
+                  <ComboBox fx:id="CycleCombobox2" layoutX="268.0" layoutY="83.0" prefHeight="33.0" prefWidth="179.0" promptText="Cycle" styleClass="combo-box1" stylesheets="@view.css" />
+                  <Label layoutX="28.0" layoutY="283.0" prefHeight="18.0" prefWidth="280.0" text=" Choose  classroom you want to add :" textFill="#f4f2f2">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="Classroomname" layoutX="32.0" layoutY="325.0" prefHeight="46.0" prefWidth="258.0" promptText="Add classroom" styleClass="textfield" />
+                  <Button fx:id="addclassroomToExam" layoutX="38.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" styleClass="button2" text="Add classroom">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font></Button>
+                  <Label layoutX="23.0" layoutY="6.0" prefHeight="35.0" prefWidth="374.0" text="Enter information to add a classroom :" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <ComboBox layoutX="22.0" layoutY="83.0" prefHeight="34.0" prefWidth="175.0" promptText="Year" styleClass="combo-box1" />
+                  <Label layoutX="22.0" layoutY="44.0" prefHeight="29.0" prefWidth="126.0" text="1 - choose year :" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="CycleCombobox21" layoutX="268.0" layoutY="158.0" prefHeight="33.0" prefWidth="179.0" promptText="Semaster" styleClass="combo-box1" stylesheets="@view.css" />
+                  <Line endX="234.60000610351562" layoutX="217.0" layoutY="261.0" startX="-203.79998779296875" stroke="WHITE" />
+                  <Line endX="-101.59994506835938" endY="367.6666564941406" layoutX="582.0" layoutY="139.0" startX="-101.59994506835938" startY="-127.26668548583984" stroke="#f4f4f4" />
+                  <ScrollPane layoutX="500.0" layoutY="68.0" prefHeight="425.0" prefWidth="483.0" stylesheets="@view.css">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="428.0" prefWidth="484.0" stylesheets="@view.css">
+                           <children>
+                              <FlowPane layoutX="142.0" layoutY="114.0" prefHeight="428.0" prefWidth="484.0" style="-fx-background-color: transparent;" stylesheets="@view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorProfile" layoutX="242.0" layoutY="10.0" prefHeight="678.0" prefWidth="1051.0">
+      <AnchorPane fx:id="anchorProfile" layoutX="242.0" layoutY="10.0" prefHeight="678.0" prefWidth="1051.0" visible="false">
          <children>
             <Label fx:id="anchorpane_proile" layoutX="7.0" layoutY="9.0" prefHeight="660.0" prefWidth="1034.0" styleClass="anchorsitch" />
             <Label layoutX="32.0" layoutY="23.0" prefHeight="35.0" prefWidth="428.0" text="Welcome to User change password :" textFill="#add8e1">
@@ -472,7 +514,7 @@
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </Button>
-            <AnchorPane fx:id="anchorpane_change_teacher_room_exam_asssignment" layoutX="21.0" layoutY="139.0" prefHeight="522.0" prefWidth="1002.0">
+            <AnchorPane fx:id="anchorpane_change_teacher_room_exam_asssignment" layoutX="21.0" layoutY="139.0" prefHeight="522.0" prefWidth="1002.0" visible="false">
                <children>
                   <Label layoutX="20.0" layoutY="30.0" prefHeight="18.0" prefWidth="382.0" text="Enter the details of the theacher you want to change :" textFill="WHITE">
                      <font>
@@ -487,7 +529,6 @@
                   <ComboBox fx:id="combobox_cycle_change_teacher_room_exam_assignment" layoutX="20.0" layoutY="200.0" prefHeight="39.0" prefWidth="178.0" promptText="Cycle" styleClass="combo-box1" stylesheets="@view.css" />
                   <Label layoutX="14.0" layoutY="172.0" prefHeight="18.0" prefWidth="166.0" text="3 - Choose Cycle :" textFill="WHITE" />
                   <Label layoutX="240.0" layoutY="172.0" prefHeight="18.0" prefWidth="166.0" text="4 - Choose Domain :" textFill="WHITE" />
-                  <Line endX="443.1340637207031" endY="9.372039794921875" layoutX="46.0" layoutY="11.0" startX="443.1340637207031" startY="388.34552001953125" stroke="WHITE" />
                   <TextField fx:id="textfield_list_teacher_change_teacher_room_exam_assignment1" layoutX="630.0" layoutY="84.0" prefHeight="45.0" prefWidth="222.0" promptText="List of teacher" styleClass="textfield" />
                   <Label layoutX="630.0" layoutY="48.0" prefHeight="20.0" prefWidth="258.0" text="6 - Choose teacher you want to direct :" textFill="#f4f2f2">
                      <font>
@@ -499,6 +540,29 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorpane_display_absence" layoutX="26.0" layoutY="155.0" prefHeight="500.0" prefWidth="998.0">
+               <children>
+                  <DatePicker layoutX="201.0" layoutY="52.0" prefHeight="35.0" prefWidth="247.0" />
+                  <Label layoutX="28.0" layoutY="51.0" prefHeight="44.0" prefWidth="172.0" text="Chosse Date :" textFill="#f4f4f4">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="493.0" layoutY="51.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="buttonlabe" text="Display presence" />
+                  <Label layoutX="7.0" layoutY="3.0" prefHeight="29.0" prefWidth="674.0" text="Please choose a date to display list of presence :" textFill="WHITE">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="12.0" layoutY="118.0" prefHeight="352.0" prefWidth="975.0">
+                    <columns>
+                      <TableColumn prefWidth="289.8666763305664" resizable="false" text="Frist Name" />
+                      <TableColumn prefWidth="326.9333190917969" resizable="false" text="Last Name" />
+                        <TableColumn prefWidth="354.4000122070313" resizable="false" text="Presence" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
          </children>
