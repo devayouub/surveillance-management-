@@ -1,10 +1,4 @@
 package management;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Domain {
 	private static int autoincrement=0;
 	private int id;
@@ -16,7 +10,6 @@ public class Domain {
 	}
 
 	public Domain(String domainName,int cycle) {
-		id=++autoincrement;
 		this.domainName =domainName;
 		this.cycle= cycle;
 	}

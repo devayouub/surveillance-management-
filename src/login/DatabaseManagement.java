@@ -3,6 +3,7 @@ package login;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -461,6 +462,28 @@ public static ObservableList<String> getDomaines(String cyclename) {
 
     return domaines;
 }
+public static ObservableList<Domain> getDomainesAsAWhole(String cyclename) {
+    ObservableList<Domain> domaines = FXCollections.observableArrayList();
+    Cycle cycle = getCycle(cyclename);
+    String query = "SELECT * FROM spécialité WHERE cycle_id = ?";
+
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        
+        stmt.setInt(1, cycle.getId()); // Set parameter before execution
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Domain domain = new Domain(rs.getInt("ID_spécialité"),rs.getString("nom_spécialité"),rs.getInt("cycle_id"));; // Correct column name
+                domaines.add(domain);
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return domaines;
+}
 
 
     
@@ -907,6 +930,7 @@ public static String getRoomStatus(String nomSalle) {
     }
     return "error";
 }
+
 public static ObservableList<String> getSallesWithStatusByExamId(int examId) {
     ObservableList<String> sallesWithStatus = FXCollections.observableArrayList();
 
@@ -1034,16 +1058,109 @@ public static boolean markProfessorPresent(int profId, int examId) {
     }
     return false;
 }
+public static ObservableList<String> getModulesByDomainAndSemester(Domain Domain,int Semestre){
+	 ObservableList<String> Modules = FXCollections.observableArrayList();
+	    String query = "SELECT module_id FROM semester_module WHERE domain_id =? and semester_no = ? ";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setInt(1,Domain.getId());
+	        stmt.setInt(2,Semestre);
+
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                String name = rs.getString("module_id"); // Correct column name
+	                Modules.add(name);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return Modules;
+
+}
+public static ObservableList<Professor> getAllProfessors(String name) {
+    ObservableList<Professor> professors = FXCollections.observableArrayList();
+
+    String query = "select * from professor where nom_prof like ? or prenom_prof like ?";
+       
+    
+    try (Connection conn = getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+    	stmt.setString(1, "%" + name + "%");
+    	stmt.setString(2, "%" + name + "%");
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Professor prof = new Professor(
+                    rs.getInt("ID_prof"),
+                    rs.getString("prenom_prof"),
+                    rs.getString("nom_prof"),
+                    rs.getString("email_prof")
+                );
+                professors.add(prof);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return professors;
+}
+
+ public ObservableList<ClassRoom> getAllClassrooms(Domain Domain){
+	    ObservableList<ClassRoom> classrooms = FXCollections.observableArrayList();
+
+	 String query = "select * from salle where Domain_id = ?";
+	 try (Connection conn = getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	    	stmt.setInt(1,Domain.getId());
+
+
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	            	ClassRoom classRoom = new ClassRoom(
+	                    rs.getString("nom_salle"),
+	                    rs.getInt("Domain_id")
+	                );
+	            	classrooms.add(classRoom);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return classrooms;
 
 
 }
+ public static boolean InsertIntoExam(Exam exam) {
+	    String query = "INSERT INTO exam VALUES (?, ?, ?)";
+	    try (Connection conn = getConnection();
+	         PreparedStatement insertStmt = conn.prepareStatement(query)) {
+
+	        insertStmt.setString(1, exam.getHour());
+	        insertStmt.setDate(2, Date.valueOf(exam.getDate())); 
+	        insertStmt.setString(3, exam.getModule().getUniqueName());
+
+	        int result = insertStmt.executeUpdate();
+	        return (result >= 1);
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
 
+
+}
     
     
-    
-    
-    
+
     
     
     

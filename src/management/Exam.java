@@ -14,6 +14,11 @@ public class Exam {
 		this.hour = hour;
 		this.module = module;
 	}
+	public Exam(LocalDate date, String hour, Module module) {
+		this.date = date;
+		this.hour = hour;
+		this.module = module;
+	}
 	
 	public int getId() {
 		return id;

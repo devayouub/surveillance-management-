@@ -6,12 +6,17 @@ public class ClassRoom {
         private  int min;
         private int max;
         private String Type;
-        
+        private int Domain_Id;
 		public String getType() {
 			return Type;
 		}
 		public void setType(String type) {
 			Type = type;
+		}
+		public ClassRoom(String classnumber,int ID_domain) {
+			super();
+			this.classnumber = classnumber;
+			this.Domain_Id=ID_domain;
 		}
 		public ClassRoom(String classnumber, String type) {
 			super();

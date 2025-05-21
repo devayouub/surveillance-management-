@@ -31,8 +31,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import management.ClassRoom;
-
-
+import management.Domain;
 import management.DomainInfo;
 import management.ModuleInfo;
 import management.Professor;
@@ -260,7 +259,46 @@ public class dashboardController implements Initializable{
        
        AssignmentAnchorPaneManager assignmentAnchorPaneManager ;
        
-       
+       //---------------------Exams ---------------------------
+       @FXML
+       private AnchorPane AnchorpanemanualExams;
+       @FXML
+       private AnchorPane Anchorpaneautomatiqueexams ;
+       @FXML
+       private Button manualinizialisebutton;
+       @FXML
+       private Button automatiqueinizialisebutton;
+       @FXML
+       private DatePicker datapickerexams;
+       @FXML
+       private ComboBox<String> timeComboBox;
+       @FXML
+       private ComboBox<String> CycleCombobox;
+       @FXML
+       private ComboBox<Domain> DomainCombobox;
+       @FXML
+       private ComboBox<String> moduleComboBox;
+       @FXML
+       private TextField professorTextField;
+       @FXML
+       private Button addProfessorToExam;
+       private TextField Classroomname;
+       @FXML
+       private Button addclassroomToExam;
+       @FXML
+       private Button Display;
+       @FXML
+       private  Button Confimebutton;
+       @FXML
+       ListView LIsteviewProffesseursExams;
+       @FXML
+       ListView listviewclassroom;
+       @FXML
+       private ComboBox<Integer> comboboxSemestre;
+       private ExamsAnchorpaneManagment examsAnchorpaneManagment;
+       private ManualMethodeAnchorpaneManagment manualMethodeAnchorpaneManagment;
+
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -302,6 +340,19 @@ public class dashboardController implements Initializable{
         		ProfessorTexField, Confirm,professors,Confirm1,
         		scrollpane_after_confirm_display_salle_exam_assignment);
         assignmentAnchorPaneManager.initialize();
+        //---------------------------ExamsManegment AnchorPane SetUp---------------------------------------
+        examsAnchorpaneManagment= new ExamsAnchorpaneManagment(manualinizialisebutton,automatiqueinizialisebutton,AnchorpanemanualExams,Anchorpaneautomatiqueexams);
+        examsAnchorpaneManagment.initialize();
+        //---------------------------ExamsManual AnchorPane SetUp---------------------------------------
+        manualMethodeAnchorpaneManagment=
+        		new ManualMethodeAnchorpaneManagment( datapickerexams,timeComboBox,
+        				CycleCombobox, DomainCombobox,
+        				comboboxSemestre,moduleComboBox
+                   ,professorTextField,addProfessorToExam, Classroomname,
+                    addclassroomToExam,Display,Confimebutton,LIsteviewProffesseursExams,
+                    listviewclassroom );
+        manualMethodeAnchorpaneManagment.initialize();
+        //---------------------------ExamsAutomatic AnchorPane SetUp---------------------------------------
 
     }
     public void switchform(javafx.event.ActionEvent event) {
