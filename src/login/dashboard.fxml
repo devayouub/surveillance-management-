@@ -259,12 +259,12 @@
                   <String fx:value="schadow" />
                </styleClass>
             </Label>
-            <Button fx:id="automatiqueinizialisebutton" layoutX="541.0" layoutY="85.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="466.0" styleClass="button-menubar" text="Initialization classroom">
+            <Button fx:id="automatiqueinizialisebutton" layoutX="379.0" layoutY="85.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="308.0" styleClass="button-menubar" text="Initialization Classroom">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="manualinizialisebutton" layoutX="51.0" layoutY="87.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="482.0" styleClass="button-menubar" text="Initialization Eprouve">
+            <Button fx:id="manualinizialisebutton" layoutX="51.0" layoutY="87.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="321.0" styleClass="button-menubar" text="Initialization Eprouve">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -378,17 +378,27 @@
                   <ComboBox fx:id="CycleCombobox21" layoutX="268.0" layoutY="158.0" prefHeight="33.0" prefWidth="179.0" promptText="Semaster" styleClass="combo-box1" stylesheets="@view.css" />
                   <Line endX="234.60000610351562" layoutX="217.0" layoutY="261.0" startX="-203.79998779296875" stroke="WHITE" />
                   <Line endX="-101.59994506835938" endY="367.6666564941406" layoutX="582.0" layoutY="139.0" startX="-101.59994506835938" startY="-127.26668548583984" stroke="#f4f4f4" />
-                  <ScrollPane layoutX="500.0" layoutY="68.0" prefHeight="425.0" prefWidth="483.0" stylesheets="@view.css">
+                  <ScrollPane fx:id="scroolpane_display_salle" layoutX="500.0" layoutY="68.0" prefHeight="425.0" prefWidth="483.0" style="-fx-background-color: transparent;" stylesheets="@view.css">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="428.0" prefWidth="484.0" stylesheets="@view.css">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="471.0" stylesheets="@view.css">
                            <children>
-                              <FlowPane layoutX="142.0" layoutY="114.0" prefHeight="428.0" prefWidth="484.0" style="-fx-background-color: transparent;" stylesheets="@view.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <FlowPane fx:id="flowpane_salle_display" hgap="20.0" layoutX="142.0" layoutY="114.0" prefHeight="422.4" prefWidth="471.2" style="-fx-background-color: transparent;" stylesheets="@view.css" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </content>
                   </ScrollPane>
+                  <Label layoutX="513.0" layoutY="33.0" prefHeight="18.0" prefWidth="345.0" text="List of classrooms :" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
+            <Button fx:id="automatiqueinizialisebutton1" layoutX="695.0" layoutY="85.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="314.0" styleClass="button-menubar" text="Initialization Automatique">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="anchorProfile" layoutX="242.0" layoutY="10.0" prefHeight="678.0" prefWidth="1051.0" visible="false">
@@ -477,7 +487,7 @@
                   <String fx:value="schadow" />
                </styleClass>
             </Label>
-            <Button fx:id="change_room_teacher_button_exam_assignment" layoutX="596.0" layoutY="97.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="403.0" styleClass="button-menubar" text="Change the teacher examination room">
+            <Button fx:id="change_room_teacher_button_exam_assignment" layoutX="378.0" layoutY="97.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="311.0" styleClass="button-menubar" text="Change the teacher examination room">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
@@ -509,7 +519,7 @@
                      </font></Button>
                </children>
             </AnchorPane>
-            <Button fx:id="direct_teacher_button_exam_assignment" layoutX="63.0" layoutY="97.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="439.0" styleClass="button-menubar" text="Direct the teacher to the examination room">
+            <Button fx:id="direct_teacher_button_exam_assignment" layoutX="63.0" layoutY="97.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="311.0" styleClass="button-menubar" text="Direct the teacher to the examination room">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
@@ -550,8 +560,8 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Button layoutX="493.0" layoutY="51.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="buttonlabe" text="Display presence" />
-                  <Label layoutX="7.0" layoutY="3.0" prefHeight="29.0" prefWidth="674.0" text="Please choose a date to display list of presence :" textFill="WHITE">
+                  <Button layoutX="493.0" layoutY="51.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="buttonlabe" text="Display absence" />
+                  <Label layoutX="7.0" layoutY="3.0" prefHeight="29.0" prefWidth="674.0" text="Please choose a date to display list of absence :" textFill="WHITE">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -560,11 +570,16 @@
                     <columns>
                       <TableColumn prefWidth="289.8666763305664" resizable="false" text="Frist Name" />
                       <TableColumn prefWidth="326.9333190917969" resizable="false" text="Last Name" />
-                        <TableColumn prefWidth="354.4000122070313" resizable="false" text="Presence" />
+                        <TableColumn prefWidth="354.4000122070313" resizable="false" text="absence" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
+            <Button fx:id="change_room_teacher_button_exam_assignment1" layoutX="687.0" layoutY="97.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="330.0" styleClass="button-menubar" text="Display absence of proffesor">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="anchoruser" layoutX="242.0" layoutY="14.0" prefHeight="678.0" prefWidth="1051.0" visible="false">
